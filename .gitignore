@@ -107,7 +107,7 @@ swig
 .vs
 .vscode
 steamworks.node
-steam_api*
-libsteam*
-sdkencrypted*
-libsdkencrypted*
+./steam_api*
+./libsteam*
+./sdkencrypted*
+./libsdkencrypted*
