@@ -4,7 +4,7 @@
 //
 // You should be able to figure out how to use the SDK by reading
 // steam_api_common.h, and should not need to understand anything in here.
-// 
+//
 //-----------------------------------------------------------------------------
 
 #ifdef STEAM_CALLBACK_BEGIN
@@ -191,7 +191,7 @@ inline void CCallback< T, P, bGameserver >::Run( void *pvParam )
 #pragma pack( push, 8 )
 #else
 #error steam_api_common.h should define VALVE_CALLBACK_PACK_xxx
-#endif 
+#endif
 
 /// Internal structure used in manual callback dispatch
 struct CallbackMsg_t
@@ -208,7 +208,7 @@ struct CallbackMsg_t
 	#include "../../clientdll/steam_api_callback_inspection.h"
 #else
 	#define STEAM_CALLBACK_BEGIN( callbackname, callbackid )	struct callbackname { enum { k_iCallback = callbackid };
-	#define STEAM_CALLBACK_MEMBER( varidx, vartype, varname )	vartype varname ; 
+	#define STEAM_CALLBACK_MEMBER( varidx, vartype, varname )	vartype varname ;
 	#define STEAM_CALLBACK_MEMBER_ARRAY( varidx, vartype, varname, varcount ) vartype varname [ varcount ];
 	#define STEAM_CALLBACK_END(nArgs) };
 #endif
@@ -293,8 +293,8 @@ enum { k_iSteamAppListCallbacks = 3900 };
 enum { k_iSteamMusicCallbacks = 4000 };
 enum { k_iSteamMusicRemoteCallbacks = 4100 };
 enum { k_iClientVRCallbacks = 4200 };
-enum { k_iClientGameNotificationCallbacks = 4300 }; 
-enum { k_iSteamGameNotificationCallbacks = 4400 }; 
+enum { k_iClientGameNotificationCallbacks = 4300 };
+enum { k_iSteamGameNotificationCallbacks = 4400 };
 enum { k_iSteamHTMLSurfaceCallbacks = 4500 };
 enum { k_iClientVideoCallbacks = 4600 };
 enum { k_iClientInventoryCallbacks = 4700 };
@@ -376,33 +376,33 @@ private:
 	ISteamInput			*m_pSteamInput;
 };
 
-class CSteamGameServerAPIContext
-{
-public:
-	CSteamGameServerAPIContext() { Clear(); }
-	inline void Clear() { memset( this, 0, sizeof(*this) ); }
-	inline bool Init(); // NOTE: This is defined in steam_gameserver.h, to avoid this file having to include everything
+// class CSteamGameServerAPIContext
+// {
+// public:
+// 	CSteamGameServerAPIContext() { Clear(); }
+// 	inline void Clear() { memset( this, 0, sizeof(*this) ); }
+// 	inline bool Init(); // NOTE: This is defined in steam_gameserver.h, to avoid this file having to include everything
 
-	ISteamClient *SteamClient() const					{ return m_pSteamClient; }
-	ISteamGameServer *SteamGameServer() const			{ return m_pSteamGameServer; }
-	ISteamUtils *SteamGameServerUtils() const			{ return m_pSteamGameServerUtils; }
-	ISteamNetworking *SteamGameServerNetworking() const	{ return m_pSteamGameServerNetworking; }
-	ISteamGameServerStats *SteamGameServerStats() const	{ return m_pSteamGameServerStats; }
-	ISteamHTTP *SteamHTTP() const						{ return m_pSteamHTTP; }
-	ISteamInventory *SteamInventory() const				{ return m_pSteamInventory; }
-	ISteamUGC *SteamUGC() const							{ return m_pSteamUGC; }
-	ISteamApps *SteamApps() const						{ return m_pSteamApps; }
+// 	ISteamClient *SteamClient() const					{ return m_pSteamClient; }
+// 	ISteamGameServer *SteamGameServer() const			{ return m_pSteamGameServer; }
+// 	ISteamUtils *SteamGameServerUtils() const			{ return m_pSteamGameServerUtils; }
+// 	ISteamNetworking *SteamGameServerNetworking() const	{ return m_pSteamGameServerNetworking; }
+// 	ISteamGameServerStats *SteamGameServerStats() const	{ return m_pSteamGameServerStats; }
+// 	ISteamHTTP *SteamHTTP() const						{ return m_pSteamHTTP; }
+// 	ISteamInventory *SteamInventory() const				{ return m_pSteamInventory; }
+// 	ISteamUGC *SteamUGC() const							{ return m_pSteamUGC; }
+// 	ISteamApps *SteamApps() const						{ return m_pSteamApps; }
 
-private:
-	ISteamClient				*m_pSteamClient;
-	ISteamGameServer			*m_pSteamGameServer;
-	ISteamUtils					*m_pSteamGameServerUtils;
-	ISteamNetworking			*m_pSteamGameServerNetworking;
-	ISteamGameServerStats		*m_pSteamGameServerStats;
-	ISteamHTTP					*m_pSteamHTTP;
-	ISteamInventory				*m_pSteamInventory;
-	ISteamUGC					*m_pSteamUGC;
-	ISteamApps					*m_pSteamApps;
-};
+// private:
+// 	ISteamClient				*m_pSteamClient;
+// 	ISteamGameServer			*m_pSteamGameServer;
+// 	ISteamUtils					*m_pSteamGameServerUtils;
+// 	ISteamNetworking			*m_pSteamGameServerNetworking;
+// 	ISteamGameServerStats		*m_pSteamGameServerStats;
+// 	ISteamHTTP					*m_pSteamHTTP;
+// 	ISteamInventory				*m_pSteamInventory;
+// 	ISteamUGC					*m_pSteamUGC;
+// 	ISteamApps					*m_pSteamApps;
+// };
 
 
