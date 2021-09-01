@@ -54,7 +54,7 @@ class SteamWorks {
         fs.writeFileSync(steamAppIdPath, `${appId}`, 'utf8');
       }
 
-      const success = steamworks.SteamAPI_Init();
+      const success = steamworks.Init();
       if (!success) {
         throw new Error('Steam API failed to initialize!');
       }
@@ -92,6 +92,13 @@ class SteamWorks {
           }
         }
       }
+
+      const SteamCallResultFunctionNames = JSON.parse(
+        fs.readFileSync(
+          path.resolve(__dirname, 'steamcallresultfunctionnames.json'),
+          'utf8',
+        ),
+      );
 
       const setKeys = [];
       const unsetKeys = [];
@@ -134,10 +141,15 @@ class SteamWorks {
             }
           } else {
             this[key.substr('SteamAPI_'.length)] = steamworks[key];
-            this._types[key.substr('SteamAPI_'.length)] = typeof steamworks[key];
+            this._types[key.substr('SteamAPI_'.length)] =
+              typeof steamworks[key];
           }
           setKeys.push(...subKeys);
-        } else if (SteamCallResultNames.includes(key)) {
+        } else if (
+          SteamCallResultNames.includes(key) ||
+          SteamCallResultNames.includes(`${key.substr(1)}_t`) ||
+          SteamCallResultFunctionNames.includes(key)
+        ) {
           this.CallResults[key] = steamworks[key];
           this._types.CallResults[key] = typeof steamworks[key];
         } else if (SteamCallBackNames.includes(key)) {
@@ -181,12 +193,50 @@ class SteamWorks {
       }
     } catch (error) {
       console.error(error);
-      steamworks.SteamAPI_Shutdown();
+      steamworks.Shutdown();
     }
   }
 
   Shutdown() {
-    steamworks.SteamAPI_Shutdown();
+    return steamworks.Shutdown();
+  }
+
+  GetApplicationRunning() {
+    return steamworks.GetApplicationRunning();
+  }
+
+  GetCallbackThreadRunning() {
+    return steamworks.GetCallbackThreadRunning();
+  }
+
+  WaitForCallResult(callresult) {
+    return new Promise((res, rej) => {
+      if (!callresult?.GetResult || !callresult?.GetIsCompleted) {
+        rej('Call result given was not of CCallResult class!');
+      }
+      let interval = null;
+      let timer = null;
+      interval = setInterval(() => {
+        if (callresult.GetIsCompleted()) {
+          if (interval) {
+            clearInterval(interval);
+          }
+          if (timer) {
+            clearTimeout(timer);
+          }
+          res(true);
+        }
+      }, 100);
+      timer = setTimeout(() => {
+        if (interval) {
+          clearInterval(interval);
+        }
+        if (timer) {
+          clearTimeout(timer);
+        }
+        rej('Call result timed out after 10 seconds!');
+      }, 10000);
+    });
   }
 }
 

@@ -1,6 +1,46 @@
 %module steamworks
 %{
+#include <iostream>
+#include <chrono>
+#include <thread>
 #include "steamworks.h"
+#include "steamcallresultfunctions.h"
+std::thread SteamCallbackThread;
+bool applicationRunning = false;
+bool callbackThreadRunning = false;
+bool GetApplicationRunning() {
+  return applicationRunning;
+};
+bool GetCallbackThreadRunning() {
+  return callbackThreadRunning;
+}
+
+void RunSteamCallbacks() {
+	while (applicationRunning)
+	{
+		SteamAPI_RunCallbacks();
+		std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    callbackThreadRunning = true;
+	}
+  callbackThreadRunning = false;
+};
+
+bool Init() {
+	applicationRunning = SteamAPI_Init();
+	std::thread SteamCallbackThread = std::thread::thread(&RunSteamCallbacks);
+	SteamCallbackThread.detach();
+  return applicationRunning;
+};
+
+bool Shutdown() {
+	applicationRunning = false;
+	std::this_thread::sleep_for(std::chrono::milliseconds(100));
+	if (&SteamCallbackThread != nullptr && SteamCallbackThread.joinable()) {
+		SteamCallbackThread.join();
+	}
+	SteamAPI_Shutdown();
+  return !applicationRunning;
+};
 %}
 
 %include "windows.i"
@@ -37,3 +77,13 @@
 %include "isteamgameserver.h"
 %include "isteamgameserverstats.h"
 %include "steamworks.h"
+%include "steamcallresult.h"
+%include "steamcallresultfunctions.h"
+void RunSteamCallbacks();
+
+bool Init();
+
+bool Shutdown();
+
+bool GetApplicationRunning();
+bool GetCallbackThreadRunning();

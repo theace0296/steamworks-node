@@ -20,6 +20,22 @@ enum EServerMode
 	eServerModeAuthenticationAndSecure = 3, // Authenticate users, list on the server list and VAC protect clients
 };
 
+class Utils {
+public:
+    Utils() {
+      bool temp = false;
+      m_bool = &temp;
+    }
+    bool& GetBoolPointer() {
+      return *m_bool;
+    }
+    bool GetBool() {
+      return *m_bool;
+    }
+private:
+    bool* m_bool;
+};
+
 typedef uint64 uint64_steamid; // Used when passing or returning CSteamID
 typedef uint64 uint64_gameid; // Used when passing or return CGameID
 
