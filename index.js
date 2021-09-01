@@ -59,7 +59,6 @@ class SteamWorks {
         throw new Error('Steam API failed to initialize!');
       }
 
-      const SteamCallResultNames = [];
       const SteamCallBackNames = [];
       const steamHeadersDir = path.resolve(__dirname, 'sdk/public/steam');
       for (const steamHeader of fs.readdirSync(steamHeadersDir)) {
@@ -68,16 +67,6 @@ class SteamWorks {
             path.resolve(steamHeadersDir, steamHeader),
             'utf8',
           );
-          const resultMatches = content
-            .match(/(?<!#define )STEAM_CALL_RESULT\(\s*(\w+)\s*\)/gm)
-            ?.map(match => /STEAM_CALL_RESULT\(\s*(\w+)\s*\)/.exec(match)[1])
-            ?.filter(match => match.toUpperCase() !== match);
-          if (resultMatches?.length) {
-            for (const resultMatch of resultMatches) {
-              SteamCallResultNames.push(resultMatch);
-            }
-          }
-
           const callbackMatches = content
             .match(/(?<!#define )STEAM_CALLBACK_BEGIN\(\s*(\w+),\s*[^\)]*\)/gm)
             ?.map(
@@ -146,8 +135,6 @@ class SteamWorks {
           }
           setKeys.push(...subKeys);
         } else if (
-          SteamCallResultNames.includes(key) ||
-          SteamCallResultNames.includes(`${key.substr(1)}_t`) ||
           SteamCallResultFunctionNames.includes(key)
         ) {
           this.CallResults[key] = steamworks[key];
@@ -209,10 +196,10 @@ class SteamWorks {
     return steamworks.GetCallbackThreadRunning();
   }
 
-  WaitForCallResult(callresult) {
+  WaitForCallResult(callresult, timeout = 10000) {
     return new Promise((res, rej) => {
       if (!callresult?.GetResult || !callresult?.GetIsCompleted) {
-        rej('Call result given was not of CCallResult class!');
+        rej('Call result given was not a call result object!');
       }
       let interval = null;
       let timer = null;
@@ -235,7 +222,7 @@ class SteamWorks {
           clearTimeout(timer);
         }
         rej('Call result timed out after 10 seconds!');
-      }, 10000);
+      }, timeout);
     });
   }
 }
