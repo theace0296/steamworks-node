@@ -4,7 +4,8 @@
       "target_name": "steamworks",
       "sources": [
         "steam_api_wrap.cxx",
-        "steamcallresult.cpp"
+        "steamcallresult.cpp",
+        "steamcallback.cpp"
       ],
       "include_dirs": [
         ".",

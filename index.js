@@ -30,6 +30,7 @@ class SteamWorks {
   _types = {
     SteamAPI: {},
     CallResults: {},
+    CallResultsAsync: {},
     CallBacks: {},
     Constants: {},
     Structs: {},
@@ -38,6 +39,7 @@ class SteamWorks {
   };
   SteamAPI = {};
   CallResults = {};
+  CallResultsAsync = {};
   CallBacks = {};
   Constants = {};
   Structs = {};
@@ -59,32 +61,16 @@ class SteamWorks {
         throw new Error('Steam API failed to initialize!');
       }
 
-      const SteamCallBackNames = [];
-      const steamHeadersDir = path.resolve(__dirname, 'sdk/public/steam');
-      for (const steamHeader of fs.readdirSync(steamHeadersDir)) {
-        if (fs.lstatSync(path.resolve(steamHeadersDir, steamHeader)).isFile()) {
-          const content = fs.readFileSync(
-            path.resolve(steamHeadersDir, steamHeader),
-            'utf8',
-          );
-          const callbackMatches = content
-            .match(/(?<!#define )STEAM_CALLBACK_BEGIN\(\s*(\w+),\s*[^\)]*\)/gm)
-            ?.map(
-              match =>
-                /STEAM_CALLBACK_BEGIN\(\s*(\w+),\s*[^\)]*\)/.exec(match)[1],
-            )
-            ?.filter(match => match.toUpperCase() !== match);
-          if (callbackMatches?.length) {
-            for (const callbackMatch of callbackMatches) {
-              SteamCallBackNames.push(callbackMatch);
-            }
-          }
-        }
-      }
-
       const SteamCallResultFunctionNames = JSON.parse(
         fs.readFileSync(
           path.resolve(__dirname, 'steamcallresultfunctionnames.json'),
+          'utf8',
+        ),
+      );
+
+      const SteamCallBackFunctionNames = JSON.parse(
+        fs.readFileSync(
+          path.resolve(__dirname, 'steamcallbackfunctionnames.json'),
           'utf8',
         ),
       );
@@ -139,7 +125,14 @@ class SteamWorks {
         ) {
           this.CallResults[key] = steamworks[key];
           this._types.CallResults[key] = typeof steamworks[key];
-        } else if (SteamCallBackNames.includes(key)) {
+          const asyncCall = async (...args) => {
+            const callresult = steamworks[key](...args);
+            await this.WaitForCallResult(callresult);
+            return callresult.GetResult();
+          };
+          this.CallResultsAsync[key] = asyncCall;
+          this._types.CallResultsAsync[key] = asyncCall;
+        } else if (SteamCallBackFunctionNames.includes(key)) {
           this.CallBacks[key] = steamworks[key];
           this._types.CallBacks[key] = typeof steamworks[key];
         } else if (key.startsWith('k_') && !key.startsWith('k_E')) {

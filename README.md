@@ -107,3 +107,13 @@ const {
   CheckFileSignature,
 } = SteamWorks.CallResults;
 ```
+
+# Call Back Functions
+```js
+// const steamworks = require('steamworks-node');
+// const SteamWorks = new steamworks(appId);
+const {
+	GetVideoURL: CallableFunction;
+	GetOPFSettings: CallableFunction;
+} = SteamWorks.CallBacks;
+```

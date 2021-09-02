@@ -5,6 +5,7 @@
 #include <thread>
 #include "steamworks.h"
 #include "steamcallresultfunctions.h"
+#include "steamcallbackfunctions.h"
 std::thread SteamCallbackThread;
 bool applicationRunning = false;
 bool callbackThreadRunning = false;
@@ -79,11 +80,7 @@ bool Shutdown() {
 %include "steamworks.h"
 %include "steamcallresult.h"
 %include "steamcallresultfunctions.h"
-void RunSteamCallbacks();
-
+%include "steamcallback.h"
+%include "steamcallbackfunctions.h"
 bool Init();
-
 bool Shutdown();
-
-bool GetApplicationRunning();
-bool GetCallbackThreadRunning();
