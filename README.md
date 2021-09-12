@@ -113,7 +113,7 @@ const {
 // const steamworks = require('steamworks-node');
 // const SteamWorks = new steamworks(appId);
 const {
-  GetVideoURL: CallableFunction;
-  GetOPFSettings: CallableFunction;
+  GetVideoURL,
+  GetOPFSettings,
 } = SteamWorks.CallBacks;
 ```
