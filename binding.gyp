@@ -3,17 +3,17 @@
     {
       "target_name": "steamworks",
       "sources": [
-        "steam_api_wrap.cxx",
-        "steamcallresult.cpp",
-        "steamcallback.cpp"
+        ".\\lib\\steam_api_wrap.cxx",
+        ".\\lib\\steamcallresult.cpp",
+        ".\\lib\\steamcallback.cpp"
       ],
       "include_dirs": [
-        ".",
+        ".\\lib",
         ".\\sdk\\public\\steam"
       ],
       "libraries": [
-        "..\\steam_api64.lib",
-        "..\\sdkencryptedappticket64.lib"
+        "..\\sdk\\redistributable_bin\\win64\\steam_api64.lib",
+        "..\\sdk\\lib\\win64\\sdkencryptedappticket64.lib"
       ]
     }
   ]

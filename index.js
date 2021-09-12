@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const steamworks = require('./steamworks.node');
+const steamworks = require('./bin/steamworks.node');
 
 const set = (obj, record, value) => {
   if (Object(obj) !== obj) {
@@ -63,14 +63,14 @@ class SteamWorks {
 
       const SteamCallResultFunctionNames = JSON.parse(
         fs.readFileSync(
-          path.resolve(__dirname, 'steamcallresultfunctionnames.json'),
+          path.resolve(__dirname, 'lib', 'steamcallresultfunctionnames.json'),
           'utf8',
         ),
       );
 
       const SteamCallBackFunctionNames = JSON.parse(
         fs.readFileSync(
-          path.resolve(__dirname, 'steamcallbackfunctionnames.json'),
+          path.resolve(__dirname, 'lib', 'steamcallbackfunctionnames.json'),
           'utf8',
         ),
       );

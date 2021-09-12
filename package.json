@@ -6,8 +6,8 @@
   "scripts": {
     "test": "node ./index.test.js",
     "swig": "run-script-os",
-    "swig:default": "export SWIG_LIB=$(node -p 'process.cwd()')/swig/lib && ./swig/swig -Isdk/public/steam -javascript -node -c++ -cpperraswarn -includeall steam_api.i",
-    "swig:win32": ".\\swig\\swig.exe -Isdk/public/steam -javascript -node -c++ -cpperraswarn steam_api.i",
+    "swig:default": "export SWIG_LIB=$(node -p 'process.cwd()')/swig/lib && ./swig/swig -Isdk/public/steam -javascript -node -c++ -cpperraswarn -includeall ./lib/steam_api.i",
+    "swig:win32": ".\\swig\\swig.exe -Isdk/public/steam -javascript -node -c++ -cpperraswarn .\\lib\\steam_api.i",
     "node-gyp": "./node_modules/.bin/node-gyp rebuild",
     "copy-bin": "node ./install.js",
     "preinstall": "node ./preinstall.js",

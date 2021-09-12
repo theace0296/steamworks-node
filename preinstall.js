@@ -39,10 +39,6 @@ if (steamRedisFiles.length <= 0) {
 }
 
 for (const steamRedisFile of steamRedisFiles) {
-  fs.copyFileSync(
-    steamRedisFile,
-    path.join(__dirname, path.basename(steamRedisFile)),
-  );
   if (path.basename(steamRedisFile).includes('lib')) {
     const gypContent = fs.readFileSync(
       path.join(__dirname, 'binding.gyp'),
@@ -54,7 +50,7 @@ for (const steamRedisFile of steamRedisFiles) {
       gypObject?.targets?.length &&
       gypObject?.targets[0]?.libraries
     ) {
-      gypObject.targets[0].libraries = [`..\\${path.basename(steamRedisFile)}`];
+      gypObject.targets[0].libraries = [path.relative(path.join(__dirname, 'build'), steamRedisFile)];
       fs.writeFileSync(
         path.join(__dirname, 'binding.gyp'),
         JSON.stringify(gypObject, null, 2),
@@ -102,10 +98,6 @@ if (steamAuthlibFiles.length <= 0) {
 }
 
 for (const steamAuthlibFile of steamAuthlibFiles) {
-  fs.copyFileSync(
-    steamAuthlibFile,
-    path.join(__dirname, path.basename(steamAuthlibFile)),
-  );
   if (path.basename(steamAuthlibFile).includes('lib')) {
     const gypContent = fs.readFileSync(
       path.join(__dirname, 'binding.gyp'),
@@ -119,7 +111,7 @@ for (const steamAuthlibFile of steamAuthlibFiles) {
     ) {
       gypObject.targets[0].libraries = [
         ...gypObject.targets[0].libraries,
-        `..\\${path.basename(steamAuthlibFile)}`,
+        path.relative(path.join(__dirname, 'build'), steamAuthlibFile),
       ];
       fs.writeFileSync(
         path.join(__dirname, 'binding.gyp'),
@@ -290,11 +282,11 @@ callResultFunctions = `${callResultFunctions}
 };
 `;
 
-fs.writeFileSync('./steamcallresult.h', callResultClasses);
-fs.writeFileSync('./steamcallresult.cpp', callResultDefinitions);
-fs.writeFileSync('./steamcallresultfunctions.h', callResultFunctions);
+fs.writeFileSync('./lib/steamcallresult.h', callResultClasses);
+fs.writeFileSync('./lib/steamcallresult.cpp', callResultDefinitions);
+fs.writeFileSync('./lib/steamcallresultfunctions.h', callResultFunctions);
 fs.writeFileSync(
-  './steamcallresultfunctionnames.json',
+  './lib/steamcallresultfunctionnames.json',
   JSON.stringify(callResultFunctionsMade, null, 2),
 );
 
@@ -427,10 +419,10 @@ callBackFunctions = `${callBackFunctions}
 };
 `;
 
-fs.writeFileSync('./steamcallback.h', callBackClasses);
-fs.writeFileSync('./steamcallback.cpp', callBackDefinitions);
-fs.writeFileSync('./steamcallbackfunctions.h', callBackFunctions);
+fs.writeFileSync('./lib/steamcallback.h', callBackClasses);
+fs.writeFileSync('./lib/steamcallback.cpp', callBackDefinitions);
+fs.writeFileSync('./lib/steamcallbackfunctions.h', callBackFunctions);
 fs.writeFileSync(
-  './steamcallbackfunctionnames.json',
+  './lib/steamcallbackfunctionnames.json',
   JSON.stringify(callBackFunctionsMade, null, 2),
 );
