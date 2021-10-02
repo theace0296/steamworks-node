@@ -1,4 +1,6 @@
 export = SteamWorks;
+
+type AsyncCallableFunction = {async (...args): unknown};
 declare class SteamWorks {
   constructor(appId?: number);
   Shutdown(): VoidFunction;
@@ -236,7 +238,86 @@ export interface CallResult {
 	CheckFileSignature: CallableFunction;
 }
 
-export interface CallResultsAsync {}
+export interface CallResultsAsync {
+	GetFileDetails: AsyncCallableFunction;
+	SetPersonaName: AsyncCallableFunction;
+	DownloadClanActivityCounts: AsyncCallableFunction;
+	RequestClanOfficerList: AsyncCallableFunction;
+	JoinClanChatRoom: AsyncCallableFunction;
+	GetFollowerCount: AsyncCallableFunction;
+	IsFollowing: AsyncCallableFunction;
+	EnumerateFollowingList: AsyncCallableFunction;
+	GetServerReputation: AsyncCallableFunction;
+	AssociateWithClan: AsyncCallableFunction;
+	ComputeNewPlayerCompatibility: AsyncCallableFunction;
+	RequestUserStats: AsyncCallableFunction;
+	StoreUserStats: AsyncCallableFunction;
+	CreateBrowser: AsyncCallableFunction;
+	RequestEligiblePromoItemDefinitionsIDs: AsyncCallableFunction;
+	StartPurchase: AsyncCallableFunction;
+	RequestPrices: AsyncCallableFunction;
+	RequestLobbyList: AsyncCallableFunction;
+	CreateLobby: AsyncCallableFunction;
+	JoinLobby: AsyncCallableFunction;
+	JoinParty: AsyncCallableFunction;
+	CreateBeacon: AsyncCallableFunction;
+	ChangeNumOpenSlots: AsyncCallableFunction;
+	FileWriteAsync: AsyncCallableFunction;
+	FileReadAsync: AsyncCallableFunction;
+	FileShare: AsyncCallableFunction;
+	UGCDownload: AsyncCallableFunction;
+	UGCDownloadToLocation: AsyncCallableFunction;
+	PublishWorkshopFile: AsyncCallableFunction;
+	PublishVideo: AsyncCallableFunction;
+	CommitPublishedFileUpdate: AsyncCallableFunction;
+	GetPublishedFileDetails: AsyncCallableFunction;
+	DeletePublishedFile: AsyncCallableFunction;
+	EnumerateUserPublishedFiles: AsyncCallableFunction;
+	EnumerateUserSharedWorkshopFiles: AsyncCallableFunction;
+	SubscribePublishedFile: AsyncCallableFunction;
+	SubscribeItem: AsyncCallableFunction;
+	EnumerateUserSubscribedFiles: AsyncCallableFunction;
+	UnsubscribePublishedFile: AsyncCallableFunction;
+	UnsubscribeItem: AsyncCallableFunction;
+	GetPublishedItemVoteDetails: AsyncCallableFunction;
+	GetUserPublishedItemVoteDetails: AsyncCallableFunction;
+	UpdateUserPublishedItemVote: AsyncCallableFunction;
+	SetUserPublishedFileAction: AsyncCallableFunction;
+	EnumeratePublishedFilesByUserAction: AsyncCallableFunction;
+	EnumeratePublishedWorkshopFiles: AsyncCallableFunction;
+	SendQueryUGCRequest: AsyncCallableFunction;
+	RequestUGCDetails: AsyncCallableFunction;
+	CreateItem: AsyncCallableFunction;
+	SubmitItemUpdate: AsyncCallableFunction;
+	SetUserItemVote: AsyncCallableFunction;
+	GetUserItemVote: AsyncCallableFunction;
+	AddItemToFavorites: AsyncCallableFunction;
+	RemoveItemFromFavorites: AsyncCallableFunction;
+	StartPlaytimeTracking: AsyncCallableFunction;
+	StopPlaytimeTracking: AsyncCallableFunction;
+	StopPlaytimeTrackingForAllItems: AsyncCallableFunction;
+	AddDependency: AsyncCallableFunction;
+	RemoveDependency: AsyncCallableFunction;
+	AddAppDependency: AsyncCallableFunction;
+	RemoveAppDependency: AsyncCallableFunction;
+	GetAppDependencies: AsyncCallableFunction;
+	DeleteItem: AsyncCallableFunction;
+	RequestEncryptedAppTicket: AsyncCallableFunction;
+	RequestStoreAuthURL: AsyncCallableFunction;
+	GetMarketEligibility: AsyncCallableFunction;
+	GetDurationControl: AsyncCallableFunction;
+	RequestUserStats_CUserStatsReceived: AsyncCallableFunction;
+	FindOrCreateLeaderboard: AsyncCallableFunction;
+	FindLeaderboard: AsyncCallableFunction;
+	DownloadLeaderboardEntries: AsyncCallableFunction;
+	DownloadLeaderboardEntriesForUsers: AsyncCallableFunction;
+	UploadLeaderboardScore: AsyncCallableFunction;
+	AttachLeaderboardUGC: AsyncCallableFunction;
+	GetNumberOfCurrentPlayers: AsyncCallableFunction;
+	RequestGlobalAchievementPercentages: AsyncCallableFunction;
+	RequestGlobalStats: AsyncCallableFunction;
+	CheckFileSignature: AsyncCallableFunction;
+}
 
 export interface CallBack {
 	GetVideoURL: CallableFunction;
