@@ -1,0 +1,10 @@
+swig/
+sdk/
+patches/
+node_modules/
+lib/
+build/
+bin/
+.vscode/
+.vs/
+.git/

@@ -1,0 +1,1350 @@
+{
+  "GetFileDetails": {
+    "name": "GetFileDetails",
+    "args": [
+      {
+        "name": "pszFileName",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_ulFileSize": "number",
+      "m_FileSHA": "number",
+      "m_unFlags": "number"
+    }
+  },
+  "SetPersonaName": {
+    "name": "SetPersonaName",
+    "args": [
+      {
+        "name": "pchPersonaName",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "m_bSuccess": "bool",
+      "m_bLocalSuccess": "bool",
+      "m_result": "EResult"
+    }
+  },
+  "DownloadClanActivityCounts": {
+    "name": "DownloadClanActivityCounts",
+    "args": [
+      {
+        "name": "psteamIDClans",
+        "type": "unknown"
+      },
+      {
+        "name": "cClansToRequest",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_bSuccess": "bool"
+    }
+  },
+  "RequestClanOfficerList": {
+    "name": "RequestClanOfficerList",
+    "args": [
+      {
+        "name": "steamIDClan",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_steamIDClan": "unknown",
+      "m_cOfficers": "number",
+      "m_bSuccess": "number"
+    }
+  },
+  "JoinClanChatRoom": {
+    "name": "JoinClanChatRoom",
+    "args": [
+      {
+        "name": "steamIDClan",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_steamIDClanChat": "unknown",
+      "m_eChatRoomEnterResponse": "EChatRoomEnterResponse"
+    }
+  },
+  "GetFollowerCount": {
+    "name": "GetFollowerCount",
+    "args": [
+      {
+        "name": "steamID",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_steamID": "unknown",
+      "m_nCount": "number"
+    }
+  },
+  "IsFollowing": {
+    "name": "IsFollowing",
+    "args": [
+      {
+        "name": "steamID",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_steamID": "unknown",
+      "m_bIsFollowing": "bool"
+    }
+  },
+  "EnumerateFollowingList": {
+    "name": "EnumerateFollowingList",
+    "args": [
+      {
+        "name": "unStartIndex",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_rgSteamID": "unknown",
+      "m_nResultsReturned": "number",
+      "m_nTotalResultCount": "number"
+    }
+  },
+  "GetServerReputation": {
+    "name": "GetServerReputation",
+    "args": [],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_unReputationScore": "number",
+      "m_bBanned": "bool",
+      "m_unBannedIP": "number",
+      "m_usBannedPort": "number",
+      "m_ulBannedGameID": "number",
+      "m_unBanExpires": "number"
+    }
+  },
+  "AssociateWithClan": {
+    "name": "AssociateWithClan",
+    "args": [
+      {
+        "name": "steamIDClan",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult"
+    }
+  },
+  "ComputeNewPlayerCompatibility": {
+    "name": "ComputeNewPlayerCompatibility",
+    "args": [
+      {
+        "name": "steamIDNewPlayer",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_cPlayersThatDontLikeCandidate": "number",
+      "m_cPlayersThatCandidateDoesntLike": "number",
+      "m_cClanPlayersThatDontLikeCandidate": "number",
+      "m_SteamIDCandidate": "unknown"
+    }
+  },
+  "RequestUserStats": {
+    "name": "RequestUserStats",
+    "args": [
+      {
+        "name": "steamIDUser",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_steamIDUser": "unknown"
+    }
+  },
+  "StoreUserStats": {
+    "name": "StoreUserStats",
+    "args": [
+      {
+        "name": "steamIDUser",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_steamIDUser": "unknown"
+    }
+  },
+  "CreateBrowser": {
+    "name": "CreateBrowser",
+    "args": [
+      {
+        "name": "pchUserAgent",
+        "type": "string"
+      },
+      {
+        "name": "pchUserCSS",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "unBrowserHandle": "number"
+    }
+  },
+  "RequestEligiblePromoItemDefinitionsIDs": {
+    "name": "RequestEligiblePromoItemDefinitionsIDs",
+    "args": [
+      {
+        "name": "steamID",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_result": "EResult",
+      "m_steamID": "unknown",
+      "m_numEligiblePromoItemDefs": "number",
+      "m_bCachedData": "bool"
+    }
+  },
+  "StartPurchase": {
+    "name": "StartPurchase",
+    "args": [
+      {
+        "name": "pArrayItemDefs",
+        "type": "unknown"
+      },
+      {
+        "name": "punArrayQuantity",
+        "type": "unknown"
+      },
+      {
+        "name": "unArrayLength",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_result": "EResult",
+      "m_ulOrderID": "number",
+      "m_ulTransID": "number"
+    }
+  },
+  "RequestPrices": {
+    "name": "RequestPrices",
+    "args": [],
+    "returnType": {
+      "m_result": "EResult",
+      "m_rgchCurrency": "string"
+    }
+  },
+  "RequestLobbyList": {
+    "name": "RequestLobbyList",
+    "args": [],
+    "returnType": {
+      "m_nLobbiesMatching": "number"
+    }
+  },
+  "CreateLobby": {
+    "name": "CreateLobby",
+    "args": [
+      {
+        "name": "eLobbyType",
+        "type": "ELobbyType"
+      },
+      {
+        "name": "cMaxMembers",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_ulSteamIDLobby": "number"
+    }
+  },
+  "JoinLobby": {
+    "name": "JoinLobby",
+    "args": [
+      {
+        "name": "steamIDLobby",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_ulSteamIDLobby": "number",
+      "m_rgfChatPermissions": "number",
+      "m_bLocked": "bool",
+      "m_EChatRoomEnterResponse": "number"
+    }
+  },
+  "JoinParty": {
+    "name": "JoinParty",
+    "args": [
+      {
+        "name": "ulBeaconID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_ulBeaconID": "number",
+      "m_SteamIDBeaconOwner": "unknown",
+      "m_rgchConnectString": "string"
+    }
+  },
+  "CreateBeacon": {
+    "name": "CreateBeacon",
+    "args": [
+      {
+        "name": "unOpenSlots",
+        "type": "number"
+      },
+      {
+        "name": "pBeaconLocation",
+        "type": "unknown"
+      },
+      {
+        "name": "pchConnectString",
+        "type": "string"
+      },
+      {
+        "name": "pchMetadata",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_ulBeaconID": "number"
+    }
+  },
+  "ChangeNumOpenSlots": {
+    "name": "ChangeNumOpenSlots",
+    "args": [
+      {
+        "name": "ulBeacon",
+        "type": "number"
+      },
+      {
+        "name": "unOpenSlots",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult"
+    }
+  },
+  "FileWriteAsync": {
+    "name": "FileWriteAsync",
+    "args": [
+      {
+        "name": "pchFile",
+        "type": "string"
+      },
+      {
+        "name": "pvData",
+        "type": "unknown"
+      },
+      {
+        "name": "cubData",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult"
+    }
+  },
+  "FileReadAsync": {
+    "name": "FileReadAsync",
+    "args": [
+      {
+        "name": "pchFile",
+        "type": "string"
+      },
+      {
+        "name": "nOffset",
+        "type": "number"
+      },
+      {
+        "name": "cubToRead",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_hFileReadAsync": "number",
+      "m_eResult": "EResult",
+      "m_nOffset": "number",
+      "m_cubRead": "number"
+    }
+  },
+  "FileShare": {
+    "name": "FileShare",
+    "args": [
+      {
+        "name": "pchFile",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_hFile": "number",
+      "m_rgchFilename": "string"
+    }
+  },
+  "UGCDownload": {
+    "name": "UGCDownload",
+    "args": [
+      {
+        "name": "hContent",
+        "type": "number"
+      },
+      {
+        "name": "unPriority",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_hFile": "number",
+      "m_nAppID": "number",
+      "m_nSizeInBytes": "number",
+      "m_pchFileName": "string",
+      "m_ulSteamIDOwner": "number"
+    }
+  },
+  "UGCDownloadToLocation": {
+    "name": "UGCDownloadToLocation",
+    "args": [
+      {
+        "name": "hContent",
+        "type": "number"
+      },
+      {
+        "name": "pchLocation",
+        "type": "string"
+      },
+      {
+        "name": "unPriority",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_hFile": "number",
+      "m_nAppID": "number",
+      "m_nSizeInBytes": "number",
+      "m_pchFileName": "string",
+      "m_ulSteamIDOwner": "number"
+    }
+  },
+  "PublishWorkshopFile": {
+    "name": "PublishWorkshopFile",
+    "args": [
+      {
+        "name": "pchFile",
+        "type": "string"
+      },
+      {
+        "name": "pchPreviewFile",
+        "type": "string"
+      },
+      {
+        "name": "nConsumerAppId",
+        "type": "number"
+      },
+      {
+        "name": "pchTitle",
+        "type": "string"
+      },
+      {
+        "name": "pchDescription",
+        "type": "string"
+      },
+      {
+        "name": "eVisibility",
+        "type": "ERemoteStoragePublishedFileVisibility"
+      },
+      {
+        "name": "pTags",
+        "type": "unknown"
+      },
+      {
+        "name": "eWorkshopFileType",
+        "type": "EWorkshopFileType"
+      }
+    ],
+    "returnType": {
+      "m_dPercentFile": "number",
+      "m_bPreview": "bool"
+    }
+  },
+  "PublishVideo": {
+    "name": "PublishVideo",
+    "args": [
+      {
+        "name": "eVideoProvider",
+        "type": "EWorkshopVideoProvider"
+      },
+      {
+        "name": "pchVideoAccount",
+        "type": "string"
+      },
+      {
+        "name": "pchVideoIdentifier",
+        "type": "string"
+      },
+      {
+        "name": "pchPreviewFile",
+        "type": "string"
+      },
+      {
+        "name": "nConsumerAppId",
+        "type": "number"
+      },
+      {
+        "name": "pchTitle",
+        "type": "string"
+      },
+      {
+        "name": "pchDescription",
+        "type": "string"
+      },
+      {
+        "name": "eVisibility",
+        "type": "ERemoteStoragePublishedFileVisibility"
+      },
+      {
+        "name": "pTags",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_dPercentFile": "number",
+      "m_bPreview": "bool"
+    }
+  },
+  "CommitPublishedFileUpdate": {
+    "name": "CommitPublishedFileUpdate",
+    "args": [
+      {
+        "name": "updateHandle",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_bUserNeedsToAcceptWorkshopLegalAgreement": "bool"
+    }
+  },
+  "GetPublishedFileDetails": {
+    "name": "GetPublishedFileDetails",
+    "args": [
+      {
+        "name": "unPublishedFileId",
+        "type": "number"
+      },
+      {
+        "name": "unMaxSecondsOld",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_nCreatorAppID": "number",
+      "m_nConsumerAppID": "number",
+      "m_rgchTitle": "string",
+      "m_rgchDescription": "string",
+      "m_hFile": "number",
+      "m_hPreviewFile": "number",
+      "m_ulSteamIDOwner": "number",
+      "m_rtimeCreated": "number",
+      "m_rtimeUpdated": "number",
+      "m_eVisibility": "ERemoteStoragePublishedFileVisibility",
+      "m_bBanned": "bool",
+      "m_rgchTags": "string",
+      "m_bTagsTruncated": "bool",
+      "m_pchFileName": "string",
+      "m_nFileSize": "number",
+      "m_nPreviewFileSize": "number",
+      "m_rgchURL": "string",
+      "m_eFileType": "EWorkshopFileType",
+      "m_bAcceptedForUse": "bool"
+    }
+  },
+  "DeletePublishedFile": {
+    "name": "DeletePublishedFile",
+    "args": [
+      {
+        "name": "unPublishedFileId",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number"
+    }
+  },
+  "EnumerateUserPublishedFiles": {
+    "name": "EnumerateUserPublishedFiles",
+    "args": [
+      {
+        "name": "unStartIndex",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nResultsReturned": "number",
+      "m_nTotalResultCount": "number",
+      "m_rgPublishedFileId": "unknown"
+    }
+  },
+  "EnumerateUserSharedWorkshopFiles": {
+    "name": "EnumerateUserSharedWorkshopFiles",
+    "args": [
+      {
+        "name": "steamId",
+        "type": "unknown"
+      },
+      {
+        "name": "unStartIndex",
+        "type": "number"
+      },
+      {
+        "name": "pRequiredTags",
+        "type": "unknown"
+      },
+      {
+        "name": "pExcludedTags",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nResultsReturned": "number",
+      "m_nTotalResultCount": "number",
+      "m_rgPublishedFileId": "unknown"
+    }
+  },
+  "SubscribePublishedFile": {
+    "name": "SubscribePublishedFile",
+    "args": [
+      {
+        "name": "unPublishedFileId",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number"
+    }
+  },
+  "SubscribeItem": {
+    "name": "SubscribeItem",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number"
+    }
+  },
+  "EnumerateUserSubscribedFiles": {
+    "name": "EnumerateUserSubscribedFiles",
+    "args": [
+      {
+        "name": "unStartIndex",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nResultsReturned": "number",
+      "m_nTotalResultCount": "number",
+      "m_rgPublishedFileId": "unknown",
+      "m_rgRTimeSubscribed": "number"
+    }
+  },
+  "UnsubscribePublishedFile": {
+    "name": "UnsubscribePublishedFile",
+    "args": [
+      {
+        "name": "unPublishedFileId",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number"
+    }
+  },
+  "UnsubscribeItem": {
+    "name": "UnsubscribeItem",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number"
+    }
+  },
+  "GetPublishedItemVoteDetails": {
+    "name": "GetPublishedItemVoteDetails",
+    "args": [
+      {
+        "name": "unPublishedFileId",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_unPublishedFileId": "number",
+      "m_nVotesFor": "number",
+      "m_nVotesAgainst": "number",
+      "m_nReports": "number",
+      "m_fScore": "number"
+    }
+  },
+  "GetUserPublishedItemVoteDetails": {
+    "name": "GetUserPublishedItemVoteDetails",
+    "args": [
+      {
+        "name": "unPublishedFileId",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_unPublishedFileId": "number",
+      "m_nVotesFor": "number",
+      "m_nVotesAgainst": "number",
+      "m_nReports": "number",
+      "m_fScore": "number"
+    }
+  },
+  "UpdateUserPublishedItemVote": {
+    "name": "UpdateUserPublishedItemVote",
+    "args": [
+      {
+        "name": "unPublishedFileId",
+        "type": "number"
+      },
+      {
+        "name": "bVoteUp",
+        "type": "bool"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number"
+    }
+  },
+  "SetUserPublishedFileAction": {
+    "name": "SetUserPublishedFileAction",
+    "args": [
+      {
+        "name": "unPublishedFileId",
+        "type": "number"
+      },
+      {
+        "name": "eAction",
+        "type": "EWorkshopFileAction"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_eAction": "EWorkshopFileAction"
+    }
+  },
+  "EnumeratePublishedFilesByUserAction": {
+    "name": "EnumeratePublishedFilesByUserAction",
+    "args": [
+      {
+        "name": "eAction",
+        "type": "EWorkshopFileAction"
+      },
+      {
+        "name": "unStartIndex",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_eAction": "EWorkshopFileAction",
+      "m_nResultsReturned": "number",
+      "m_nTotalResultCount": "number",
+      "m_rgPublishedFileId": "unknown",
+      "m_rgRTimeUpdated": "number"
+    }
+  },
+  "EnumeratePublishedWorkshopFiles": {
+    "name": "EnumeratePublishedWorkshopFiles",
+    "args": [
+      {
+        "name": "eEnumerationType",
+        "type": "EWorkshopEnumerationType"
+      },
+      {
+        "name": "unStartIndex",
+        "type": "number"
+      },
+      {
+        "name": "unCount",
+        "type": "number"
+      },
+      {
+        "name": "unDays",
+        "type": "number"
+      },
+      {
+        "name": "pTags",
+        "type": "unknown"
+      },
+      {
+        "name": "pUserTags",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nResultsReturned": "number",
+      "m_nTotalResultCount": "number",
+      "m_rgPublishedFileId": "unknown",
+      "m_rgScore": "number",
+      "m_nAppId": "number",
+      "m_unStartIndex": "number"
+    }
+  },
+  "SendQueryUGCRequest": {
+    "name": "SendQueryUGCRequest",
+    "args": [
+      {
+        "name": "handle",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_handle": "number",
+      "m_eResult": "EResult",
+      "m_unNumResultsReturned": "number",
+      "m_unTotalMatchingResults": "number",
+      "m_bCachedData": "bool",
+      "m_rgchNextCursor": "string"
+    }
+  },
+  "RequestUGCDetails": {
+    "name": "RequestUGCDetails",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      },
+      {
+        "name": "unMaxAgeSeconds",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_details": "SteamUGCDetails_t",
+      "m_bCachedData": "bool"
+    }
+  },
+  "CreateItem": {
+    "name": "CreateItem",
+    "args": [
+      {
+        "name": "nConsumerAppId",
+        "type": "number"
+      },
+      {
+        "name": "eFileType",
+        "type": "EWorkshopFileType"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_bUserNeedsToAcceptWorkshopLegalAgreement": "bool"
+    }
+  },
+  "SubmitItemUpdate": {
+    "name": "SubmitItemUpdate",
+    "args": [
+      {
+        "name": "handle",
+        "type": "number"
+      },
+      {
+        "name": "pchChangeNote",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_bUserNeedsToAcceptWorkshopLegalAgreement": "bool",
+      "m_nPublishedFileId": "number"
+    }
+  },
+  "SetUserItemVote": {
+    "name": "SetUserItemVote",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      },
+      {
+        "name": "bVoteUp",
+        "type": "bool"
+      }
+    ],
+    "returnType": {
+      "m_nPublishedFileId": "number",
+      "m_eResult": "EResult",
+      "m_bVoteUp": "bool"
+    }
+  },
+  "GetUserItemVote": {
+    "name": "GetUserItemVote",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_nPublishedFileId": "number",
+      "m_eResult": "EResult",
+      "m_bVotedUp": "bool",
+      "m_bVotedDown": "bool",
+      "m_bVoteSkipped": "bool"
+    }
+  },
+  "AddItemToFavorites": {
+    "name": "AddItemToFavorites",
+    "args": [
+      {
+        "name": "nAppId",
+        "type": "number"
+      },
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_nPublishedFileId": "number",
+      "m_eResult": "EResult",
+      "m_bWasAddRequest": "bool"
+    }
+  },
+  "RemoveItemFromFavorites": {
+    "name": "RemoveItemFromFavorites",
+    "args": [
+      {
+        "name": "nAppId",
+        "type": "number"
+      },
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_nPublishedFileId": "number",
+      "m_eResult": "EResult",
+      "m_bWasAddRequest": "bool"
+    }
+  },
+  "StartPlaytimeTracking": {
+    "name": "StartPlaytimeTracking",
+    "args": [
+      {
+        "name": "pvecPublishedFileID",
+        "type": "unknown"
+      },
+      {
+        "name": "unNumPublishedFileIDs",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult"
+    }
+  },
+  "StopPlaytimeTracking": {
+    "name": "StopPlaytimeTracking",
+    "args": [
+      {
+        "name": "pvecPublishedFileID",
+        "type": "unknown"
+      },
+      {
+        "name": "unNumPublishedFileIDs",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult"
+    }
+  },
+  "StopPlaytimeTrackingForAllItems": {
+    "name": "StopPlaytimeTrackingForAllItems",
+    "args": [],
+    "returnType": {
+      "m_eResult": "EResult"
+    }
+  },
+  "AddDependency": {
+    "name": "AddDependency",
+    "args": [
+      {
+        "name": "nParentPublishedFileID",
+        "type": "number"
+      },
+      {
+        "name": "nChildPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_nChildPublishedFileId": "number"
+    }
+  },
+  "RemoveDependency": {
+    "name": "RemoveDependency",
+    "args": [
+      {
+        "name": "nParentPublishedFileID",
+        "type": "number"
+      },
+      {
+        "name": "nChildPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_nChildPublishedFileId": "number"
+    }
+  },
+  "AddAppDependency": {
+    "name": "AddAppDependency",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      },
+      {
+        "name": "nAppID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_nAppID": "number"
+    }
+  },
+  "RemoveAppDependency": {
+    "name": "RemoveAppDependency",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      },
+      {
+        "name": "nAppID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_nAppID": "number"
+    }
+  },
+  "GetAppDependencies": {
+    "name": "GetAppDependencies",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number",
+      "m_rgAppIDs": "unknown",
+      "m_nNumAppDependencies": "number",
+      "m_nTotalNumAppDependencies": "number"
+    }
+  },
+  "DeleteItem": {
+    "name": "DeleteItem",
+    "args": [
+      {
+        "name": "nPublishedFileID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_nPublishedFileId": "number"
+    }
+  },
+  "RequestEncryptedAppTicket": {
+    "name": "RequestEncryptedAppTicket",
+    "args": [
+      {
+        "name": "pDataToInclude",
+        "type": "unknown"
+      },
+      {
+        "name": "cbDataToInclude",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult"
+    }
+  },
+  "RequestStoreAuthURL": {
+    "name": "RequestStoreAuthURL",
+    "args": [
+      {
+        "name": "pchRedirectURL",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "m_szURL": "string"
+    }
+  },
+  "GetMarketEligibility": {
+    "name": "GetMarketEligibility",
+    "args": [],
+    "returnType": {
+      "m_bAllowed": "bool",
+      "m_eNotAllowedReason": "EMarketNotAllowedReasonFlags",
+      "m_rtAllowedAtTime": "number",
+      "m_cdaySteamGuardRequiredDays": "number",
+      "m_cdayNewDeviceCooldown": "number"
+    }
+  },
+  "GetDurationControl": {
+    "name": "GetDurationControl",
+    "args": [],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_appid": "number",
+      "m_bApplicable": "bool",
+      "m_csecsLast5h": "number",
+      "m_progress": "EDurationControlProgress",
+      "m_notification": "EDurationControlNotification",
+      "m_csecsToday": "number",
+      "m_csecsRemaining": "number"
+    }
+  },
+  "RequestUserStats_CUserStatsReceived": {
+    "name": "RequestUserStats_CUserStatsReceived",
+    "args": [
+      {
+        "name": "steamIDUser",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_nGameID": "number",
+      "m_eResult": "EResult",
+      "m_steamIDUser": "unknown"
+    }
+  },
+  "FindOrCreateLeaderboard": {
+    "name": "FindOrCreateLeaderboard",
+    "args": [
+      {
+        "name": "pchLeaderboardName",
+        "type": "string"
+      },
+      {
+        "name": "eLeaderboardSortMethod",
+        "type": "ELeaderboardSortMethod"
+      },
+      {
+        "name": "eLeaderboardDisplayType",
+        "type": "ELeaderboardDisplayType"
+      }
+    ],
+    "returnType": {
+      "m_hSteamLeaderboard": "number",
+      "m_bLeaderboardFound": "number"
+    }
+  },
+  "FindLeaderboard": {
+    "name": "FindLeaderboard",
+    "args": [
+      {
+        "name": "pchLeaderboardName",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "m_hSteamLeaderboard": "number",
+      "m_bLeaderboardFound": "number"
+    }
+  },
+  "DownloadLeaderboardEntries": {
+    "name": "DownloadLeaderboardEntries",
+    "args": [
+      {
+        "name": "hSteamLeaderboard",
+        "type": "number"
+      },
+      {
+        "name": "eLeaderboardDataRequest",
+        "type": "ELeaderboardDataRequest"
+      },
+      {
+        "name": "nRangeStart",
+        "type": "number"
+      },
+      {
+        "name": "nRangeEnd",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_hSteamLeaderboard": "number",
+      "m_hSteamLeaderboardEntries": "number",
+      "m_cEntryCount": "number"
+    }
+  },
+  "DownloadLeaderboardEntriesForUsers": {
+    "name": "DownloadLeaderboardEntriesForUsers",
+    "args": [
+      {
+        "name": "hSteamLeaderboard",
+        "type": "number"
+      },
+      {
+        "name": "prgUsers",
+        "type": "unknown"
+      },
+      {
+        "name": "cUsers",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_hSteamLeaderboard": "number",
+      "m_hSteamLeaderboardEntries": "number",
+      "m_cEntryCount": "number"
+    }
+  },
+  "UploadLeaderboardScore": {
+    "name": "UploadLeaderboardScore",
+    "args": [
+      {
+        "name": "hSteamLeaderboard",
+        "type": "number"
+      },
+      {
+        "name": "eLeaderboardUploadScoreMethod",
+        "type": "ELeaderboardUploadScoreMethod"
+      },
+      {
+        "name": "nScore",
+        "type": "number"
+      },
+      {
+        "name": "pScoreDetails",
+        "type": "unknown"
+      },
+      {
+        "name": "cScoreDetailsCount",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_bSuccess": "number",
+      "m_hSteamLeaderboard": "number",
+      "m_nScore": "number",
+      "m_bScoreChanged": "number",
+      "m_nGlobalRankNew": "number",
+      "m_nGlobalRankPrevious": "number"
+    }
+  },
+  "AttachLeaderboardUGC": {
+    "name": "AttachLeaderboardUGC",
+    "args": [
+      {
+        "name": "hSteamLeaderboard",
+        "type": "number"
+      },
+      {
+        "name": "hUGC",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "EResult",
+      "m_hSteamLeaderboard": "number"
+    }
+  },
+  "GetNumberOfCurrentPlayers": {
+    "name": "GetNumberOfCurrentPlayers",
+    "args": [],
+    "returnType": {
+      "m_bSuccess": "number",
+      "m_cPlayers": "number"
+    }
+  },
+  "RequestGlobalAchievementPercentages": {
+    "name": "RequestGlobalAchievementPercentages",
+    "args": [],
+    "returnType": {
+      "m_nGameID": "number",
+      "m_eResult": "EResult"
+    }
+  },
+  "RequestGlobalStats": {
+    "name": "RequestGlobalStats",
+    "args": [
+      {
+        "name": "nHistoryDays",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_nGameID": "number",
+      "m_eResult": "EResult"
+    }
+  },
+  "CheckFileSignature": {
+    "name": "CheckFileSignature",
+    "args": [
+      {
+        "name": "szFileName",
+        "type": "string"
+      }
+    ],
+    "returnType": {
+      "m_eCheckFileSignature": "ECheckFileSignature"
+    }
+  }
+}
