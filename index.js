@@ -25,6 +25,36 @@ const set = (obj, record, value) => {
   return obj;
 };
 
+const WaitForCallResult = (callresult, timeout = 10000) => {
+  return new Promise((res, rej) => {
+    if (!callresult?.GetResult || !callresult?.GetIsCompleted) {
+      rej('Call result given was not a call result object!');
+    }
+    let interval = null;
+    let timer = null;
+    interval = setInterval(() => {
+      if (callresult.GetIsCompleted()) {
+        if (interval) {
+          clearInterval(interval);
+        }
+        if (timer) {
+          clearTimeout(timer);
+        }
+        res(true);
+      }
+    }, 100);
+    timer = setTimeout(() => {
+      if (interval) {
+        clearInterval(interval);
+      }
+      if (timer) {
+        clearTimeout(timer);
+      }
+      rej('Call result timed out after 10 seconds!');
+    }, timeout);
+  });
+};
+
 class SteamWorks {
   SteamAPI = {};
   CallBacks = {};
@@ -65,7 +95,7 @@ class SteamWorks {
               const asyncCall = async (...args) => {
                 try {
                   const callresult = steam[record](...args);
-                  await this.WaitForCallResult(callresult);
+                  await WaitForCallResult(callresult);
                   return callresult.GetResult();
                 } catch (error) {
                   console.error(error);
@@ -159,36 +189,6 @@ class SteamWorks {
 
   GetCallbackThreadRunning() {
     return steam.GetCallbackThreadRunning();
-  }
-
-  WaitForCallResult(callresult, timeout = 10000) {
-    return new Promise((res, rej) => {
-      if (!callresult?.GetResult || !callresult?.GetIsCompleted) {
-        rej('Call result given was not a call result object!');
-      }
-      let interval = null;
-      let timer = null;
-      interval = setInterval(() => {
-        if (callresult.GetIsCompleted()) {
-          if (interval) {
-            clearInterval(interval);
-          }
-          if (timer) {
-            clearTimeout(timer);
-          }
-          res(true);
-        }
-      }, 100);
-      timer = setTimeout(() => {
-        if (interval) {
-          clearInterval(interval);
-        }
-        if (timer) {
-          clearTimeout(timer);
-        }
-        rej('Call result timed out after 10 seconds!');
-      }, timeout);
-    });
   }
 }
 
