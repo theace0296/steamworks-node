@@ -1,6 +1,8 @@
 {
   "GetFileDetails": {
     "name": "GetFileDetails",
+    "parent": "SteamApps",
+    "result": "FileDetailsResult",
     "args": [
       {
         "name": "pszFileName",
@@ -16,6 +18,8 @@
   },
   "SetPersonaName": {
     "name": "SetPersonaName",
+    "parent": "SteamFriends",
+    "result": "SetPersonaNameResponse",
     "args": [
       {
         "name": "pchPersonaName",
@@ -30,6 +34,8 @@
   },
   "DownloadClanActivityCounts": {
     "name": "DownloadClanActivityCounts",
+    "parent": "SteamFriends",
+    "result": "DownloadClanActivityCountsResult",
     "args": [
       {
         "name": "psteamIDClans",
@@ -46,6 +52,8 @@
   },
   "RequestClanOfficerList": {
     "name": "RequestClanOfficerList",
+    "parent": "SteamFriends",
+    "result": "ClanOfficerListResponse",
     "args": [
       {
         "name": "steamIDClan",
@@ -60,6 +68,8 @@
   },
   "JoinClanChatRoom": {
     "name": "JoinClanChatRoom",
+    "parent": "SteamFriends",
+    "result": "JoinClanChatRoomCompletionResult",
     "args": [
       {
         "name": "steamIDClan",
@@ -73,6 +83,8 @@
   },
   "GetFollowerCount": {
     "name": "GetFollowerCount",
+    "parent": "SteamFriends",
+    "result": "FriendsGetFollowerCount",
     "args": [
       {
         "name": "steamID",
@@ -87,6 +99,8 @@
   },
   "IsFollowing": {
     "name": "IsFollowing",
+    "parent": "SteamFriends",
+    "result": "FriendsIsFollowing",
     "args": [
       {
         "name": "steamID",
@@ -101,6 +115,8 @@
   },
   "EnumerateFollowingList": {
     "name": "EnumerateFollowingList",
+    "parent": "SteamFriends",
+    "result": "FriendsEnumerateFollowingList",
     "args": [
       {
         "name": "unStartIndex",
@@ -116,6 +132,8 @@
   },
   "GetServerReputation": {
     "name": "GetServerReputation",
+    "parent": "SteamGameServer",
+    "result": "GSReputation",
     "args": [],
     "returnType": {
       "m_eResult": "EResult",
@@ -129,6 +147,8 @@
   },
   "AssociateWithClan": {
     "name": "AssociateWithClan",
+    "parent": "SteamGameServer",
+    "result": "AssociateWithClanResult",
     "args": [
       {
         "name": "steamIDClan",
@@ -141,6 +161,8 @@
   },
   "ComputeNewPlayerCompatibility": {
     "name": "ComputeNewPlayerCompatibility",
+    "parent": "SteamGameServer",
+    "result": "ComputeNewPlayerCompatibilityResult",
     "args": [
       {
         "name": "steamIDNewPlayer",
@@ -157,6 +179,8 @@
   },
   "RequestUserStats": {
     "name": "RequestUserStats",
+    "parent": "SteamGameServerStats",
+    "result": "GSStatsReceived",
     "args": [
       {
         "name": "steamIDUser",
@@ -170,6 +194,8 @@
   },
   "StoreUserStats": {
     "name": "StoreUserStats",
+    "parent": "SteamGameServerStats",
+    "result": "GSStatsStored",
     "args": [
       {
         "name": "steamIDUser",
@@ -183,6 +209,8 @@
   },
   "CreateBrowser": {
     "name": "CreateBrowser",
+    "parent": "SteamHTMLSurface",
+    "result": "HTML_BrowserReady",
     "args": [
       {
         "name": "pchUserAgent",
@@ -199,6 +227,8 @@
   },
   "RequestEligiblePromoItemDefinitionsIDs": {
     "name": "RequestEligiblePromoItemDefinitionsIDs",
+    "parent": "SteamInventory",
+    "result": "SteamInventoryEligiblePromoItemDefIDs",
     "args": [
       {
         "name": "steamID",
@@ -214,6 +244,8 @@
   },
   "StartPurchase": {
     "name": "StartPurchase",
+    "parent": "SteamInventory",
+    "result": "SteamInventoryStartPurchaseResult",
     "args": [
       {
         "name": "pArrayItemDefs",
@@ -236,6 +268,8 @@
   },
   "RequestPrices": {
     "name": "RequestPrices",
+    "parent": "SteamInventory",
+    "result": "SteamInventoryRequestPricesResult",
     "args": [],
     "returnType": {
       "m_result": "EResult",
@@ -244,6 +278,8 @@
   },
   "RequestLobbyList": {
     "name": "RequestLobbyList",
+    "parent": "SteamMatchmaking",
+    "result": "LobbyMatchList",
     "args": [],
     "returnType": {
       "m_nLobbiesMatching": "number"
@@ -251,6 +287,8 @@
   },
   "CreateLobby": {
     "name": "CreateLobby",
+    "parent": "SteamMatchmaking",
+    "result": "LobbyCreated",
     "args": [
       {
         "name": "eLobbyType",
@@ -268,6 +306,8 @@
   },
   "JoinLobby": {
     "name": "JoinLobby",
+    "parent": "SteamMatchmaking",
+    "result": "LobbyEnter",
     "args": [
       {
         "name": "steamIDLobby",
@@ -283,6 +323,8 @@
   },
   "JoinParty": {
     "name": "JoinParty",
+    "parent": "SteamParties",
+    "result": "JoinPartyCallback",
     "args": [
       {
         "name": "ulBeaconID",
@@ -298,6 +340,8 @@
   },
   "CreateBeacon": {
     "name": "CreateBeacon",
+    "parent": "SteamParties",
+    "result": "CreateBeaconCallback",
     "args": [
       {
         "name": "unOpenSlots",
@@ -323,6 +367,8 @@
   },
   "ChangeNumOpenSlots": {
     "name": "ChangeNumOpenSlots",
+    "parent": "SteamParties",
+    "result": "ChangeNumOpenSlotsCallback",
     "args": [
       {
         "name": "ulBeacon",
@@ -339,6 +385,8 @@
   },
   "FileWriteAsync": {
     "name": "FileWriteAsync",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageFileWriteAsyncComplete",
     "args": [
       {
         "name": "pchFile",
@@ -359,6 +407,8 @@
   },
   "FileReadAsync": {
     "name": "FileReadAsync",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageFileReadAsyncComplete",
     "args": [
       {
         "name": "pchFile",
@@ -382,6 +432,8 @@
   },
   "FileShare": {
     "name": "FileShare",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageFileShareResult",
     "args": [
       {
         "name": "pchFile",
@@ -396,6 +448,8 @@
   },
   "UGCDownload": {
     "name": "UGCDownload",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageDownloadUGCResult",
     "args": [
       {
         "name": "hContent",
@@ -417,6 +471,8 @@
   },
   "UGCDownloadToLocation": {
     "name": "UGCDownloadToLocation",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageDownloadUGCResult",
     "args": [
       {
         "name": "hContent",
@@ -442,6 +498,8 @@
   },
   "PublishWorkshopFile": {
     "name": "PublishWorkshopFile",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStoragePublishFileProgress",
     "args": [
       {
         "name": "pchFile",
@@ -483,6 +541,8 @@
   },
   "PublishVideo": {
     "name": "PublishVideo",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStoragePublishFileProgress",
     "args": [
       {
         "name": "eVideoProvider",
@@ -528,6 +588,8 @@
   },
   "CommitPublishedFileUpdate": {
     "name": "CommitPublishedFileUpdate",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageUpdatePublishedFileResult",
     "args": [
       {
         "name": "updateHandle",
@@ -542,6 +604,8 @@
   },
   "GetPublishedFileDetails": {
     "name": "GetPublishedFileDetails",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageGetPublishedFileDetailsResult",
     "args": [
       {
         "name": "unPublishedFileId",
@@ -578,6 +642,8 @@
   },
   "DeletePublishedFile": {
     "name": "DeletePublishedFile",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageDeletePublishedFileResult",
     "args": [
       {
         "name": "unPublishedFileId",
@@ -591,6 +657,8 @@
   },
   "EnumerateUserPublishedFiles": {
     "name": "EnumerateUserPublishedFiles",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageEnumerateUserPublishedFilesResult",
     "args": [
       {
         "name": "unStartIndex",
@@ -606,6 +674,8 @@
   },
   "EnumerateUserSharedWorkshopFiles": {
     "name": "EnumerateUserSharedWorkshopFiles",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageEnumerateUserPublishedFilesResult",
     "args": [
       {
         "name": "steamId",
@@ -633,6 +703,8 @@
   },
   "SubscribePublishedFile": {
     "name": "SubscribePublishedFile",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageSubscribePublishedFileResult",
     "args": [
       {
         "name": "unPublishedFileId",
@@ -646,6 +718,8 @@
   },
   "SubscribeItem": {
     "name": "SubscribeItem",
+    "parent": "SteamUGC",
+    "result": "RemoteStorageSubscribePublishedFileResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -659,6 +733,8 @@
   },
   "EnumerateUserSubscribedFiles": {
     "name": "EnumerateUserSubscribedFiles",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageEnumerateUserSubscribedFilesResult",
     "args": [
       {
         "name": "unStartIndex",
@@ -675,6 +751,8 @@
   },
   "UnsubscribePublishedFile": {
     "name": "UnsubscribePublishedFile",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageUnsubscribePublishedFileResult",
     "args": [
       {
         "name": "unPublishedFileId",
@@ -688,6 +766,8 @@
   },
   "UnsubscribeItem": {
     "name": "UnsubscribeItem",
+    "parent": "SteamUGC",
+    "result": "RemoteStorageUnsubscribePublishedFileResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -701,6 +781,8 @@
   },
   "GetPublishedItemVoteDetails": {
     "name": "GetPublishedItemVoteDetails",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageGetPublishedItemVoteDetailsResult",
     "args": [
       {
         "name": "unPublishedFileId",
@@ -718,6 +800,8 @@
   },
   "GetUserPublishedItemVoteDetails": {
     "name": "GetUserPublishedItemVoteDetails",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageGetPublishedItemVoteDetailsResult",
     "args": [
       {
         "name": "unPublishedFileId",
@@ -735,6 +819,8 @@
   },
   "UpdateUserPublishedItemVote": {
     "name": "UpdateUserPublishedItemVote",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageUpdateUserPublishedItemVoteResult",
     "args": [
       {
         "name": "unPublishedFileId",
@@ -752,6 +838,8 @@
   },
   "SetUserPublishedFileAction": {
     "name": "SetUserPublishedFileAction",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageSetUserPublishedFileActionResult",
     "args": [
       {
         "name": "unPublishedFileId",
@@ -770,6 +858,8 @@
   },
   "EnumeratePublishedFilesByUserAction": {
     "name": "EnumeratePublishedFilesByUserAction",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageEnumeratePublishedFilesByUserActionResult",
     "args": [
       {
         "name": "eAction",
@@ -791,6 +881,8 @@
   },
   "EnumeratePublishedWorkshopFiles": {
     "name": "EnumeratePublishedWorkshopFiles",
+    "parent": "SteamRemoteStorage",
+    "result": "RemoteStorageEnumerateWorkshopFilesResult",
     "args": [
       {
         "name": "eEnumerationType",
@@ -829,6 +921,8 @@
   },
   "SendQueryUGCRequest": {
     "name": "SendQueryUGCRequest",
+    "parent": "SteamUGC",
+    "result": "SteamUGCQueryCompleted",
     "args": [
       {
         "name": "handle",
@@ -846,6 +940,8 @@
   },
   "RequestUGCDetails": {
     "name": "RequestUGCDetails",
+    "parent": "SteamUGC",
+    "result": "SteamUGCRequestUGCDetailsResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -863,6 +959,8 @@
   },
   "CreateItem": {
     "name": "CreateItem",
+    "parent": "SteamUGC",
+    "result": "CreateItemResult",
     "args": [
       {
         "name": "nConsumerAppId",
@@ -881,6 +979,8 @@
   },
   "SubmitItemUpdate": {
     "name": "SubmitItemUpdate",
+    "parent": "SteamUGC",
+    "result": "SubmitItemUpdateResult",
     "args": [
       {
         "name": "handle",
@@ -899,6 +999,8 @@
   },
   "SetUserItemVote": {
     "name": "SetUserItemVote",
+    "parent": "SteamUGC",
+    "result": "SetUserItemVoteResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -917,6 +1019,8 @@
   },
   "GetUserItemVote": {
     "name": "GetUserItemVote",
+    "parent": "SteamUGC",
+    "result": "GetUserItemVoteResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -933,6 +1037,8 @@
   },
   "AddItemToFavorites": {
     "name": "AddItemToFavorites",
+    "parent": "SteamUGC",
+    "result": "UserFavoriteItemsListChanged",
     "args": [
       {
         "name": "nAppId",
@@ -951,6 +1057,8 @@
   },
   "RemoveItemFromFavorites": {
     "name": "RemoveItemFromFavorites",
+    "parent": "SteamUGC",
+    "result": "UserFavoriteItemsListChanged",
     "args": [
       {
         "name": "nAppId",
@@ -969,6 +1077,8 @@
   },
   "StartPlaytimeTracking": {
     "name": "StartPlaytimeTracking",
+    "parent": "SteamUGC",
+    "result": "StartPlaytimeTrackingResult",
     "args": [
       {
         "name": "pvecPublishedFileID",
@@ -985,6 +1095,8 @@
   },
   "StopPlaytimeTracking": {
     "name": "StopPlaytimeTracking",
+    "parent": "SteamUGC",
+    "result": "StopPlaytimeTrackingResult",
     "args": [
       {
         "name": "pvecPublishedFileID",
@@ -1001,6 +1113,8 @@
   },
   "StopPlaytimeTrackingForAllItems": {
     "name": "StopPlaytimeTrackingForAllItems",
+    "parent": "SteamUGC",
+    "result": "StopPlaytimeTrackingResult",
     "args": [],
     "returnType": {
       "m_eResult": "EResult"
@@ -1008,6 +1122,8 @@
   },
   "AddDependency": {
     "name": "AddDependency",
+    "parent": "SteamUGC",
+    "result": "AddUGCDependencyResult",
     "args": [
       {
         "name": "nParentPublishedFileID",
@@ -1026,6 +1142,8 @@
   },
   "RemoveDependency": {
     "name": "RemoveDependency",
+    "parent": "SteamUGC",
+    "result": "RemoveUGCDependencyResult",
     "args": [
       {
         "name": "nParentPublishedFileID",
@@ -1044,6 +1162,8 @@
   },
   "AddAppDependency": {
     "name": "AddAppDependency",
+    "parent": "SteamUGC",
+    "result": "AddAppDependencyResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -1062,6 +1182,8 @@
   },
   "RemoveAppDependency": {
     "name": "RemoveAppDependency",
+    "parent": "SteamUGC",
+    "result": "RemoveAppDependencyResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -1080,6 +1202,8 @@
   },
   "GetAppDependencies": {
     "name": "GetAppDependencies",
+    "parent": "SteamUGC",
+    "result": "GetAppDependenciesResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -1096,6 +1220,8 @@
   },
   "DeleteItem": {
     "name": "DeleteItem",
+    "parent": "SteamUGC",
+    "result": "DeleteItemResult",
     "args": [
       {
         "name": "nPublishedFileID",
@@ -1109,6 +1235,8 @@
   },
   "RequestEncryptedAppTicket": {
     "name": "RequestEncryptedAppTicket",
+    "parent": "SteamUser",
+    "result": "EncryptedAppTicketResponse",
     "args": [
       {
         "name": "pDataToInclude",
@@ -1125,6 +1253,8 @@
   },
   "RequestStoreAuthURL": {
     "name": "RequestStoreAuthURL",
+    "parent": "SteamUser",
+    "result": "StoreAuthURLResponse",
     "args": [
       {
         "name": "pchRedirectURL",
@@ -1137,6 +1267,8 @@
   },
   "GetMarketEligibility": {
     "name": "GetMarketEligibility",
+    "parent": "SteamUser",
+    "result": "MarketEligibilityResponse",
     "args": [],
     "returnType": {
       "m_bAllowed": "bool",
@@ -1148,6 +1280,8 @@
   },
   "GetDurationControl": {
     "name": "GetDurationControl",
+    "parent": "SteamUser",
+    "result": "DurationControl",
     "args": [],
     "returnType": {
       "m_eResult": "EResult",
@@ -1162,6 +1296,8 @@
   },
   "RequestUserStats_CUserStatsReceived": {
     "name": "RequestUserStats_CUserStatsReceived",
+    "parent": "SteamUserStats",
+    "result": "UserStatsReceived",
     "args": [
       {
         "name": "steamIDUser",
@@ -1176,6 +1312,8 @@
   },
   "FindOrCreateLeaderboard": {
     "name": "FindOrCreateLeaderboard",
+    "parent": "SteamUserStats",
+    "result": "LeaderboardFindResult",
     "args": [
       {
         "name": "pchLeaderboardName",
@@ -1197,6 +1335,8 @@
   },
   "FindLeaderboard": {
     "name": "FindLeaderboard",
+    "parent": "SteamUserStats",
+    "result": "LeaderboardFindResult",
     "args": [
       {
         "name": "pchLeaderboardName",
@@ -1210,6 +1350,8 @@
   },
   "DownloadLeaderboardEntries": {
     "name": "DownloadLeaderboardEntries",
+    "parent": "SteamUserStats",
+    "result": "LeaderboardScoresDownloaded",
     "args": [
       {
         "name": "hSteamLeaderboard",
@@ -1236,6 +1378,8 @@
   },
   "DownloadLeaderboardEntriesForUsers": {
     "name": "DownloadLeaderboardEntriesForUsers",
+    "parent": "SteamUserStats",
+    "result": "LeaderboardScoresDownloaded",
     "args": [
       {
         "name": "hSteamLeaderboard",
@@ -1258,6 +1402,8 @@
   },
   "UploadLeaderboardScore": {
     "name": "UploadLeaderboardScore",
+    "parent": "SteamUserStats",
+    "result": "LeaderboardScoreUploaded",
     "args": [
       {
         "name": "hSteamLeaderboard",
@@ -1291,6 +1437,8 @@
   },
   "AttachLeaderboardUGC": {
     "name": "AttachLeaderboardUGC",
+    "parent": "SteamUserStats",
+    "result": "LeaderboardUGCSet",
     "args": [
       {
         "name": "hSteamLeaderboard",
@@ -1308,6 +1456,8 @@
   },
   "GetNumberOfCurrentPlayers": {
     "name": "GetNumberOfCurrentPlayers",
+    "parent": "SteamUserStats",
+    "result": "NumberOfCurrentPlayers",
     "args": [],
     "returnType": {
       "m_bSuccess": "number",
@@ -1316,6 +1466,8 @@
   },
   "RequestGlobalAchievementPercentages": {
     "name": "RequestGlobalAchievementPercentages",
+    "parent": "SteamUserStats",
+    "result": "GlobalAchievementPercentagesReady",
     "args": [],
     "returnType": {
       "m_nGameID": "number",
@@ -1324,6 +1476,8 @@
   },
   "RequestGlobalStats": {
     "name": "RequestGlobalStats",
+    "parent": "SteamUserStats",
+    "result": "GlobalStatsReceived",
     "args": [
       {
         "name": "nHistoryDays",
@@ -1337,6 +1491,8 @@
   },
   "CheckFileSignature": {
     "name": "CheckFileSignature",
+    "parent": "SteamUtils",
+    "result": "CheckFileSignature",
     "args": [
       {
         "name": "szFileName",

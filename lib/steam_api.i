@@ -3,9 +3,13 @@
 #include <iostream>
 #include <chrono>
 #include <thread>
-#include "steamworks.h"
+#include "steam_api.h"
+#include "isteamgameserver.h"
+#include "isteamgameserverstats.h"
+
 #include "steamcallresultfunctions.h"
 #include "steamcallbackfunctions.h"
+#include "steaminterfaces.h"
 std::thread SteamCallbackThread;
 bool applicationRunning = false;
 bool callbackThreadRunning = false;
@@ -77,10 +81,10 @@ bool Shutdown() {
 %include "steam_api.h"
 %include "isteamgameserver.h"
 %include "isteamgameserverstats.h"
-%include "steamworks.h"
 %include "steamcallresult.h"
 %include "steamcallresultfunctions.h"
 %include "steamcallback.h"
 %include "steamcallbackfunctions.h"
+%include "steaminterfaces.h"
 bool Init();
 bool Shutdown();
