@@ -3,8 +3,6 @@ const steamworks = require('.');
 const SteamWorks = new steamworks();
 const {
   SteamAPI,
-  CallBacks,
-  CallResults,
   Constants,
   Enums,
   Structs,

@@ -22,15 +22,5 @@ if (SteamAPI.IsSteamRunning()) {
 ```
 
 
-# Call Result Functions
-Functions listed as 'Call Results' in the Steam API docs return a Promise whose resolved value is the corresponding result. 
-
-# Call Back Functions
-```js
-// const steamworks = require('steamworks-node');
-// const SteamWorks = new steamworks(appId);
-const {
-  GetVideoURL,
-  GetOPFSettings,
-} = SteamWorks.CallBacks;
-```
+# Call Result and Callback Functions
+Functions listed as 'Call Results' or 'Callbacks' in the Steam API docs return a Promise whose resolved value is the corresponding result.
