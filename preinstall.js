@@ -196,7 +196,7 @@ ${steamInterfacesStr}`;
       return 'undefined';
     }
     if (typeStr === 'bool') {
-      return 'bool';
+      return 'boolean';
     }
     if (['int', 'unsigned', 'signed', 'double', 'float', 'long', 'short'].some(t => typeStr.includes(t)) && !typeStr.includes('*') && !typeStr.includes('&')) {
       return 'number';
@@ -207,36 +207,45 @@ ${steamInterfacesStr}`;
     if (steamApiTypeDefs.hasOwnProperty(typeStr)) {
       return getJsType(steamApiTypeDefs[typeStr]);
     }
-    if (steamApiEnumNames.includes(typeStr) || steamApiStructNames.includes(typeStr)) {
-      return typeStr;
+    if (steamApiEnumNames.includes(typeStr)) {
+      return `SteamEnums.${typeStr}`;
+    }
+    if (steamApiStructNames.includes(typeStr)) {
+      return `SteamStructs.${typeStr}`;
     }
     return 'unknown';
   };
 
-  let steamApiEnumStr = '';
+  let steamApiEnumStr = `export = SteamEnums;
+declare namespace SteamEnums {`;
   for (const steamEnum of steamApiJson.enums) {
-    steamApiEnumStr = `${steamApiEnumStr}\nexport enum ${steamEnum.enumname} {`;
+    steamApiEnumStr = `${steamApiEnumStr}\n  export enum ${steamEnum.enumname} {`;
     for (const enumValue of steamEnum.values) {
-      steamApiEnumStr = `${steamApiEnumStr}\n  ${enumValue.name} = ${enumValue.value},`;
+      steamApiEnumStr = `${steamApiEnumStr}\n    ${enumValue.name} = ${enumValue.value},`;
     }
-    steamApiEnumStr = `${steamApiEnumStr}\n};\n`;
+    steamApiEnumStr = `${steamApiEnumStr}\n  }\n`;
   }
+  steamApiEnumStr = `${steamApiEnumStr}
+}`;
   fs.writeFileSync('./steamApiEnums.d.ts', steamApiEnumStr);
 
-  let steamApiStructStr = '';
+  let steamApiStructStr = `import SteamEnums from './steamApiEnums';
+
+export = SteamStructs;
+declare namespace SteamStructs {`;
   for (const steamStruct of steamApiJson.structs) {
     const isClass = !!steamStruct?.methods
       ?.map(m => m.methodname)
       ?.includes('Construct');
-    steamApiStructStr = `${steamApiStructStr}\nexport ${isClass ? 'class' : 'interface'} ${steamStruct.struct} {`;
+    steamApiStructStr = `${steamApiStructStr}\n  export ${isClass ? 'class' : 'interface'} ${steamStruct.struct} {`;
     if (steamStruct.hasOwnProperty('consts') && Array.isArray(steamStruct.consts)) {
       for (const constant of steamStruct.consts) {
-        steamApiStructStr = `${steamApiStructStr}\n  ${constant.constname}: ${getJsType(constant.consttype)} = ${constant.constval}${isClass ? ';' : ','}`;
+        steamApiStructStr = `${steamApiStructStr}\n    ${constant.constname}: ${getJsType(constant.consttype)}${isClass ? ';' : ','}`;
       }
     }
     if (steamStruct.hasOwnProperty('fields') && Array.isArray(steamStruct.fields)) {
       for (const field of steamStruct.fields) {
-        steamApiStructStr = `${steamApiStructStr}\n  ${field.fieldname}: ${getJsType(field.fieldtype)}${isClass ? ';' : ','}`;
+        steamApiStructStr = `${steamApiStructStr}\n    ${field.fieldname}: ${getJsType(field.fieldtype)}${isClass ? ';' : ','}`;
       }
     }
     if (steamStruct.hasOwnProperty('methods') && Array.isArray(steamStruct.methods)) {
@@ -245,14 +254,16 @@ ${steamInterfacesStr}`;
           continue;
         }
         if (method.methodname === 'Construct') {
-          steamApiStructStr = `${steamApiStructStr}\n  constructor(${method.params.length ? method.params.map(p => `${p.paramname}: ${getJsType(p.paramtype)}`).join(', '): ''})${isClass ? ';' : ','}`;
+          steamApiStructStr = `${steamApiStructStr}\n    constructor(${method.params.length ? method.params.map(p => `${p.paramname}: ${getJsType(p.paramtype)}`).join(', '): ''})${isClass ? ';' : ','}`;
         } else {
-          steamApiStructStr = `${steamApiStructStr}\n  ${method.methodname}: {(${method.params.length ? method.params.map(p => `${p.paramname}: ${getJsType(p.paramtype)}`).join(', '): ''}): ${getJsType(method.returntype)}}${isClass ? ';' : ','}`;
+          steamApiStructStr = `${steamApiStructStr}\n    ${method.methodname}: {(${method.params.length ? method.params.map(p => `${p.paramname}: ${getJsType(p.paramtype)}`).join(', '): ''}): ${getJsType(method.returntype)}}${isClass ? ';' : ','}`;
         }
       }
     }
-    steamApiStructStr = `${steamApiStructStr}\n};\n`;
+    steamApiStructStr = `${steamApiStructStr}\n  }\n`;
   }
+  steamApiStructStr = `${steamApiStructStr}
+}`;
   fs.writeFileSync('./steamApiStructs.d.ts', steamApiStructStr);
 
   const getReturnTypeFromCallResultJson = callresult => {
@@ -403,12 +414,6 @@ ${steamInterfacesStr}`;
     './lib/steamcallresultfunctions.json',
     JSON.stringify(callResultFunctionsMade, null, 2),
   );
-  let callResultFunctionsStr = '';
-  for (const callResultFunction of Object.keys(callResultFunctionsMade)) {
-    const { name, args, returnType } = callResultFunctionsMade[callResultFunction];
-    callResultFunctionsStr = `${callResultFunctionsStr}\nexport async function ${name}(${args.length ? args.map(arg => `${arg.name}: ${arg.type}`).join(', ') : ''}): Promise<{ ${Object.entries(returnType).map(r => `${r[0]}: ${r[1]}`).join(', ')} }>;`;
-  }
-  fs.writeFileSync('./callResults.d.ts', `${callResultFunctionsStr}\n`);
 
   const callBacksMade = [];
   let callBackDefinitions = `
@@ -422,7 +427,7 @@ ${steamInterfacesStr}`;
   #include "isteamgameserverstats.h"
   namespace CCallBacks {
   `;
-  const callBackFunctionsMade = [];
+  const callBackFunctionsMade = {};
   let callBackFunctions = `
   #include "steamcallback.h"
   namespace CCallBacks {
@@ -463,7 +468,11 @@ ${steamInterfacesStr}`;
       const paramsString = params?.length
         ? params.map(({ paramname }) => `${paramname}`).join(', ')
         : '';
-      const functionName = `${methodname}${callBackFunctionsMade.includes(methodname) ? `_C${callBackName}` : ''}`;
+      const functionName = `${methodname}${
+        callBackFunctionsMade.hasOwnProperty(methodname)
+          ? `_C${callBackName}`
+          : ''
+      }`;
       callBackFunctions = `${callBackFunctions}
       C${callBackName}* ${functionName}(${paramsDeclarationString}) {
         ${methodNameSplit[1].substr(1)}()->${
@@ -473,7 +482,16 @@ ${steamInterfacesStr}`;
         return ${methodname}Result;
       };
     `;
-      callBackFunctionsMade.push(functionName);
+      callBackFunctionsMade[functionName] = {
+        name  : functionName,
+        parent: methodNameSplit[1].substr(1),
+        result: callBackName,
+        args  : params.map(({ paramname, paramtype }) => ({
+          name: paramname,
+          type: getJsType(paramtype),
+        })),
+        returnType: getReturnTypeFromCallResultJson(callBack),
+      };
       hasMethodWithCallback = true;
     }
 
@@ -531,7 +549,7 @@ ${steamInterfacesStr}`;
   fs.writeFileSync('./lib/steamcallback.cpp', callBackDefinitions);
   fs.writeFileSync('./lib/steamcallbackfunctions.h', callBackFunctions);
   fs.writeFileSync(
-    './lib/steamcallbackfunctionnames.json',
+    './lib/steamcallbackfunctions.json',
     JSON.stringify(callBackFunctionsMade, null, 2),
   );
 } catch (error) {

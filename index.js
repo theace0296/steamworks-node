@@ -57,7 +57,6 @@ const WaitForCallResult = (callresult, timeout = 10000) => {
 
 class SteamWorks {
   SteamAPI = {};
-  CallBacks = {};
   Constants = {};
   Structs = {};
   Enums = {};
@@ -74,7 +73,7 @@ class SteamWorks {
 
       const SteamCallResultFunctions = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steamcallresultfunctions.json'), 'utf8'));
 
-      const SteamCallBackFunctionNames = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steamcallbackfunctionnames.json'), 'utf8'));
+      const SteamCallBackFunctions = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steamcallbackfunctions.json'), 'utf8'));
 
       const setInterfaceKeys = [];
       const nullInterfaces = [];
@@ -103,6 +102,18 @@ class SteamWorks {
               };
               this[accessorKey][record] = asyncCall;
             }
+            if (Object.keys(SteamCallBackFunctions).includes(record) && steam.hasOwnProperty(record)) {
+              const asyncCall = async (...args) => {
+                try {
+                  const callresult = steam[record](...args);
+                  await WaitForCallResult(callresult);
+                  return callresult.GetResult();
+                } catch (error) {
+                  console.error(error);
+                }
+              };
+              this[accessorKey][record] = asyncCall;
+            }
             setInterfaceKeys.push(record);
           }
           setInterfaceKeys.push(key, accessorKey);
@@ -117,15 +128,10 @@ class SteamWorks {
         if (key.startsWith('ISteam')) {
           continue;
         }
-        if (SteamCallBackFunctionNames.includes(key)) {
-          this.CallBacks[key] = steam[key];
-        } else if (steamApiStructNames.some(name => key.includes(name))) {
+        if (steamApiStructNames.some(name => key.includes(name))) {
           this.Structs[key] = steam[key];
-        } else if (steamApiEnumNames.some(name => key.includes(name) || key.includes(name.slice(0, key.indexOf('_'))))) {
-          if (!key.startsWith('k') && steamApiEnumNames.some(name => key.includes(name.slice(0, key.indexOf('_'))))) {
-            // debugger;
-          }
-          const enumName = steamApiEnumNames.find(name => key.includes(name));
+        } else if (steamApiEnumNames.some(name => key.includes(name) || name.includes(key.split('_')[1]))) {
+          const enumName = steamApiEnumNames.find(name => key.includes(name) || name.includes(key.split('_')[1]));
           set(this.Enums, [enumName, key], steam[key]);
         } else {
           unsetKeys.push(key);
@@ -139,6 +145,7 @@ class SteamWorks {
           !key.startsWith('SteamGameServer') &&
           !this[key] &&
           !Object.values(SteamCallResultFunctions).some(({ name, parent, result }) => key.includes(name) || key.includes(parent) || key.includes(result)) &&
+          !Object.values(SteamCallBackFunctions).some(({ name, parent, result }) => key.includes(name) || key.includes(parent) || key.includes(result)) &&
           !steamApiCallbackStructNames.some(name => key.includes(name))
         ) {
           if (key.toUpperCase() === key || key.startsWith('k')) {
@@ -151,10 +158,6 @@ class SteamWorks {
 
       if (Object.keys(this.Uncategorized).length === 0) {
         delete this.Uncategorized;
-      }
-      if (Object.keys(SteamCallResultFunctions).length !== setInterfaceKeys.length) {
-        // eslint-disable-next-line no-unused-vars
-        const unsetCallResults = Object.keys(SteamCallResultFunctions).filter(name => !setInterfaceKeys.includes(name));
       }
     } catch (error) {
       console.error(error);

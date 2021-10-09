@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node ./index.test.js",
+    "prepare": "node ./generate_typings.js",
     "swig": "run-script-os",
     "swig:default": "export SWIG_LIB=$(node -p 'process.cwd()')/swig/lib && ./swig/swig -Isdk/public/steam -javascript -node -c++ -cpperraswarn -includeall ./lib/steam_api.i",
     "swig:win32": ".\\swig\\swig.exe -Isdk/public/steam -javascript -node -c++ -cpperraswarn .\\lib\\steam_api.i",

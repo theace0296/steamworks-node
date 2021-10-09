@@ -1,0 +1,33 @@
+{
+  "GetVideoURL": {
+    "name": "GetVideoURL",
+    "parent": "SteamVideo",
+    "result": "GetVideoURLResult",
+    "args": [
+      {
+        "name": "unVideoAppID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "SteamEnums.EResult",
+      "m_unVideoAppID": "number",
+      "m_rgchURL": "string"
+    }
+  },
+  "GetOPFSettings": {
+    "name": "GetOPFSettings",
+    "parent": "SteamVideo",
+    "result": "GetOPFSettingsResult",
+    "args": [
+      {
+        "name": "unVideoAppID",
+        "type": "number"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "SteamEnums.EResult",
+      "m_unVideoAppID": "number"
+    }
+  }
+}
