@@ -1,10 +1,9 @@
 import * as CallResults from './callResults';
 
-export = SteamWorks;
-
 declare class SteamWorks {
   constructor(appId?: number);
-  Shutdown(): VoidFunction;
+  Init(appId?: number): boolean;
+  Shutdown(): boolean;
   GetApplicationRunning(): boolean;
   GetCallbackThreadRunning(): boolean;
   SteamAPI: SteamAPI;
@@ -78,6 +77,8 @@ declare class SteamWorks {
   SteamNetworkingIdentityRender_c_str: CallableFunction;
   SteamNetworkingIPAddrRender_c_str: CallableFunction;
 }
+
+export default SteamWorks;
 
 export interface ManualDispatch {
 	Init: CallableFunction;
