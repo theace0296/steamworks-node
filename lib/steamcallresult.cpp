@@ -1212,6 +1212,28 @@
       m_result = *result;
     };
   
+    CWorkshopEULAStatus::CWorkshopEULAStatus(SteamAPICall_t hSteamAPICall): m_steamApiCall(hSteamAPICall) {
+      memset(&m_result, 0, sizeof(m_result));
+      m_isComplete = false;
+      m_callresult.Set((SteamAPICall_t)m_steamApiCall, this, &CWorkshopEULAStatus::OnWorkshopEULAStatus);
+    };
+
+    bool CWorkshopEULAStatus::GetIsCompleted() {
+      return m_isComplete;
+    };
+
+    WorkshopEULAStatus_t CWorkshopEULAStatus::GetResult() {
+      return m_result;
+    };
+
+    void CWorkshopEULAStatus::OnWorkshopEULAStatus(WorkshopEULAStatus_t* result, bool bIOFailure) {
+      m_isComplete = true;
+      if (bIOFailure || result == nullptr) {
+        return;
+      }
+      m_result = *result;
+    };
+  
     CEncryptedAppTicketResponse::CEncryptedAppTicketResponse(SteamAPICall_t hSteamAPICall): m_steamApiCall(hSteamAPICall) {
       memset(&m_result, 0, sizeof(m_result));
       m_isComplete = false;

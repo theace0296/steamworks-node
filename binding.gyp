@@ -12,8 +12,8 @@
         ".\\steam"
       ],
       "libraries": [
-        "..\\sdk\\redistributable_bin\\win64\\steam_api64.lib",
-        "..\\sdk\\lib\\win64\\sdkencryptedappticket64.lib"
+        "..\\steam\\redistributable_bin\\win64\\steam_api64.lib",
+        "..\\steam\\lib\\win64\\sdkencryptedappticket64.lib"
       ]
     }
   ]

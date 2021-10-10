@@ -720,6 +720,19 @@
         bool m_isComplete;
     };
   
+    class CWorkshopEULAStatus {
+      public:
+        CWorkshopEULAStatus(SteamAPICall_t hSteamAPICall);
+        bool GetIsCompleted();
+        WorkshopEULAStatus_t GetResult();
+      private:
+        void OnWorkshopEULAStatus(WorkshopEULAStatus_t* result, bool bIOFailure);
+        SteamAPICall_t m_steamApiCall;
+        CCallResult<CWorkshopEULAStatus, WorkshopEULAStatus_t> m_callresult;
+        WorkshopEULAStatus_t m_result;
+        bool m_isComplete;
+    };
+  
     class CEncryptedAppTicketResponse {
       public:
         CEncryptedAppTicketResponse(SteamAPICall_t hSteamAPICall);

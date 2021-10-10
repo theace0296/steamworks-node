@@ -4,7 +4,7 @@
 //
 // You should be able to figure out how to use the SDK by reading
 // steam_api_common.h, and should not need to understand anything in here.
-//
+// 
 //-----------------------------------------------------------------------------
 
 #ifdef STEAM_CALLBACK_BEGIN
@@ -191,7 +191,7 @@ inline void CCallback< T, P, bGameserver >::Run( void *pvParam )
 #pragma pack( push, 8 )
 #else
 #error steam_api_common.h should define VALVE_CALLBACK_PACK_xxx
-#endif
+#endif 
 
 /// Internal structure used in manual callback dispatch
 struct CallbackMsg_t
@@ -208,7 +208,7 @@ struct CallbackMsg_t
 	#include "../../clientdll/steam_api_callback_inspection.h"
 #else
 	#define STEAM_CALLBACK_BEGIN( callbackname, callbackid )	struct callbackname { enum { k_iCallback = callbackid };
-	#define STEAM_CALLBACK_MEMBER( varidx, vartype, varname )	vartype varname ;
+	#define STEAM_CALLBACK_MEMBER( varidx, vartype, varname )	vartype varname ; 
 	#define STEAM_CALLBACK_MEMBER_ARRAY( varidx, vartype, varname, varcount ) vartype varname [ varcount ];
 	#define STEAM_CALLBACK_END(nArgs) };
 #endif
@@ -293,8 +293,8 @@ enum { k_iSteamAppListCallbacks = 3900 };
 enum { k_iSteamMusicCallbacks = 4000 };
 enum { k_iSteamMusicRemoteCallbacks = 4100 };
 enum { k_iClientVRCallbacks = 4200 };
-enum { k_iClientGameNotificationCallbacks = 4300 };
-enum { k_iSteamGameNotificationCallbacks = 4400 };
+enum { k_iClientGameNotificationCallbacks = 4300 }; 
+enum { k_iSteamGameNotificationCallbacks = 4400 }; 
 enum { k_iSteamHTMLSurfaceCallbacks = 4500 };
 enum { k_iClientVideoCallbacks = 4600 };
 enum { k_iClientInventoryCallbacks = 4700 };
@@ -310,10 +310,35 @@ enum { k_iClientSTARCallbacks = 5600 };
 enum { k_iSteamRemotePlayCallbacks = 5700 };
 enum { k_iClientCompatCallbacks = 5800 };
 enum { k_iSteamChatCallbacks = 5900 };
+enum { k_iClientNetworkingUtilsCallbacks = 6000 };
+enum { k_iClientSystemManagerCallbacks = 6100 };
+enum { k_iClientStorageDeviceManagerCallbacks = 6200 };
 
 #ifdef _MSVC_VER
 #pragma warning( pop )
 #endif
+
+// Macros used to annotate various Steamworks interfaces to generate the
+// flat API
+#ifdef API_GEN
+# define STEAM_CLANG_ATTR(ATTR) __attribute__((annotate( ATTR )))
+#else
+# define STEAM_CLANG_ATTR(ATTR)
+#endif
+
+#define STEAM_OUT_STRUCT() STEAM_CLANG_ATTR( "out_struct: ;" )
+#define STEAM_OUT_STRING() STEAM_CLANG_ATTR( "out_string: ;" )
+#define STEAM_OUT_ARRAY_CALL(COUNTER,FUNCTION,PARAMS) STEAM_CLANG_ATTR( "out_array_call:" #COUNTER "," #FUNCTION "," #PARAMS ";" )
+#define STEAM_OUT_ARRAY_COUNT(COUNTER, DESC) STEAM_CLANG_ATTR( "out_array_count:" #COUNTER  ";desc:" #DESC )
+#define STEAM_ARRAY_COUNT(COUNTER) STEAM_CLANG_ATTR( "array_count:" #COUNTER ";" )
+#define STEAM_ARRAY_COUNT_D(COUNTER, DESC) STEAM_CLANG_ATTR( "array_count:" #COUNTER ";desc:" #DESC )
+#define STEAM_BUFFER_COUNT(COUNTER) STEAM_CLANG_ATTR( "buffer_count:" #COUNTER ";" )
+#define STEAM_OUT_BUFFER_COUNT(COUNTER) STEAM_CLANG_ATTR( "out_buffer_count:" #COUNTER ";" )
+#define STEAM_OUT_STRING_COUNT(COUNTER) STEAM_CLANG_ATTR( "out_string_count:" #COUNTER ";" )
+#define STEAM_DESC(DESC) STEAM_CLANG_ATTR("desc:" #DESC ";")
+#define STEAM_CALL_RESULT(RESULT_TYPE) STEAM_CLANG_ATTR("callresult:" #RESULT_TYPE ";")
+#define STEAM_CALL_BACK(RESULT_TYPE) STEAM_CLANG_ATTR("callback:" #RESULT_TYPE ";")
+#define STEAM_FLAT_NAME(NAME) STEAM_CLANG_ATTR("flat_name:" #NAME ";")
 
 // CSteamAPIContext encapsulates the Steamworks API global accessors into
 // a single object.
@@ -376,33 +401,31 @@ private:
 	ISteamInput			*m_pSteamInput;
 };
 
-// class CSteamGameServerAPIContext
-// {
-// public:
-// 	CSteamGameServerAPIContext() { Clear(); }
-// 	inline void Clear() { memset( this, 0, sizeof(*this) ); }
-// 	inline bool Init(); // NOTE: This is defined in steam_gameserver.h, to avoid this file having to include everything
+class CSteamGameServerAPIContext
+{
+public:
+	CSteamGameServerAPIContext() { Clear(); }
+	inline void Clear() { memset( this, 0, sizeof(*this) ); }
+	inline bool Init(); // NOTE: This is defined in steam_gameserver.h, to avoid this file having to include everything
 
-// 	ISteamClient *SteamClient() const					{ return m_pSteamClient; }
-// 	ISteamGameServer *SteamGameServer() const			{ return m_pSteamGameServer; }
-// 	ISteamUtils *SteamGameServerUtils() const			{ return m_pSteamGameServerUtils; }
-// 	ISteamNetworking *SteamGameServerNetworking() const	{ return m_pSteamGameServerNetworking; }
-// 	ISteamGameServerStats *SteamGameServerStats() const	{ return m_pSteamGameServerStats; }
-// 	ISteamHTTP *SteamHTTP() const						{ return m_pSteamHTTP; }
-// 	ISteamInventory *SteamInventory() const				{ return m_pSteamInventory; }
-// 	ISteamUGC *SteamUGC() const							{ return m_pSteamUGC; }
-// 	ISteamApps *SteamApps() const						{ return m_pSteamApps; }
+	ISteamClient *SteamClient() const					{ return m_pSteamClient; }
+	ISteamGameServer *SteamGameServer() const			{ return m_pSteamGameServer; }
+	ISteamUtils *SteamGameServerUtils() const			{ return m_pSteamGameServerUtils; }
+	ISteamNetworking *SteamGameServerNetworking() const	{ return m_pSteamGameServerNetworking; }
+	ISteamGameServerStats *SteamGameServerStats() const	{ return m_pSteamGameServerStats; }
+	ISteamHTTP *SteamHTTP() const						{ return m_pSteamHTTP; }
+	ISteamInventory *SteamInventory() const				{ return m_pSteamInventory; }
+	ISteamUGC *SteamUGC() const							{ return m_pSteamUGC; }
 
-// private:
-// 	ISteamClient				*m_pSteamClient;
-// 	ISteamGameServer			*m_pSteamGameServer;
-// 	ISteamUtils					*m_pSteamGameServerUtils;
-// 	ISteamNetworking			*m_pSteamGameServerNetworking;
-// 	ISteamGameServerStats		*m_pSteamGameServerStats;
-// 	ISteamHTTP					*m_pSteamHTTP;
-// 	ISteamInventory				*m_pSteamInventory;
-// 	ISteamUGC					*m_pSteamUGC;
-// 	ISteamApps					*m_pSteamApps;
-// };
+private:
+	ISteamClient				*m_pSteamClient;
+	ISteamGameServer			*m_pSteamGameServer;
+	ISteamUtils					*m_pSteamGameServerUtils;
+	ISteamNetworking			*m_pSteamGameServerNetworking;
+	ISteamGameServerStats		*m_pSteamGameServerStats;
+	ISteamHTTP					*m_pSteamHTTP;
+	ISteamInventory				*m_pSteamInventory;
+	ISteamUGC					*m_pSteamUGC;
+};
 
 

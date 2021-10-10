@@ -10,11 +10,8 @@ try {
       'The Steamworks SDK directory was not found or is invalid!\nThe default location should be [program_dir]/steam.\nYou can also point to a custom directory using a \'STEAMWORKS_SDK_PATH\' environment variable.',
     );
   } else {
-    const steamSdkDirs = ['lib', 'redistributable_bin', 'public/steam'].map(dir => path.join(steamSdkBasePath, dir));
-    for (const steamSdkDir of steamSdkDirs) {
-      fs.copySync(steamSdkDir, path.join('./steam', path.dirname(steamSdkDir)), { recursive: true, overwrite: true });
-      
-    }
+    fs.copySync(path.join(steamSdkBasePath, 'redistributable_bin'), './steam/redistributable_bin', { recursive: true, overwrite: true });
+    fs.copySync(path.join(steamSdkBasePath, 'public/steam'), './steam/', { recursive: true, overwrite: true });
   }
 
   const steamRedisDir = './steam/redistributable_bin';
@@ -122,6 +119,12 @@ try {
   const SteamGlobalAccessors = [];
   const SteamInterfaces = [];
   for (const steamHeader of fs.readdirSync('./steam')) {
+    if (fs.lstatSync(path.resolve('./steam', steamHeader)).isFile()) {
+      const content = fs.readFileSync(path.resolve('./steam', steamHeader), 'utf8');
+      if (content.match(/EControllerSourceMode/gm)) {
+        fs.writeFileSync(path.resolve('./steam', steamHeader), content.replace(/EControllerSourceMode/gm, 'EInputSourceMode')); // The steam headers don't seem to define this enum, even though it's the same as EInputSourceMode
+      }
+    }
     if (fs.lstatSync(path.resolve('./steam', steamHeader)).isFile()) {
       const content = fs.readFileSync(path.resolve('./steam', steamHeader), 'utf8');
       const resultMatches = content

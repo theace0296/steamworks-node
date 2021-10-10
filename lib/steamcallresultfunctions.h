@@ -380,6 +380,12 @@
     return DeleteItemResult;
   };
   
+  CWorkshopEULAStatus* GetWorkshopEULAStatus() {
+    SteamAPICall_t GetWorkshopEULAStatusCall = SteamUGC()->GetWorkshopEULAStatus();
+    CWorkshopEULAStatus* GetWorkshopEULAStatusResult = new CWorkshopEULAStatus(GetWorkshopEULAStatusCall);
+    return GetWorkshopEULAStatusResult;
+  };
+  
   CEncryptedAppTicketResponse* RequestEncryptedAppTicket(void * pDataToInclude, int cbDataToInclude) {
     SteamAPICall_t RequestEncryptedAppTicketCall = SteamUser()->RequestEncryptedAppTicket(pDataToInclude, cbDataToInclude);
     CEncryptedAppTicketResponse* RequestEncryptedAppTicketResult = new CEncryptedAppTicketResponse(RequestEncryptedAppTicketCall);

@@ -1233,6 +1233,20 @@
       "m_nPublishedFileId": "number"
     }
   },
+  "GetWorkshopEULAStatus": {
+    "name": "GetWorkshopEULAStatus",
+    "parent": "SteamUGC",
+    "result": "WorkshopEULAStatus",
+    "args": [],
+    "returnType": {
+      "m_eResult": "SteamEnums.EResult",
+      "m_nAppID": "number",
+      "m_unVersion": "number",
+      "m_rtAction": "number",
+      "m_bAccepted": "boolean",
+      "m_bNeedsAction": "boolean"
+    }
+  },
   "RequestEncryptedAppTicket": {
     "name": "RequestEncryptedAppTicket",
     "parent": "SteamUser",
