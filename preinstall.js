@@ -1,16 +1,23 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
-const steamSdkBasePath = process?.env?.STEAMWORKS_SDK_PATH ?? __dirname;
+const defaultSteamSdkBinPath = './sdk';
+const steamSdkBasePath = process?.env?.STEAMWORKS_SDK_PATH ?? defaultSteamSdkBinPath;
 
 try {
   if (!fs.existsSync(steamSdkBasePath)) {
     throw new Error(
-      'The Steamworks SDK directory was not found or is invalid!\nThe default location should be [steamworks_node_directory]/sdk.\nYou can also point to a custom directory using a \'STEAMWORKS_SDK_PATH\' environment variable.',
+      'The Steamworks SDK directory was not found or is invalid!\nThe default location should be [program_dir]/steam.\nYou can also point to a custom directory using a \'STEAMWORKS_SDK_PATH\' environment variable.',
     );
+  } else {
+    const steamSdkDirs = ['lib', 'redistributable_bin', 'public/steam'].map(dir => path.join(steamSdkBasePath, dir));
+    for (const steamSdkDir of steamSdkDirs) {
+      fs.copySync(steamSdkDir, path.join('./steam', path.dirname(steamSdkDir)), { recursive: true, overwrite: true });
+      
+    }
   }
 
-  const steamRedisDir = path.join(steamSdkBasePath, 'sdk', 'redistributable_bin');
+  const steamRedisDir = './steam/redistributable_bin';
   const steamRedisFiles = (() => {
     switch (process.platform) {
     case 'win32':
@@ -49,18 +56,18 @@ try {
 
   for (const steamRedisFile of steamRedisFiles) {
     if (path.basename(steamRedisFile).includes('lib')) {
-      const gypContent = fs.readFileSync(path.join(__dirname, 'binding.gyp'), 'utf-8');
+      const gypContent = fs.readFileSync('./binding.gyp', 'utf-8');
       const gypObject = JSON.parse(gypContent);
       if (gypObject && gypObject?.targets?.length && gypObject?.targets[0]?.libraries) {
-        gypObject.targets[0].libraries = [path.relative(path.join(__dirname, 'build'), steamRedisFile)];
-        fs.writeFileSync(path.join(__dirname, 'binding.gyp'), JSON.stringify(gypObject, null, 2));
+        gypObject.targets[0].libraries = [path.relative(path.resolve('./build'), steamRedisFile)];
+        fs.writeFileSync('./binding.gyp', JSON.stringify(gypObject, null, 2));
       } else {
         throw new Error('bindings.gyp was unreadable or formatted incorrectly!');
       }
     }
   }
 
-  const steamAuthlibDir = path.join(steamSdkBasePath, 'sdk', 'lib');
+  const steamAuthlibDir = './steam/lib';
   const steamAuthlibFiles = (() => {
     switch (process.platform) {
     case 'win32':
@@ -96,14 +103,14 @@ try {
 
   for (const steamAuthlibFile of steamAuthlibFiles) {
     if (path.basename(steamAuthlibFile).includes('lib')) {
-      const gypContent = fs.readFileSync(path.join(__dirname, 'binding.gyp'), 'utf-8');
+      const gypContent = fs.readFileSync('./binding.gyp', 'utf-8');
       const gypObject = JSON.parse(gypContent);
       if (gypObject && gypObject?.targets?.length && gypObject?.targets[0]?.libraries) {
         gypObject.targets[0].libraries = [
           ...gypObject.targets[0].libraries,
-          path.relative(path.join(__dirname, 'build'), steamAuthlibFile),
+          path.relative(path.resolve('./build'), steamAuthlibFile),
         ];
-        fs.writeFileSync(path.join(__dirname, 'binding.gyp'), JSON.stringify(gypObject, null, 2));
+        fs.writeFileSync('./binding.gyp', JSON.stringify(gypObject, null, 2));
       } else {
         throw new Error('bindings.gyp was unreadable or formatted incorrectly!');
       }
@@ -114,10 +121,9 @@ try {
   const SteamCallBackNames = [];
   const SteamGlobalAccessors = [];
   const SteamInterfaces = [];
-  const steamHeadersDir = path.resolve(steamSdkBasePath, 'sdk/public/steam');
-  for (const steamHeader of fs.readdirSync(steamHeadersDir)) {
-    if (fs.lstatSync(path.resolve(steamHeadersDir, steamHeader)).isFile()) {
-      const content = fs.readFileSync(path.resolve(steamHeadersDir, steamHeader), 'utf8');
+  for (const steamHeader of fs.readdirSync('./steam')) {
+    if (fs.lstatSync(path.resolve('./steam', steamHeader)).isFile()) {
+      const content = fs.readFileSync(path.resolve('./steam', steamHeader), 'utf8');
       const resultMatches = content
         .match(/(?<!#define )STEAM_CALL_RESULT\(\s*(\w+)\s*\)/gm)
         ?.map(match => /STEAM_CALL_RESULT\(\s*(\w+)\s*\)/.exec(match)[1])
@@ -180,7 +186,7 @@ ${steamInterfaceIncludes.map(incl => `#include "${incl}"`).join('\n')}
 ${steamInterfacesStr}`;
   fs.writeFileSync('./lib/steaminterfaces.h', steamInterfacesStr);
 
-  const steamApiJson = JSON.parse(fs.readFileSync(path.resolve(steamSdkBasePath, 'sdk/public/steam/steam_api.json'), 'utf8'));
+  const steamApiJson = JSON.parse(fs.readFileSync('./steam/steam_api.json', 'utf8'));
   fs.writeFileSync('./lib/steam_api.json', JSON.stringify(steamApiJson, null, 2));
 
   const steamApiTypeDefs = {};

@@ -134,6 +134,9 @@ declare namespace SteamEnums {
     k_EResultNoLauncherSpecified = 117,
     k_EResultMustAgreeToSSA = 118,
     k_EResultLauncherMigrated = 119,
+    k_EResultSteamRealmMismatch = 120,
+    k_EResultInvalidSignature = 121,
+    k_EResultParseFailure = 122,
   }
 
   export enum EVoiceResult {
@@ -211,73 +214,6 @@ declare namespace SteamEnums {
     k_EAccountTypeMax = 11,
   }
 
-  export enum EAppReleaseState {
-    k_EAppReleaseState_Unknown = 0,
-    k_EAppReleaseState_Unavailable = 1,
-    k_EAppReleaseState_Prerelease = 2,
-    k_EAppReleaseState_PreloadOnly = 3,
-    k_EAppReleaseState_Released = 4,
-  }
-
-  export enum EAppOwnershipFlags {
-    k_EAppOwnershipFlags_None = 0,
-    k_EAppOwnershipFlags_OwnsLicense = 1,
-    k_EAppOwnershipFlags_FreeLicense = 2,
-    k_EAppOwnershipFlags_RegionRestricted = 4,
-    k_EAppOwnershipFlags_LowViolence = 8,
-    k_EAppOwnershipFlags_InvalidPlatform = 16,
-    k_EAppOwnershipFlags_SharedLicense = 32,
-    k_EAppOwnershipFlags_FreeWeekend = 64,
-    k_EAppOwnershipFlags_RetailLicense = 128,
-    k_EAppOwnershipFlags_LicenseLocked = 256,
-    k_EAppOwnershipFlags_LicensePending = 512,
-    k_EAppOwnershipFlags_LicenseExpired = 1024,
-    k_EAppOwnershipFlags_LicensePermanent = 2048,
-    k_EAppOwnershipFlags_LicenseRecurring = 4096,
-    k_EAppOwnershipFlags_LicenseCanceled = 8192,
-    k_EAppOwnershipFlags_AutoGrant = 16384,
-    k_EAppOwnershipFlags_PendingGift = 32768,
-    k_EAppOwnershipFlags_RentalNotActivated = 65536,
-    k_EAppOwnershipFlags_Rental = 131072,
-    k_EAppOwnershipFlags_SiteLicense = 262144,
-    k_EAppOwnershipFlags_LegacyFreeSub = 524288,
-    k_EAppOwnershipFlags_InvalidOSType = 1048576,
-    k_EAppOwnershipFlags_TimedTrial = 2097152,
-  }
-
-  export enum EAppType {
-    k_EAppType_Invalid = 0,
-    k_EAppType_Game = 1,
-    k_EAppType_Application = 2,
-    k_EAppType_Tool = 4,
-    k_EAppType_Demo = 8,
-    k_EAppType_Media_DEPRECATED = 16,
-    k_EAppType_DLC = 32,
-    k_EAppType_Guide = 64,
-    k_EAppType_Driver = 128,
-    k_EAppType_Config = 256,
-    k_EAppType_Hardware = 512,
-    k_EAppType_Franchise = 1024,
-    k_EAppType_Video = 2048,
-    k_EAppType_Plugin = 4096,
-    k_EAppType_MusicAlbum = 8192,
-    k_EAppType_Series = 16384,
-    k_EAppType_Comic_UNUSED = 32768,
-    k_EAppType_Beta = 65536,
-    k_EAppType_Shortcut = 1073741824,
-    k_EAppType_DepotOnly_DEPRECATED = -2147483648,
-  }
-
-  export enum ESteamUserStatType {
-    k_ESteamUserStatTypeINVALID = 0,
-    k_ESteamUserStatTypeINT = 1,
-    k_ESteamUserStatTypeFLOAT = 2,
-    k_ESteamUserStatTypeAVGRATE = 3,
-    k_ESteamUserStatTypeACHIEVEMENTS = 4,
-    k_ESteamUserStatTypeGROUPACHIEVEMENTS = 5,
-    k_ESteamUserStatTypeMAX = 6,
-  }
-
   export enum EChatEntryType {
     k_EChatEntryTypeInvalid = 0,
     k_EChatEntryTypeChatMsg = 1,
@@ -315,15 +251,6 @@ declare namespace SteamEnums {
     k_EChatInstanceFlagMMSLobby = 131072,
   }
 
-  export enum EMarketingMessageFlags {
-    k_EMarketingMessageFlagsNone = 0,
-    k_EMarketingMessageFlagsHighPriority = 1,
-    k_EMarketingMessageFlagsPlatformWindows = 2,
-    k_EMarketingMessageFlagsPlatformMac = 4,
-    k_EMarketingMessageFlagsPlatformLinux = 8,
-    k_EMarketingMessageFlagsPlatformRestrictions = 14,
-  }
-
   export enum ENotificationPosition {
     k_EPositionTopLeft = 0,
     k_EPositionTopRight = 1,
@@ -356,63 +283,6 @@ declare namespace SteamEnums {
     k_EBroadcastUploadResultDisconnect = 21,
     k_EBroadcastUploadResultVideoInitFailed = 22,
     k_EBroadcastUploadResultAudioInitFailed = 23,
-  }
-
-  export enum ELaunchOptionType {
-    k_ELaunchOptionType_None = 0,
-    k_ELaunchOptionType_Default = 1,
-    k_ELaunchOptionType_SafeMode = 2,
-    k_ELaunchOptionType_Multiplayer = 3,
-    k_ELaunchOptionType_Config = 4,
-    k_ELaunchOptionType_OpenVR = 5,
-    k_ELaunchOptionType_Server = 6,
-    k_ELaunchOptionType_Editor = 7,
-    k_ELaunchOptionType_Manual = 8,
-    k_ELaunchOptionType_Benchmark = 9,
-    k_ELaunchOptionType_Option1 = 10,
-    k_ELaunchOptionType_Option2 = 11,
-    k_ELaunchOptionType_Option3 = 12,
-    k_ELaunchOptionType_OculusVR = 13,
-    k_ELaunchOptionType_OpenVROverlay = 14,
-    k_ELaunchOptionType_OSVR = 15,
-    k_ELaunchOptionType_Dialog = 1000,
-  }
-
-  export enum EVRHMDType {
-    k_eEVRHMDType_None = -1,
-    k_eEVRHMDType_Unknown = 0,
-    k_eEVRHMDType_HTC_Dev = 1,
-    k_eEVRHMDType_HTC_VivePre = 2,
-    k_eEVRHMDType_HTC_Vive = 3,
-    k_eEVRHMDType_HTC_VivePro = 4,
-    k_eEVRHMDType_HTC_ViveCosmos = 5,
-    k_eEVRHMDType_HTC_Unknown = 20,
-    k_eEVRHMDType_Oculus_DK1 = 21,
-    k_eEVRHMDType_Oculus_DK2 = 22,
-    k_eEVRHMDType_Oculus_Rift = 23,
-    k_eEVRHMDType_Oculus_RiftS = 24,
-    k_eEVRHMDType_Oculus_Quest = 25,
-    k_eEVRHMDType_Oculus_Unknown = 40,
-    k_eEVRHMDType_Acer_Unknown = 50,
-    k_eEVRHMDType_Acer_WindowsMR = 51,
-    k_eEVRHMDType_Dell_Unknown = 60,
-    k_eEVRHMDType_Dell_Visor = 61,
-    k_eEVRHMDType_Lenovo_Unknown = 70,
-    k_eEVRHMDType_Lenovo_Explorer = 71,
-    k_eEVRHMDType_HP_Unknown = 80,
-    k_eEVRHMDType_HP_WindowsMR = 81,
-    k_eEVRHMDType_HP_Reverb = 82,
-    k_eEVRHMDType_HP_ReverbG2 = 1463,
-    k_eEVRHMDType_Samsung_Unknown = 90,
-    k_eEVRHMDType_Samsung_Odyssey = 91,
-    k_eEVRHMDType_Unannounced_Unknown = 100,
-    k_eEVRHMDType_Unannounced_WindowsMR = 101,
-    k_eEVRHMDType_vridge = 110,
-    k_eEVRHMDType_Huawei_Unknown = 120,
-    k_eEVRHMDType_Huawei_VR2 = 121,
-    k_eEVRHMDType_Huawei_EndOfRange = 129,
-    k_eEVRHmdType_Valve_Unknown = 130,
-    k_eEVRHmdType_Valve_Index = 131,
   }
 
   export enum EMarketNotAllowedReasonFlags {
@@ -731,6 +601,18 @@ declare namespace SteamEnums {
     k_EUGCRead_Close = 2,
   }
 
+  export enum ERemoteStorageLocalFileChange {
+    k_ERemoteStorageLocalFileChange_Invalid = 0,
+    k_ERemoteStorageLocalFileChange_FileUpdated = 1,
+    k_ERemoteStorageLocalFileChange_FileDeleted = 2,
+  }
+
+  export enum ERemoteStorageFilePathType {
+    k_ERemoteStorageFilePathType_Invalid = 0,
+    k_ERemoteStorageFilePathType_Absolute = 1,
+    k_ERemoteStorageFilePathType_APIFilename = 2,
+  }
+
   export enum ELeaderboardDataRequest {
     k_ELeaderboardDataRequestGlobal = 0,
     k_ELeaderboardDataRequestGlobalAroundUser = 1,
@@ -1040,11 +922,11 @@ declare namespace SteamEnums {
     k_EInputActionOrigin_XBoxOne_DPad_West = 140,
     k_EInputActionOrigin_XBoxOne_DPad_East = 141,
     k_EInputActionOrigin_XBoxOne_DPad_Move = 142,
-    k_EInputActionOrigin_XBoxOne_Reserved1 = 143,
-    k_EInputActionOrigin_XBoxOne_Reserved2 = 144,
-    k_EInputActionOrigin_XBoxOne_Reserved3 = 145,
-    k_EInputActionOrigin_XBoxOne_Reserved4 = 146,
-    k_EInputActionOrigin_XBoxOne_Reserved5 = 147,
+    k_EInputActionOrigin_XBoxOne_LeftGrip_Lower = 143,
+    k_EInputActionOrigin_XBoxOne_LeftGrip_Upper = 144,
+    k_EInputActionOrigin_XBoxOne_RightGrip_Lower = 145,
+    k_EInputActionOrigin_XBoxOne_RightGrip_Upper = 146,
+    k_EInputActionOrigin_XBoxOne_Share = 147,
     k_EInputActionOrigin_XBoxOne_Reserved6 = 148,
     k_EInputActionOrigin_XBoxOne_Reserved7 = 149,
     k_EInputActionOrigin_XBoxOne_Reserved8 = 150,
@@ -1271,6 +1153,18 @@ declare namespace SteamEnums {
     k_ESteamControllerPad_Right = 1,
   }
 
+  export enum EControllerHapticLocation {
+    k_EControllerHapticLocation_Left = 1,
+    k_EControllerHapticLocation_Right = 2,
+    k_EControllerHapticLocation_Both = 3,
+  }
+
+  export enum EControllerHapticType {
+    k_EControllerHapticType_Off = 0,
+    k_EControllerHapticType_Tick = 1,
+    k_EControllerHapticType_Click = 2,
+  }
+
   export enum ESteamInputType {
     k_ESteamInputType_Unknown = 0,
     k_ESteamInputType_SteamController = 1,
@@ -1290,9 +1184,28 @@ declare namespace SteamEnums {
     k_ESteamInputType_MaximumPossibleValue = 255,
   }
 
+  export enum ESteamInputConfigurationEnableType {
+    k_ESteamInputConfigurationEnableType_None = 0,
+    k_ESteamInputConfigurationEnableType_Playstation = 1,
+    k_ESteamInputConfigurationEnableType_Xbox = 2,
+    k_ESteamInputConfigurationEnableType_Generic = 4,
+    k_ESteamInputConfigurationEnableType_Switch = 8,
+  }
+
   export enum ESteamInputLEDFlag {
     k_ESteamInputLEDFlag_SetColor = 0,
     k_ESteamInputLEDFlag_RestoreUserDefault = 1,
+  }
+
+  export enum ESteamInputGlyphSize {
+    k_ESteamInputGlyphSize_Small = 0,
+    k_ESteamInputGlyphSize_Medium = 1,
+    k_ESteamInputGlyphSize_Large = 2,
+  }
+
+  export enum ESteamInputActionEventType {
+    ESteamInputActionEventType_DigitalAction = 0,
+    ESteamInputActionEventType_AnalogAction = 1,
   }
 
   export enum EControllerActionOrigin {
@@ -1596,7 +1509,12 @@ declare namespace SteamEnums {
     k_EControllerActionOrigin_PS5_Gyro_Pitch = 297,
     k_EControllerActionOrigin_PS5_Gyro_Yaw = 298,
     k_EControllerActionOrigin_PS5_Gyro_Roll = 299,
-    k_EControllerActionOrigin_Count = 300,
+    k_EControllerActionOrigin_XBoxOne_LeftGrip_Lower = 300,
+    k_EControllerActionOrigin_XBoxOne_LeftGrip_Upper = 301,
+    k_EControllerActionOrigin_XBoxOne_RightGrip_Lower = 302,
+    k_EControllerActionOrigin_XBoxOne_RightGrip_Upper = 303,
+    k_EControllerActionOrigin_XBoxOne_Share = 304,
+    k_EControllerActionOrigin_Count = 305,
     k_EControllerActionOrigin_MaximumPossibleValue = 32767,
   }
 
@@ -1664,6 +1582,7 @@ declare namespace SteamEnums {
     k_EUGCQuery_RankedByLifetimeAveragePlaytime = 16,
     k_EUGCQuery_RankedByPlaytimeSessionsTrend = 17,
     k_EUGCQuery_RankedByLifetimePlaytimeSessions = 18,
+    k_EUGCQuery_RankedByLastUpdatedDate = 19,
   }
 
   export enum EItemUpdateStatus {
@@ -1801,8 +1720,6 @@ declare namespace SteamEnums {
     k_ESteamNetConnectionEnd_Remote_Timeout = 4001,
     k_ESteamNetConnectionEnd_Remote_BadCrypt = 4002,
     k_ESteamNetConnectionEnd_Remote_BadCert = 4003,
-    k_ESteamNetConnectionEnd_Remote_NotLoggedIn = 4004,
-    k_ESteamNetConnectionEnd_Remote_NotRunningApp = 4005,
     k_ESteamNetConnectionEnd_Remote_BadProtocolVersion = 4006,
     k_ESteamNetConnectionEnd_Remote_P2P_ICE_NoPublicAddresses = 4007,
     k_ESteamNetConnectionEnd_Remote_Max = 4999,
@@ -1810,7 +1727,6 @@ declare namespace SteamEnums {
     k_ESteamNetConnectionEnd_Misc_Generic = 5001,
     k_ESteamNetConnectionEnd_Misc_InternalError = 5002,
     k_ESteamNetConnectionEnd_Misc_Timeout = 5003,
-    k_ESteamNetConnectionEnd_Misc_RelayConnectivity = 5004,
     k_ESteamNetConnectionEnd_Misc_SteamConnectivity = 5005,
     k_ESteamNetConnectionEnd_Misc_NoRelaySessionsToClient = 5006,
     k_ESteamNetConnectionEnd_Misc_P2P_Rendezvous = 5008,
@@ -1818,18 +1734,6 @@ declare namespace SteamEnums {
     k_ESteamNetConnectionEnd_Misc_PeerSentNoConnection = 5010,
     k_ESteamNetConnectionEnd_Misc_Max = 5999,
     k_ESteamNetConnectionEnd__Force32Bit = 2147483647,
-  }
-
-  export enum ESteamNetTransportKind {
-    k_ESteamNetTransport_Unknown = 0,
-    k_ESteamNetTransport_LoopbackBuffers = 1,
-    k_ESteamNetTransport_LocalHost = 2,
-    k_ESteamNetTransport_UDP = 3,
-    k_ESteamNetTransport_UDPProbablyLocal = 4,
-    k_ESteamNetTransport_TURN = 5,
-    k_ESteamNetTransport_SDRP2P = 6,
-    k_ESteamNetTransport_SDRHostedServer = 7,
-    k_ESteamNetTransport_Force32Bit = 2147483647,
   }
 
   export enum ESteamNetworkingConfigScope {
@@ -1851,6 +1755,20 @@ declare namespace SteamEnums {
 
   export enum ESteamNetworkingConfigValue {
     k_ESteamNetworkingConfig_Invalid = 0,
+    k_ESteamNetworkingConfig_TimeoutInitial = 24,
+    k_ESteamNetworkingConfig_TimeoutConnected = 25,
+    k_ESteamNetworkingConfig_SendBufferSize = 9,
+    k_ESteamNetworkingConfig_ConnectionUserData = 40,
+    k_ESteamNetworkingConfig_SendRateMin = 10,
+    k_ESteamNetworkingConfig_SendRateMax = 11,
+    k_ESteamNetworkingConfig_NagleTime = 12,
+    k_ESteamNetworkingConfig_IP_AllowWithoutAuth = 23,
+    k_ESteamNetworkingConfig_MTU_PacketSize = 32,
+    k_ESteamNetworkingConfig_MTU_DataSize = 33,
+    k_ESteamNetworkingConfig_Unencrypted = 34,
+    k_ESteamNetworkingConfig_SymmetricConnect = 37,
+    k_ESteamNetworkingConfig_LocalVirtualPort = 38,
+    k_ESteamNetworkingConfig_DualWifi_Enable = 39,
     k_ESteamNetworkingConfig_FakePacketLoss_Send = 2,
     k_ESteamNetworkingConfig_FakePacketLoss_Recv = 3,
     k_ESteamNetworkingConfig_FakePacketLag_Send = 4,
@@ -1861,19 +1779,11 @@ declare namespace SteamEnums {
     k_ESteamNetworkingConfig_FakePacketDup_Send = 26,
     k_ESteamNetworkingConfig_FakePacketDup_Recv = 27,
     k_ESteamNetworkingConfig_FakePacketDup_TimeMax = 28,
-    k_ESteamNetworkingConfig_TimeoutInitial = 24,
-    k_ESteamNetworkingConfig_TimeoutConnected = 25,
-    k_ESteamNetworkingConfig_SendBufferSize = 9,
-    k_ESteamNetworkingConfig_SendRateMin = 10,
-    k_ESteamNetworkingConfig_SendRateMax = 11,
-    k_ESteamNetworkingConfig_NagleTime = 12,
-    k_ESteamNetworkingConfig_IP_AllowWithoutAuth = 23,
-    k_ESteamNetworkingConfig_MTU_PacketSize = 32,
-    k_ESteamNetworkingConfig_MTU_DataSize = 33,
-    k_ESteamNetworkingConfig_Unencrypted = 34,
-    k_ESteamNetworkingConfig_EnumerateDevVars = 35,
-    k_ESteamNetworkingConfig_SymmetricConnect = 37,
-    k_ESteamNetworkingConfig_LocalVirtualPort = 38,
+    k_ESteamNetworkingConfig_PacketTraceMaxBytes = 41,
+    k_ESteamNetworkingConfig_FakeRateLimit_Send_Rate = 42,
+    k_ESteamNetworkingConfig_FakeRateLimit_Send_Burst = 43,
+    k_ESteamNetworkingConfig_FakeRateLimit_Recv_Rate = 44,
+    k_ESteamNetworkingConfig_FakeRateLimit_Recv_Burst = 45,
     k_ESteamNetworkingConfig_Callback_ConnectionStatusChanged = 201,
     k_ESteamNetworkingConfig_Callback_AuthStatusChanged = 202,
     k_ESteamNetworkingConfig_Callback_RelayNetworkStatusChanged = 203,
@@ -1898,6 +1808,7 @@ declare namespace SteamEnums {
     k_ESteamNetworkingConfig_LogLevel_PacketGaps = 16,
     k_ESteamNetworkingConfig_LogLevel_P2PRendezvous = 17,
     k_ESteamNetworkingConfig_LogLevel_SDRRelayPings = 18,
+    k_ESteamNetworkingConfig_DELETED_EnumerateDevVars = 35,
     k_ESteamNetworkingConfigValue__Force32Bit = 2147483647,
   }
 

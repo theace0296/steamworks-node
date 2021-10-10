@@ -1,19 +1,20 @@
 const fs = require('fs');
 const path = require('path');
 
-const modulePath = path.join(__dirname, 'build', 'Release', 'steamworks.node');
-fs.copyFileSync(modulePath, path.join(__dirname, 'bin', 'steamworks.node'));
+const modulePath = path.join('./build', 'Release', 'steamworks.node');
+fs.copyFileSync(modulePath, path.join('./bin', 'steamworks.node'));
 
-const steamSdkBasePath = process?.env?.STEAMWORKS_SDK_PATH ?? __dirname;
+const defaultSteamSdkBinPath = './sdk';
+const steamSdkBasePath = process?.env?.STEAMWORKS_SDK_PATH ?? defaultSteamSdkBinPath;
 
 try {
   if (!fs.existsSync(steamSdkBasePath)) {
     throw new Error(
-      'The Steamworks SDK directory was not found or is invalid!\nThe default location should be [steamworks_node_directory]/sdk.\nYou can also point to a custom directory using a \'STEAMWORKS_SDK_PATH\' environment variable.',
+      'The Steamworks SDK directory was not found or is invalid!\nThe default location should be [program_dir]/steam.\nYou can also point to a custom directory using a \'STEAMWORKS_SDK_PATH\' environment variable.',
     );
   }
 
-  const steamRedisDir = path.join(__dirname, 'sdk', 'redistributable_bin');
+  const steamRedisDir = './steam/redistributable_bin';
   const steamRedisFiles = (() => {
     switch (process.platform) {
     case 'win32':
@@ -51,10 +52,10 @@ try {
   }
 
   for (const steamRedisFile of steamRedisFiles) {
-    fs.copyFileSync(steamRedisFile, path.join(__dirname, 'bin', path.basename(steamRedisFile)));
+    fs.copyFileSync(steamRedisFile, path.join('./bin', path.basename(steamRedisFile)));
   }
 
-  const steamAuthlibDir = path.join(__dirname, 'sdk', 'lib');
+  const steamAuthlibDir = './steam/lib';
   const steamAuthlibFiles = (() => {
     switch (process.platform) {
     case 'win32':
@@ -91,7 +92,7 @@ try {
   }
 
   for (const steamAuthlibFile of steamAuthlibFiles) {
-    fs.copyFileSync(steamAuthlibFile, path.join(__dirname, 'bin', path.basename(steamAuthlibFile)));
+    fs.copyFileSync(steamAuthlibFile, path.join('./bin', path.basename(steamAuthlibFile)));
   }
 } catch (error) {
   console.error('=====================================================');

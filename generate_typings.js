@@ -3,13 +3,13 @@ const path = require('path');
 const steamworks = require('.');
 const SteamWorks = new steamworks();
 
-const steamApiJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steam_api.json'), 'utf8'));
+const steamApiJson = JSON.parse(fs.readFileSync(path.resolve('./lib', 'steam_api.json'), 'utf8'));
 const steamApiTypeDefs = {};
 steamApiJson.typedefs.forEach(type => (steamApiTypeDefs[type.typedef] = type.type));
 const steamApiEnumNames = steamApiJson.enums.map(e => e.enumname);
 const steamApiStructNames = steamApiJson.structs.map(s => s.struct);
-const SteamCallResultFunctions = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steamcallresultfunctions.json'), 'utf8'));
-const SteamCallBackFunctions = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steamcallbackfunctions.json'), 'utf8'));
+const SteamCallResultFunctions = JSON.parse(fs.readFileSync(path.resolve('./lib', 'steamcallresultfunctions.json'), 'utf8'));
+const SteamCallBackFunctions = JSON.parse(fs.readFileSync(path.resolve('./lib', 'steamcallbackfunctions.json'), 'utf8'));
 const steamApiInterfaces = {};
 steamApiJson.interfaces.filter(i => i?.methods?.length).forEach(i => {
   const methods = i.methods.filter(m => !m?.callresult);

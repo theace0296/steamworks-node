@@ -66,14 +66,14 @@ class SteamWorks {
     try {
       this.Init(appId);
 
-      const steamApiJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steam_api.json'), 'utf8'));
+      const steamApiJson = JSON.parse(fs.readFileSync(path.resolve('./lib', 'steam_api.json'), 'utf8'));
       const steamApiEnumNames = steamApiJson.enums.map(e => e.enumname);
       const steamApiStructNames = steamApiJson.structs.map(s => s.struct);
       const steamApiCallbackStructNames = steamApiJson.callback_structs.map(c => c.struct);
 
-      const SteamCallResultFunctions = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steamcallresultfunctions.json'), 'utf8'));
+      const SteamCallResultFunctions = JSON.parse(fs.readFileSync(path.resolve('./lib', 'steamcallresultfunctions.json'), 'utf8'));
 
-      const SteamCallBackFunctions = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'lib', 'steamcallbackfunctions.json'), 'utf8'));
+      const SteamCallBackFunctions = JSON.parse(fs.readFileSync(path.resolve('./lib', 'steamcallbackfunctions.json'), 'utf8'));
 
       const setInterfaceKeys = [];
       const nullInterfaces = [];

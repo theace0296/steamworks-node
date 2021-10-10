@@ -1,5 +1,6 @@
 swig/
 sdk/
+steam/
 patches/
 node_modules/
 lib/

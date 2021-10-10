@@ -9,7 +9,7 @@
       ],
       "include_dirs": [
         ".\\lib",
-        ".\\sdk\\public\\steam"
+        ".\\steam"
       ],
       "libraries": [
         "..\\sdk\\redistributable_bin\\win64\\steam_api64.lib",

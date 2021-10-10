@@ -116,6 +116,13 @@ declare namespace SteamStructs {
     rotVelZ: number,
   }
 
+  export interface SteamInputActionEvent_t {
+    controllerHandle: number,
+    eEventType: SteamEnums.ESteamInputActionEventType,
+    analogAction_actionHandle: number,
+    analogAction_analogActionData: SteamStructs.InputAnalogActionData_t,
+  }
+
   export interface SteamUGCDetails_t {
     m_nPublishedFileId: number,
     m_eResult: SteamEnums.EResult,
@@ -190,6 +197,8 @@ declare namespace SteamStructs {
     GetStadiaID: {(): number},
     SetIPAddr: {(addr: unknown): undefined},
     GetIPAddr: {(): unknown},
+    SetIPv4Addr: {(nIPv4: number, nPort: number): undefined},
+    GetIPv4: {(): number},
     SetLocalHost: {(): undefined},
     IsLocalHost: {(): boolean},
     SetGenericString: {(pszString: string): boolean},
@@ -212,7 +221,7 @@ declare namespace SteamStructs {
     m_eEndReason: number,
     m_szEndDebug: string,
     m_szConnectionDescription: string,
-    m_eTransportKind: SteamEnums.ESteamNetTransportKind,
+    m_nFlags: number,
     reserved: number,
   }
 
