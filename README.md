@@ -12,7 +12,7 @@ const {
   Enums,
   Structs,
   Uncategorized,
-  // Steam API Interfaces are also available at this levelm see index.d.ts
+  // Steam API Interfaces are also available at this level see index.d.ts
 } = SteamWorks;
 
 if (SteamAPI.IsSteamRunning()) {
