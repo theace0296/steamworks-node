@@ -8,12 +8,11 @@ const steamworks = require('steamworks-node');
 const SteamWorks = new steamworks(/* Optional app_id */);
 const {
   SteamAPI,
-  CallBacks,
-  CallResults,
   Constants,
   Enums,
   Structs,
   Uncategorized,
+  // Steam API Interfaces are also available at this levelm see index.d.ts
 } = SteamWorks;
 
 if (SteamAPI.IsSteamRunning()) {
