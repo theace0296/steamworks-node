@@ -781,27 +781,7 @@ public:
 	void SetEUniverse( EUniverse eUniverse )	{ m_steamid.m_comp.m_EUniverse = eUniverse; }
 	bool IsValid() const;
 
-	// this set of functions is hidden, will be moved out of class
-	explicit CSteamID( const char *pchSteamID, EUniverse eDefaultUniverse = k_EUniverseInvalid );
-	const char * Render() const;				// renders this steam ID to string
-	static const char * Render( uint64 ulSteamID );	// static method to render a uint64 representation of a steam ID to a string
-
-	void SetFromString( const char *pchSteamID, EUniverse eDefaultUniverse );
-    // SetFromString allows many partially-correct strings, constraining how
-    // we might be able to change things in the future.
-    // SetFromStringStrict requires the exact string forms that we support
-    // and is preferred when the caller knows it's safe to be strict.
-    // Returns whether the string parsed correctly.
-	bool SetFromStringStrict( const char *pchSteamID, EUniverse eDefaultUniverse );
-	bool SetFromSteam2String( const char *pchSteam2ID, EUniverse eUniverse );
-
-	inline bool operator==( const CSteamID &val ) const { return m_steamid.m_unAll64Bits == val.m_steamid.m_unAll64Bits; } 
-	inline bool operator!=( const CSteamID &val ) const { return !operator==( val ); }
-	inline bool operator<( const CSteamID &val ) const { return m_steamid.m_unAll64Bits < val.m_steamid.m_unAll64Bits; }
-	inline bool operator>( const CSteamID &val ) const { return m_steamid.m_unAll64Bits > val.m_steamid.m_unAll64Bits; }
-
-	// DEBUG function
-	bool BValidExternalSteamID() const;
+	
 
 private:
 	// These are defined here to prevent accidental implicit conversion of a u32AccountID to a CSteamID.
@@ -949,11 +929,7 @@ public:
 		return *this;
 	}
 
-	// Hidden functions used only by Steam
-	explicit CGameID( const char *pchGameID );
-	const char *Render() const;					// render this Game ID to string
-	static const char *Render( uint64 ulGameID );		// static method to render a uint64 representation of a Game ID to a string
-
+	
 	uint64 ToUint64() const
 	{
 		return m_ulGameID;

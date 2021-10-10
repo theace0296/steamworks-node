@@ -12,6 +12,8 @@ try {
   } else {
     fs.copySync(path.join(steamSdkBasePath, 'redistributable_bin'), './steam/redistributable_bin', { recursive: true, overwrite: true });
     fs.copySync(path.join(steamSdkBasePath, 'public/steam'), './steam/', { recursive: true, overwrite: true });
+    fs.rmSync('./build', { recursive: true, force: true });
+    fs.rmSync('./lib/steam_api_wrap.cxx', { force: true });
   }
 
   const steamRedisDir = './steam/redistributable_bin';
@@ -120,13 +122,24 @@ try {
   const SteamInterfaces = [];
   for (const steamHeader of fs.readdirSync('./steam')) {
     if (fs.lstatSync(path.resolve('./steam', steamHeader)).isFile()) {
-      const content = fs.readFileSync(path.resolve('./steam', steamHeader), 'utf8');
+      let content = fs.readFileSync(path.resolve('./steam', steamHeader), 'utf8');
       if (content.match(/EControllerSourceMode/gm)) {
-        fs.writeFileSync(path.resolve('./steam', steamHeader), content.replace(/EControllerSourceMode/gm, 'EInputSourceMode')); // The steam headers don't seem to define this enum, even though it's the same as EInputSourceMode
+        content = content.replace(/EControllerSourceMode/gm, 'EInputSourceMode');
+        fs.writeFileSync(path.resolve('./steam', steamHeader), content); // The steam headers don't seem to define this enum, even though it's the same as EInputSourceMode
       }
-    }
-    if (fs.lstatSync(path.resolve('./steam', steamHeader)).isFile()) {
-      const content = fs.readFileSync(path.resolve('./steam', steamHeader), 'utf8');
+      if (content.match(/class CSteamGameServerAPIContext.+};/gs)) {
+        content = content.replace(/class CSteamGameServerAPIContext.+};/gs, '');
+        fs.writeFileSync(path.resolve('./steam', steamHeader), content); // The CSteamGameServerAPIContext class don't play nice.
+      }
+      if (content.match(/\/\/ this set of functions is hidden.+explicit CSteamID.+bool BValidExternalSteamID\(\) const;/gs)) {
+        content = content.replace(/\/\/ this set of functions is hidden.+explicit CSteamID.+bool BValidExternalSteamID\(\) const;/gs, '');
+        fs.writeFileSync(path.resolve('./steam', steamHeader), content); // These 'hidden' methods in the CSteamID class also don't play nice.
+      }
+      if (content.match(/\/\/ Hidden functions.+explicit CGameID.+static const char \*Render.+?\n/gs)) {
+        content = content.replace(/\/\/ Hidden functions.+explicit CGameID.+static const char \*Render.+?\n/gs, '');
+        fs.writeFileSync(path.resolve('./steam', steamHeader), content); // These 'hidden' methods in the CGameID class also don't play nice.
+      }
+
       const resultMatches = content
         .match(/(?<!#define )STEAM_CALL_RESULT\(\s*(\w+)\s*\)/gm)
         ?.map(match => /STEAM_CALL_RESULT\(\s*(\w+)\s*\)/.exec(match)[1])

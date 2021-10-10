@@ -66,22 +66,9 @@ declare interface steamapi {
   ManualDispatch_GetAPICallResult: {(/* Args Unknown */): unknown};
 }
 declare interface constants {
-  k_cubSaltSize: Number;
-  k_GIDNil: Number;
-  k_TxnIDNil: Number;
-  k_TxnIDUnknown: Number;
-  k_JobIDNil: Number;
-  k_uPackageIdInvalid: Number;
-  k_uBundleIdInvalid: Number;
   k_uAppIdInvalid: Number;
-  k_ulAssetClassIdInvalid: Number;
-  k_uPhysicalItemIdInvalid: Number;
   k_uDepotIdInvalid: Number;
-  k_uCellIDInvalid: Number;
   k_uAPICallInvalid: Number;
-  k_uPartnerIdInvalid: Number;
-  k_uManifestIdInvalid: Number;
-  k_ulSiteIdInvalid: Number;
   k_ulPartyBeaconIdInvalid: Number;
   k_EDenyInvalid: Number;
   k_EDenyInvalidVersion: Number;
@@ -113,11 +100,7 @@ declare interface constants {
   k_EPositionTopRight: Number;
   k_EPositionBottomLeft: Number;
   k_EPositionBottomRight: Number;
-  k_eEVRHmdType_Valve_Unknown: Number;
-  k_eEVRHmdType_Valve_Index: Number;
   k_cchGameExtraInfoMax: Number;
-  QUERY_PORT_NOT_INITIALIZED: Number;
-  QUERY_PORT_ERROR: Number;
   k_EPlayerResultFailedToConnect: Number;
   k_EPlayerResultAbandoned: Number;
   k_EPlayerResultKicked: Number;
@@ -174,6 +157,9 @@ declare interface constants {
   k_iSteamRemotePlayCallbacks: Number;
   k_iClientCompatCallbacks: Number;
   k_iSteamChatCallbacks: Number;
+  k_iClientNetworkingUtilsCallbacks: Number;
+  k_iClientSystemManagerCallbacks: Number;
+  k_iClientStorageDeviceManagerCallbacks: Number;
   STEAMCLIENT_INTERFACE_VERSION: String;
   STEAMUSER_INTERFACE_VERSION: String;
   k_cchMaxFriendsGroupName: Number;
@@ -207,6 +193,10 @@ declare interface constants {
   k_cchMaxRichPresenceKeyLength: Number;
   k_cchMaxRichPresenceValueLength: Number;
   STEAMFRIENDS_INTERFACE_VERSION: String;
+  k_EFloatingGamepadTextInputModeModeSingleLine: Number;
+  k_EFloatingGamepadTextInputModeModeMultipleLines: Number;
+  k_EFloatingGamepadTextInputModeModeEmail: Number;
+  k_EFloatingGamepadTextInputModeModeNumeric: Number;
   STEAMUTILS_INTERFACE_VERSION: String;
   k_nMaxLobbyKeyLength: Number;
   STEAMMATCHMAKING_INTERFACE_VERSION: String;
@@ -325,6 +315,7 @@ declare interface structs {
   InputAnalogActionData_t: SteamStructs.InputAnalogActionData_t;
   InputDigitalActionData_t: SteamStructs.InputDigitalActionData_t;
   InputMotionData_t: SteamStructs.InputMotionData_t;
+  SteamInputActionEvent_t: SteamStructs.SteamInputActionEvent_t;
   SteamNetworkingIdentityRender: SteamStructs.SteamNetworkingIdentityRender;
   SteamNetworkingIPAddrRender: SteamStructs.SteamNetworkingIPAddrRender;
 }
@@ -335,16 +326,9 @@ declare interface enums {
   EBeginAuthSessionResult: SteamEnums.EBeginAuthSessionResult;
   EAuthSessionResponse: SteamEnums.EAuthSessionResponse;
   EAccountType: SteamEnums.EAccountType;
-  EAppReleaseState: SteamEnums.EAppReleaseState;
-  EAppOwnershipFlags: SteamEnums.EAppOwnershipFlags;
-  EAppType: SteamEnums.EAppType;
-  ESteamUserStatType: SteamEnums.ESteamUserStatType;
   EChatEntryType: SteamEnums.EChatEntryType;
   EChatRoomEnterResponse: SteamEnums.EChatRoomEnterResponse;
-  EMarketingMessageFlags: SteamEnums.EMarketingMessageFlags;
   EBroadcastUploadResult: SteamEnums.EBroadcastUploadResult;
-  ELaunchOptionType: SteamEnums.ELaunchOptionType;
-  EVRHMDType: SteamEnums.EVRHMDType;
   EMarketNotAllowedReasonFlags: SteamEnums.EMarketNotAllowedReasonFlags;
   EDurationControlProgress: SteamEnums.EDurationControlProgress;
   EDurationControlNotification: SteamEnums.EDurationControlNotification;
@@ -385,6 +369,8 @@ declare interface enums {
   EWorkshopEnumerationType: SteamEnums.EWorkshopEnumerationType;
   EWorkshopVideoProvider: SteamEnums.EWorkshopVideoProvider;
   EUGCReadAction: SteamEnums.EUGCReadAction;
+  ERemoteStorageLocalFileChange: SteamEnums.ERemoteStorageLocalFileChange;
+  ERemoteStorageFilePathType: SteamEnums.ERemoteStorageFilePathType;
   EVRScreenshotType: SteamEnums.EVRScreenshotType;
   ESteamControllerPad: SteamEnums.ESteamControllerPad;
   EControllerActionOrigin: SteamEnums.EControllerActionOrigin;
@@ -400,7 +386,12 @@ declare interface enums {
   EItemPreviewType: SteamEnums.EItemPreviewType;
   EInputSourceMode: SteamEnums.EInputSourceMode;
   EInputActionOrigin: SteamEnums.EInputActionOrigin;
+  EControllerHapticLocation: SteamEnums.EControllerHapticLocation;
+  EControllerHapticType: SteamEnums.EControllerHapticType;
+  ESteamInputConfigurationEnableType: SteamEnums.ESteamInputConfigurationEnableType;
   ESteamInputLEDFlag: SteamEnums.ESteamInputLEDFlag;
+  ESteamInputGlyphSize: SteamEnums.ESteamInputGlyphSize;
+  ESteamInputActionEventType: SteamEnums.ESteamInputActionEventType;
   ESteamDeviceFormFactor: SteamEnums.ESteamDeviceFormFactor;
 }
 declare interface uncategorized {
@@ -408,12 +399,6 @@ declare interface uncategorized {
   AudioPlayback_Playing: Number;
   AudioPlayback_Paused: Number;
   AudioPlayback_Idle: Number;
-  BIsVRLaunchOptionType: {(/* Args Unknown */): unknown};
-  BIsLaunchOptionTypeExemptFromGameTheater: {(/* Args Unknown */): unknown};
-  BIsOculusHMD: {(/* Args Unknown */): unknown};
-  BIsWindowsMRHeadset: {(/* Args Unknown */): unknown};
-  BIsHuaweiHeadset: {(/* Args Unknown */): unknown};
-  BIsViveHMD: {(/* Args Unknown */): unknown};
   SteamAppTicket: {(/* Args Unknown */): unknown};
   SteamGameCoordinator: {(/* Args Unknown */): unknown};
   SteamNetworkingConnectionSignaling: {(/* Args Unknown */): unknown};
@@ -465,8 +450,8 @@ declare interface steamuser {
   GetHSteamUser: {(): number}
   BLoggedOn: {(): boolean}
   GetSteamID: {(): unknown}
-  InitiateGameConnection: {(pAuthBlob: unknown, cbMaxAuthBlob: number, steamIDGameServer: unknown, unIPServer: number, usPortServer: number, bSecure: boolean): number}
-  TerminateGameConnection: {(unIPServer: number, usPortServer: number): undefined}
+  InitiateGameConnection_DEPRECATED: {(pAuthBlob: unknown, cbMaxAuthBlob: number, steamIDGameServer: unknown, unIPServer: number, usPortServer: number, bSecure: boolean): number}
+  TerminateGameConnection_DEPRECATED: {(unIPServer: number, usPortServer: number): undefined}
   TrackAppUsageEvent: {(gameID: unknown, eAppUsageEvent: number, pchExtraInfo: string): undefined}
   GetUserDataFolder: {(pchBuffer: string, cubBuffer: number): boolean}
   StartVoiceRecording: {(): undefined}
@@ -606,6 +591,9 @@ declare interface steamutils {
   InitFilterText: {(unFilterOptions: number): boolean}
   FilterText: {(eContext: SteamEnums.ETextFilteringContext, sourceSteamID: unknown, pchInputMessage: string, pchOutFilteredText: string, nByteSizeOutFilteredText: number): number}
   GetIPv6ConnectivityState: {(eProtocol: SteamEnums.ESteamIPv6ConnectivityProtocol): SteamEnums.ESteamIPv6ConnectivityState}
+  IsSteamRunningOnSteamDeck: {(): boolean}
+  ShowFloatingGamepadTextInput: {(/* Args Unknown */): unknown};
+  SetGameLauncherMode: {(bLauncherMode: boolean): undefined}
 }
 declare interface steammatchmaking {
   GetFavoriteGameCount: {(): number}
@@ -848,6 +836,10 @@ declare interface steamremotestorage {
   EnumeratePublishedFilesByUserAction: {(eAction: SteamEnums.EWorkshopFileAction, unStartIndex: number): Promise<{ m_eResult: SteamEnums.EResult, m_eAction: SteamEnums.EWorkshopFileAction, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: unknown, m_rgRTimeUpdated: number }>};
   EnumeratePublishedWorkshopFiles: {(eEnumerationType: SteamEnums.EWorkshopEnumerationType, unStartIndex: number, unCount: number, unDays: number, pTags: unknown, pUserTags: unknown): Promise<{ m_eResult: SteamEnums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: unknown, m_rgScore: number, m_nAppId: number, m_unStartIndex: number }>};
   UGCDownloadToLocation: {(hContent: number, pchLocation: string, unPriority: number): Promise<{ m_eResult: SteamEnums.EResult, m_hFile: number, m_nAppID: number, m_nSizeInBytes: number, m_pchFileName: string, m_ulSteamIDOwner: number }>};
+  GetLocalFileChangeCount: {(): number}
+  GetLocalFileChange: {(iFile: number, pEChangeType: unknown, pEFilePathType: unknown): string}
+  BeginFileWriteBatch: {(): boolean}
+  EndFileWriteBatch: {(): boolean}
 }
 declare interface steamscreenshots {
   WriteScreenshot: {(pubRGB: unknown, cubRGB: number, nWidth: number, nHeight: number): number}
@@ -1049,6 +1041,8 @@ declare interface steamugc {
   RemoveAppDependency: {(nPublishedFileID: number, nAppID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number, m_nAppID: number }>};
   GetAppDependencies: {(nPublishedFileID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number, m_rgAppIDs: unknown, m_nNumAppDependencies: number, m_nTotalNumAppDependencies: number }>};
   DeleteItem: {(nPublishedFileID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number }>};
+  ShowWorkshopEULA: {(): boolean}
+  GetWorkshopEULAStatus: {(): Promise<{ m_eResult: SteamEnums.EResult, m_nAppID: number, m_unVersion: number, m_rtAction: number, m_bAccepted: boolean, m_bNeedsAction: boolean }>};
 }
 declare interface steamapplist {
   GetNumInstalledApps: {(): number}
@@ -1148,10 +1142,15 @@ declare interface steamparentalsettings {
   BIsFeatureInBlockList: {(eFeature: SteamEnums.EParentalFeature): boolean}
 }
 declare interface steaminput {
-  Init: {(): boolean}
+  Init: {(bExplicitlyCallRunFrame: boolean): boolean}
   Shutdown: {(): boolean}
-  RunFrame: {(): undefined}
+  SetInputActionManifestFilePath: {(pchInputActionManifestAbsolutePath: string): boolean}
+  RunFrame: {(bReservedValue: boolean): undefined}
+  BWaitForData: {(bWaitForever: boolean, unTimeout: number): boolean}
+  BNewDataAvailable: {(): boolean}
   GetConnectedControllers: {(handlesOut: unknown): number}
+  EnableDeviceCallbacks: {(): undefined}
+  EnableActionEventCallbacks: {(pCallback: number): undefined}
   GetActionSetHandle: {(pszActionSetName: string): number}
   ActivateActionSet: {(inputHandle: number, actionSetHandle: number): undefined}
   GetCurrentActionSet: {(inputHandle: number): number}
@@ -1162,17 +1161,23 @@ declare interface steaminput {
   GetDigitalActionHandle: {(pszActionName: string): number}
   GetDigitalActionData: {(inputHandle: number, digitalActionHandle: number): SteamStructs.InputDigitalActionData_t}
   GetDigitalActionOrigins: {(inputHandle: number, actionSetHandle: number, digitalActionHandle: number, originsOut: unknown): number}
+  GetStringForDigitalActionName: {(eActionHandle: number): string}
   GetAnalogActionHandle: {(pszActionName: string): number}
   GetAnalogActionData: {(inputHandle: number, analogActionHandle: number): SteamStructs.InputAnalogActionData_t}
   GetAnalogActionOrigins: {(inputHandle: number, actionSetHandle: number, analogActionHandle: number, originsOut: unknown): number}
-  GetGlyphForActionOrigin: {(eOrigin: SteamEnums.EInputActionOrigin): string}
+  GetGlyphPNGForActionOrigin: {(eOrigin: SteamEnums.EInputActionOrigin, eSize: SteamEnums.ESteamInputGlyphSize, unFlags: number): string}
+  GetGlyphSVGForActionOrigin: {(eOrigin: SteamEnums.EInputActionOrigin, unFlags: number): string}
+  GetGlyphForActionOrigin_Legacy: {(eOrigin: SteamEnums.EInputActionOrigin): string}
   GetStringForActionOrigin: {(eOrigin: SteamEnums.EInputActionOrigin): string}
+  GetStringForAnalogActionName: {(eActionHandle: number): string}
   StopAnalogActionMomentum: {(inputHandle: number, eAction: number): undefined}
   GetMotionData: {(inputHandle: number): SteamStructs.InputMotionData_t}
   TriggerVibration: {(inputHandle: number, usLeftSpeed: number, usRightSpeed: number): undefined}
+  TriggerVibrationExtended: {(inputHandle: number, usLeftSpeed: number, usRightSpeed: number, usLeftTriggerSpeed: number, usRightTriggerSpeed: number): undefined}
+  TriggerSimpleHapticEvent: {(inputHandle: number, eHapticLocation: SteamEnums.EControllerHapticLocation, nIntensity: number, nGainDB: string, nOtherIntensity: number, nOtherGainDB: string): undefined}
   SetLEDColor: {(inputHandle: number, nColorR: number, nColorG: number, nColorB: number, nFlags: number): undefined}
-  TriggerHapticPulse: {(inputHandle: number, eTargetPad: SteamEnums.ESteamControllerPad, usDurationMicroSec: number): undefined}
-  TriggerRepeatedHapticPulse: {(inputHandle: number, eTargetPad: SteamEnums.ESteamControllerPad, usDurationMicroSec: number, usOffMicroSec: number, unRepeat: number, nFlags: number): undefined}
+  Legacy_TriggerHapticPulse: {(inputHandle: number, eTargetPad: SteamEnums.ESteamControllerPad, usDurationMicroSec: number): undefined}
+  Legacy_TriggerRepeatedHapticPulse: {(inputHandle: number, eTargetPad: SteamEnums.ESteamControllerPad, usDurationMicroSec: number, usOffMicroSec: number, unRepeat: number, nFlags: number): undefined}
   ShowBindingPanel: {(inputHandle: number): boolean}
   GetInputTypeForHandle: {(inputHandle: number): SteamEnums.ESteamInputType}
   GetControllerForGamepadIndex: {(nIndex: number): number}
@@ -1183,6 +1188,7 @@ declare interface steaminput {
   TranslateActionOrigin: {(eDestinationInputType: SteamEnums.ESteamInputType, eSourceOrigin: SteamEnums.EInputActionOrigin): SteamEnums.EInputActionOrigin}
   GetDeviceBindingRevision: {(inputHandle: number, pMajor: unknown, pMinor: unknown): boolean}
   GetRemotePlaySessionID: {(inputHandle: number): number}
+  GetSessionInputConfigurationSettings: {(): number}
 }
 declare interface steamremoteplay {
   GetSessionCount: {(): number}
