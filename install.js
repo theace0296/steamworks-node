@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 
 const modulePath = path.join('./build', 'Release', 'steamworks.node');
