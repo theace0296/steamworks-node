@@ -3,8 +3,10 @@ const path = require('path');
 const decompress = require('decompress');
 const decompressTargz = require('decompress-targz');
 
-const defaultSteamSdkBinPath = './sdk';
-const steamSdkBasePath = process?.env?.STEAMWORKS_SDK_PATH ?? defaultSteamSdkBinPath;
+const { downloadSteamworksSdk } = require('./download_steam_sdk');
+
+const defaultSteamSdkPath = './sdk';
+const steamSdkBasePath = process?.env?.STEAMWORKS_SDK_PATH ?? defaultSteamSdkPath;
 
 const main = async () => {
   try {
@@ -22,16 +24,18 @@ const main = async () => {
     })();
     await decompress(`./${swigArchiveName}.tar.gz`, './swig', { plugins: [ decompressTargz() ] });
 
-    if (!fs.existsSync(steamSdkBasePath)) {
+    if (!fs.existsSync(steamSdkBasePath) && steamSdkBasePath !== defaultSteamSdkPath) {
       throw new Error(
         'The Steamworks SDK directory was not found or is invalid!\nThe default location should be [program_dir]/steam.\nYou can also point to a custom directory using a \'STEAMWORKS_SDK_PATH\' environment variable.',
       );
-    } else {
-      fs.copySync(path.join(steamSdkBasePath, 'redistributable_bin'), './steam/redistributable_bin', { recursive: true, overwrite: true });
-      fs.copySync(path.join(steamSdkBasePath, 'public/steam'), './steam/', { recursive: true, overwrite: true });
-      fs.rmSync('./build', { recursive: true, force: true });
-      fs.rmSync('./lib/steam_api_wrap.cxx', { force: true });
+    } else if (!fs.existsSync(steamSdkBasePath)) {
+      await downloadSteamworksSdk();
     }
+
+    fs.copySync(path.join(steamSdkBasePath, 'redistributable_bin'), './steam/redistributable_bin', { recursive: true, overwrite: true });
+    fs.copySync(path.join(steamSdkBasePath, 'public/steam'), './steam/', { recursive: true, overwrite: true });
+    fs.rmSync('./build', { recursive: true, force: true });
+    fs.rmSync('./lib/steam_api_wrap.cxx', { force: true });
 
     const steamRedisDir = './steam/redistributable_bin';
     const steamRedisFiles = (() => {
