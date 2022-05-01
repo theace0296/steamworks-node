@@ -5,7 +5,8 @@ const modulePath = path.join('./build', 'Release', 'steamworks.node');
 fs.copyFileSync(modulePath, path.join('./bin', 'steamworks.node'));
 
 const defaultSteamSdkBinPath = './sdk';
-const steamSdkBasePath = process?.env?.STEAMWORKS_SDK_PATH ?? defaultSteamSdkBinPath;
+const steamSdkBasePath =
+  process?.env?.STEAMWORKS_SDK_PATH ?? defaultSteamSdkBinPath;
 
 try {
   if (!fs.existsSync(steamSdkBasePath)) {
@@ -52,7 +53,10 @@ try {
   }
 
   for (const steamRedisFile of steamRedisFiles) {
-    fs.copyFileSync(steamRedisFile, path.join('./bin', path.basename(steamRedisFile)));
+    fs.copyFileSync(
+      steamRedisFile,
+      path.join('./bin', path.basename(steamRedisFile)),
+    );
   }
 
   const steamAuthlibDir = './steam/lib';
@@ -92,7 +96,10 @@ try {
   }
 
   for (const steamAuthlibFile of steamAuthlibFiles) {
-    fs.copyFileSync(steamAuthlibFile, path.join('./bin', path.basename(steamAuthlibFile)));
+    fs.copyFileSync(
+      steamAuthlibFile,
+      path.join('./bin', path.basename(steamAuthlibFile)),
+    );
   }
 } catch (error) {
   console.error('=====================================================');
