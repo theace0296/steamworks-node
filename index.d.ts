@@ -108,58 +108,27 @@ declare interface constants {
   k_EPlayerResultCompleted: Number;
   k_iSteamBillingCallbacks: Number;
   k_iSteamContentServerCallbacks: Number;
-  k_iClientFriendsCallbacks: Number;
-  k_iClientUserCallbacks: Number;
   k_iSteamNetworkingCallbacks: Number;
   k_iSteamNetworkingSocketsCallbacks: Number;
   k_iSteamNetworkingMessagesCallbacks: Number;
   k_iSteamNetworkingUtilsCallbacks: Number;
-  k_iClientRemoteStorageCallbacks: Number;
-  k_iClientDepotBuilderCallbacks: Number;
-  k_iClientUtilsCallbacks: Number;
   k_iSteamGameCoordinatorCallbacks: Number;
   k_iSteam2AsyncCallbacks: Number;
   k_iSteamGameStatsCallbacks: Number;
-  k_iClientHTTPCallbacks: Number;
-  k_iClientScreenshotsCallbacks: Number;
+  k_iSteamHTTPCallbacks: Number;
   k_iSteamScreenshotsCallbacks: Number;
-  k_iClientAudioCallbacks: Number;
-  k_iClientUnifiedMessagesCallbacks: Number;
   k_iSteamStreamLauncherCallbacks: Number;
-  k_iClientControllerCallbacks: Number;
   k_iSteamControllerCallbacks: Number;
-  k_iClientParentalSettingsCallbacks: Number;
-  k_iClientDeviceAuthCallbacks: Number;
-  k_iClientNetworkDeviceManagerCallbacks: Number;
-  k_iClientMusicCallbacks: Number;
-  k_iClientRemoteClientManagerCallbacks: Number;
-  k_iClientUGCCallbacks: Number;
   k_iSteamStreamClientCallbacks: Number;
-  k_IClientProductBuilderCallbacks: Number;
-  k_iClientShortcutsCallbacks: Number;
-  k_iClientRemoteControlManagerCallbacks: Number;
   k_iSteamAppListCallbacks: Number;
   k_iSteamMusicCallbacks: Number;
   k_iSteamMusicRemoteCallbacks: Number;
-  k_iClientVRCallbacks: Number;
-  k_iClientGameNotificationCallbacks: Number;
   k_iSteamGameNotificationCallbacks: Number;
-  k_iClientVideoCallbacks: Number;
-  k_iClientInventoryCallbacks: Number;
-  k_iClientBluetoothManagerCallbacks: Number;
-  k_iClientSharedConnectionCallbacks: Number;
   k_ISteamParentalSettingsCallbacks: Number;
-  k_iClientShaderCallbacks: Number;
   k_iSteamGameSearchCallbacks: Number;
-  k_iClientPartiesCallbacks: Number;
   k_iSteamSTARCallbacks: Number;
-  k_iClientSTARCallbacks: Number;
   k_iSteamRemotePlayCallbacks: Number;
-  k_iClientCompatCallbacks: Number;
   k_iSteamChatCallbacks: Number;
-  k_iClientNetworkingUtilsCallbacks: Number;
-  k_iClientSystemManagerCallbacks: Number;
-  k_iClientStorageDeviceManagerCallbacks: Number;
   STEAMCLIENT_INTERFACE_VERSION: String;
   STEAMUSER_INTERFACE_VERSION: String;
   k_cchMaxFriendsGroupName: Number;
@@ -193,10 +162,6 @@ declare interface constants {
   k_cchMaxRichPresenceKeyLength: Number;
   k_cchMaxRichPresenceValueLength: Number;
   STEAMFRIENDS_INTERFACE_VERSION: String;
-  k_EFloatingGamepadTextInputModeModeSingleLine: Number;
-  k_EFloatingGamepadTextInputModeModeMultipleLines: Number;
-  k_EFloatingGamepadTextInputModeModeEmail: Number;
-  k_EFloatingGamepadTextInputModeModeNumeric: Number;
   STEAMUTILS_INTERFACE_VERSION: String;
   k_nMaxLobbyKeyLength: Number;
   STEAMMATCHMAKING_INTERFACE_VERSION: String;
@@ -302,6 +267,7 @@ declare interface constants {
   STEAMMATCHMAKINGRULESRESPONSE_INTERFACE_VERSION: String;
   STEAMNETWORKINGCONNECTIONSIGNALING_INTERFACE_VERSION: String;
   STEAMNETWORKINGSIGNALINGRECVCONTEXT_INTERFACE_VERSION: String;
+  STEAMNETWORKINGFAKEUDPPORT_INTERFACE_VERSION: String;
 }
 declare interface structs {
   SteamIPAddress_t: SteamStructs.SteamIPAddress_t;
@@ -316,8 +282,8 @@ declare interface structs {
   InputDigitalActionData_t: SteamStructs.InputDigitalActionData_t;
   InputMotionData_t: SteamStructs.InputMotionData_t;
   SteamInputActionEvent_t: SteamStructs.SteamInputActionEvent_t;
-  SteamNetworkingIdentityRender: SteamStructs.SteamNetworkingIdentityRender;
-  SteamNetworkingIPAddrRender: SteamStructs.SteamNetworkingIPAddrRender;
+  SteamNetworkingIdentityRender: {(/* Args Unknown */): unknown};
+  SteamNetworkingIPAddrRender: {(/* Args Unknown */): unknown};
 }
 declare interface enums {
   ESteamIPType: SteamEnums.ESteamIPType;
@@ -344,6 +310,7 @@ declare interface enums {
   ESteamAPICallFailure: SteamEnums.ESteamAPICallFailure;
   EGamepadTextInputMode: SteamEnums.EGamepadTextInputMode;
   EGamepadTextInputLineMode: SteamEnums.EGamepadTextInputLineMode;
+  EFloatingGamepadTextInputMode: SteamEnums.EFloatingGamepadTextInputMode;
   ETextFilteringContext: SteamEnums.ETextFilteringContext;
   ECheckFileSignature: SteamEnums.ECheckFileSignature;
   ELobbyType: SteamEnums.ELobbyType;
@@ -391,6 +358,7 @@ declare interface enums {
   ESteamInputConfigurationEnableType: SteamEnums.ESteamInputConfigurationEnableType;
   ESteamInputLEDFlag: SteamEnums.ESteamInputLEDFlag;
   ESteamInputGlyphSize: SteamEnums.ESteamInputGlyphSize;
+  ESteamInputGlyphStyle: SteamEnums.ESteamInputGlyphStyle;
   ESteamInputActionEventType: SteamEnums.ESteamInputActionEventType;
   ESteamDeviceFormFactor: SteamEnums.ESteamDeviceFormFactor;
 }
@@ -403,6 +371,7 @@ declare interface uncategorized {
   SteamGameCoordinator: {(/* Args Unknown */): unknown};
   SteamNetworkingConnectionSignaling: {(/* Args Unknown */): unknown};
   SteamNetworkingSignalingRecvContext: {(/* Args Unknown */): unknown};
+  SteamNetworkingFakeUDPPort: {(/* Args Unknown */): unknown};
   CSteamID: {(/* Args Unknown */): unknown};
   CGameID: {(/* Args Unknown */): unknown};
   CCallbackBase: {(/* Args Unknown */): unknown};
@@ -592,8 +561,9 @@ declare interface steamutils {
   FilterText: {(eContext: SteamEnums.ETextFilteringContext, sourceSteamID: unknown, pchInputMessage: string, pchOutFilteredText: string, nByteSizeOutFilteredText: number): number}
   GetIPv6ConnectivityState: {(eProtocol: SteamEnums.ESteamIPv6ConnectivityProtocol): SteamEnums.ESteamIPv6ConnectivityState}
   IsSteamRunningOnSteamDeck: {(): boolean}
-  ShowFloatingGamepadTextInput: {(/* Args Unknown */): unknown};
+  ShowFloatingGamepadTextInput: {(eKeyboardMode: SteamEnums.EFloatingGamepadTextInputMode, nTextFieldXPosition: number, nTextFieldYPosition: number, nTextFieldWidth: number, nTextFieldHeight: number): boolean}
   SetGameLauncherMode: {(bLauncherMode: boolean): undefined}
+  DismissFloatingGamepadTextInput: {(): boolean}
 }
 declare interface steammatchmaking {
   GetFavoriteGameCount: {(): number}
@@ -995,6 +965,8 @@ declare interface steamugc {
   SetMatchAnyTag: {(handle: number, bMatchAnyTag: boolean): boolean}
   SetSearchText: {(handle: number, pSearchText: string): boolean}
   SetRankedByTrendDays: {(handle: number, unDays: number): boolean}
+  SetTimeCreatedDateRange: {(handle: number, rtStart: number, rtEnd: number): boolean}
+  SetTimeUpdatedDateRange: {(handle: number, rtStart: number, rtEnd: number): boolean}
   AddRequiredKeyValueTag: {(handle: number, pKey: string, pValue: string): boolean}
   RequestUGCDetails: {(nPublishedFileID: number, unMaxAgeSeconds: number): Promise<{ m_details: SteamStructs.SteamUGCDetails_t, m_bCachedData: boolean }>};
   CreateItem: {(nConsumerAppId: number, eFileType: SteamEnums.EWorkshopFileType): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number, m_bUserNeedsToAcceptWorkshopLegalAgreement: boolean }>};

@@ -119,8 +119,7 @@ declare namespace SteamStructs {
   export interface SteamInputActionEvent_t {
     controllerHandle: number,
     eEventType: SteamEnums.ESteamInputActionEventType,
-    analogAction_actionHandle: number,
-    analogAction_analogActionData: SteamStructs.InputAnalogActionData_t,
+    analogAction: unknown,
   }
 
   export interface SteamUGCDetails_t {
@@ -173,6 +172,8 @@ declare namespace SteamStructs {
     IsLocalHost: {(): boolean},
     ToString: {(buf: string, cbBuf: number, bWithPort: boolean): undefined},
     ParseString: {(pszStr: string): boolean},
+    GetFakeIPType: {(): SteamEnums.ESteamNetworkingFakeIPType},
+    IsFakeIP: {(): boolean},
   }
 
   export interface SteamNetworkingIdentity {
@@ -199,6 +200,8 @@ declare namespace SteamStructs {
     GetIPAddr: {(): unknown},
     SetIPv4Addr: {(nIPv4: number, nPort: number): undefined},
     GetIPv4: {(): number},
+    GetFakeIPType: {(): SteamEnums.ESteamNetworkingFakeIPType},
+    IsFakeIP: {(): boolean},
     SetLocalHost: {(): undefined},
     IsLocalHost: {(): boolean},
     SetGenericString: {(pszString: string): boolean},
@@ -225,7 +228,7 @@ declare namespace SteamStructs {
     reserved: number,
   }
 
-  export interface SteamNetworkingQuickConnectionStatus {
+  export interface SteamNetConnectionRealTimeStatus_t {
     m_eState: SteamEnums.ESteamNetworkingConnectionState,
     m_nPing: number,
     m_flConnectionQualityLocal: number,
@@ -238,6 +241,15 @@ declare namespace SteamStructs {
     m_cbPendingUnreliable: number,
     m_cbPendingReliable: number,
     m_cbSentUnackedReliable: number,
+    m_usecQueueTime: number,
+    reserved: number,
+  }
+
+  export interface SteamNetConnectionRealTimeLaneStatus_t {
+    m_cbPendingUnreliable: number,
+    m_cbPendingReliable: number,
+    m_cbSentUnackedReliable: number,
+    _reservePad1: number,
     m_usecQueueTime: number,
     reserved: number,
   }
@@ -255,6 +267,8 @@ declare namespace SteamStructs {
     m_nChannel: number,
     m_nFlags: number,
     m_nUserData: number,
+    m_idxLane: number,
+    _pad1__: number,
     Release: {(): undefined},
   }
 
@@ -271,21 +285,6 @@ declare namespace SteamStructs {
     SetFloat: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: number): undefined},
     SetPtr: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: unknown): undefined},
     SetString: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: string): undefined},
-  }
-
-  export interface SteamNetworkingPOPIDRender {
-    buf: string,
-    c_str: {(): string},
-  }
-
-  export interface SteamNetworkingIdentityRender {
-    buf: string,
-    c_str: {(): string},
-  }
-
-  export interface SteamNetworkingIPAddrRender {
-    buf: string,
-    c_str: {(): string},
   }
 
   export interface SteamDatagramHostedAddress {

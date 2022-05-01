@@ -178,23 +178,41 @@ const main = async () => {
           path.resolve('./steam', steamHeader),
           'utf8',
         );
-        if (content.match(/EControllerSourceMode/gm)) {
+        if (/EControllerSourceMode/gm.test(content)) {
           content = content.replace(
             /EControllerSourceMode/gm,
             'EInputSourceMode',
           );
           fs.writeFileSync(path.resolve('./steam', steamHeader), content); // The steam headers don't seem to define this enum, even though it's the same as EInputSourceMode
         }
-        if (content.match(/class CSteamGameServerAPIContext.+};/gs)) {
+        if (/class CSteamGameServerAPIContext.+};/gs.test(content)) {
           content = content.replace(
             /class CSteamGameServerAPIContext.+};/gs,
             '',
           );
           fs.writeFileSync(path.resolve('./steam', steamHeader), content); // The CSteamGameServerAPIContext class don't play nice.
         }
+        if (/class ISteamNetworkingFakeUDPPort;/gm.test(content)) {
+          content = content.replace(
+            /class ISteamNetworkingFakeUDPPort;/gm,
+            '',
+          );
+          fs.writeFileSync(path.resolve('./steam', steamHeader), content); // The ISteamNetworkingFakeUDPPort class don't play nice.
+        }
         if (
-          content.match(
-            /\/\/ this set of functions is hidden.+explicit CSteamID.+bool BValidExternalSteamID\(\) const;/gs,
+          /\tvirtual ISteamNetworkingFakeUDPPort\x20\*CreateFakeUDPPort[^;]+;/gm.test(
+            content,
+          )
+        ) {
+          content = content.replace(
+            /\tvirtual ISteamNetworkingFakeUDPPort\x20\*CreateFakeUDPPort[^;]+;/gm,
+            '',
+          );
+          fs.writeFileSync(path.resolve('./steam', steamHeader), content); // The ISteamNetworkingFakeUDPPort class don't play nice.
+        }
+        if (
+          /\/\/ this set of functions is hidden.+explicit CSteamID.+bool BValidExternalSteamID\(\) const;/gs.test(
+            content,
           )
         ) {
           content = content.replace(
@@ -204,8 +222,8 @@ const main = async () => {
           fs.writeFileSync(path.resolve('./steam', steamHeader), content); // These 'hidden' methods in the CSteamID class also don't play nice.
         }
         if (
-          content.match(
-            /\/\/ Hidden functions.+explicit CGameID.+static const char \*Render.+?\n/gs,
+          /\/\/ Hidden functions.+explicit CGameID.+static const char \*Render.+?\n/gs.test(
+            content,
           )
         ) {
           content = content.replace(

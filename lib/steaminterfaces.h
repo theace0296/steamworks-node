@@ -6,6 +6,7 @@
 #include "isteamgamecoordinator.h"
 #include "isteammatchmaking.h"
 #include "isteamnetworkingsockets.h"
+#include "steamnetworkingfakeip.h"
 
 
 // Global interface accessor for ISteamAppTicket
@@ -63,3 +64,10 @@ inline ISteamNetworkingSignalingRecvContext *SteamNetworkingSignalingRecvContext
 #define STEAMNETWORKINGSIGNALINGRECVCONTEXT_INTERFACE_VERSION "SteamNetworkingSignalingRecvContext001"
 #endif
 STEAM_DEFINE_USER_INTERFACE_ACCESSOR( ISteamNetworkingSignalingRecvContext *, SteamNetworkingSignalingRecvContext, STEAMNETWORKINGSIGNALINGRECVCONTEXT_INTERFACE_VERSION );
+
+// Global interface accessor for ISteamNetworkingFakeUDPPort
+inline ISteamNetworkingFakeUDPPort *SteamNetworkingFakeUDPPort();
+#ifndef STEAMNETWORKINGFAKEUDPPORT_INTERFACE_VERSION
+#define STEAMNETWORKINGFAKEUDPPORT_INTERFACE_VERSION "SteamNetworkingFakeUDPPort001"
+#endif
+STEAM_DEFINE_USER_INTERFACE_ACCESSOR( ISteamNetworkingFakeUDPPort *, SteamNetworkingFakeUDPPort, STEAMNETWORKINGFAKEUDPPORT_INTERFACE_VERSION );
