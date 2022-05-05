@@ -1,17 +1,20 @@
 const fs = require('fs-extra');
 const path = require('path');
+
+const {
+  steamApiEnumNames,
+  steamApiStructNames,
+  steamApiInterfaces,
+  excludedNames,
+  getType,
+  getTsType,
+  getJsType,
+  getJsTypeFromTypeOrName,
+} = require('./utilities');
+
 const steamworks = require('.');
 const SteamWorks = new steamworks();
 
-const steamApiJson = JSON.parse(
-  fs.readFileSync(path.resolve('./lib', 'steam_api.json'), 'utf8'),
-);
-const steamApiTypeDefs = {};
-steamApiJson.typedefs.forEach(
-  type => (steamApiTypeDefs[type.typedef] = type.type),
-);
-const steamApiEnumNames = steamApiJson.enums.map(e => e.enumname);
-const steamApiStructNames = steamApiJson.structs.map(s => s.struct);
 const SteamCallResultFunctions = JSON.parse(
   fs.readFileSync(
     path.resolve('./lib', 'steamcallresultfunctions.json'),
@@ -21,95 +24,6 @@ const SteamCallResultFunctions = JSON.parse(
 const SteamCallBackFunctions = JSON.parse(
   fs.readFileSync(path.resolve('./lib', 'steamcallbackfunctions.json'), 'utf8'),
 );
-const steamApiInterfaces = {};
-steamApiJson.interfaces
-  .filter(i => i?.methods?.length)
-  .forEach(i => {
-    const methods = i.methods.filter(m => !m?.callresult);
-    steamApiInterfaces[i.classname.slice(1).toLowerCase()] = methods;
-  });
-
-const excludedNames = [
-  '__defineGetter__',
-  '__defineSetter__',
-  '__lookupGetter__',
-  '__lookupSetter__',
-  '__proto__',
-  'constructor',
-  'equals',
-  'getCPtr',
-  'hasOwnProperty',
-  'isPrototypeOf',
-  'propertyIsEnumerable',
-  'toLocaleString',
-  'toString',
-  'valueOf',
-  'undefined',
-];
-
-const getType = variable => {
-  if (variable === undefined) {
-    return 'Undefined';
-  }
-  if (variable === null || !variable.toString) {
-    return 'Null';
-  }
-  if (Number.isNaN(variable)) {
-    return 'NaN';
-  }
-  return (
-    Object.getPrototypeOf(variable)?.constructor?.name ??
-    Object.prototype.toString.call(variable).match(/\s(\w+)/)[1]
-  );
-};
-
-const getTsType = typeStr => {
-  switch (typeStr) {
-  case 'Function':
-    return '{(/* Args Unknown */): unknown}';
-  case 'AsyncFunction':
-    return '{(/* Args Unknown */): Promise<unknown>}';
-  default:
-    return typeStr;
-  }
-};
-
-const getJsType = typeStr => {
-  if (!typeStr) {
-    return 'unknown';
-  }
-  if (typeStr === 'void') {
-    return 'undefined';
-  }
-  if (typeStr === 'bool') {
-    return 'boolean';
-  }
-  if (
-    ['int', 'unsigned', 'signed', 'double', 'float', 'long', 'short'].some(t =>
-      typeStr.includes(t),
-    ) &&
-    !typeStr.includes('*') &&
-    !typeStr.includes('&')
-  ) {
-    return 'number';
-  }
-  if (
-    ['const char *', 'char *', 'char'].includes(typeStr) ||
-    /char \[\d+\]/.test(typeStr)
-  ) {
-    return 'string';
-  }
-  if (steamApiTypeDefs.hasOwnProperty(typeStr)) {
-    return getJsType(steamApiTypeDefs[typeStr]);
-  }
-  if (steamApiEnumNames.includes(typeStr)) {
-    return `SteamEnums.${typeStr}`;
-  }
-  if (steamApiStructNames.includes(typeStr)) {
-    return `SteamStructs.${typeStr}`;
-  }
-  return 'unknown';
-};
 
 const getNestedTypings = (obj, name) => {
   if (!obj || Array.isArray(obj)) {
@@ -175,7 +89,7 @@ const getNestedTypings = (obj, name) => {
       const args = steamApiInterfaceMethod.params.map(
         ({ paramname, paramtype }) => ({
           name: paramname,
-          type: getJsType(paramtype),
+          type: getJsTypeFromTypeOrName(paramname, paramtype),
         }),
       );
       const returnType = getJsType(steamApiInterfaceMethod.returntype);

@@ -4,6 +4,11 @@ const decompress = require('decompress');
 const decompressTargz = require('decompress-targz');
 
 const { downloadSteamworksSdk } = require('./download_steam_sdk');
+const {
+  getJsType,
+  getJsTypeFromTypeOrName,
+  steamApiMethodsWithPointerParams,
+} = require('./utilities');
 
 const defaultSteamSdkPath = './sdk';
 const steamSdkBasePath =
@@ -193,10 +198,7 @@ const main = async () => {
           fs.writeFileSync(path.resolve('./steam', steamHeader), content); // The CSteamGameServerAPIContext class don't play nice.
         }
         if (/class ISteamNetworkingFakeUDPPort;/gm.test(content)) {
-          content = content.replace(
-            /class ISteamNetworkingFakeUDPPort;/gm,
-            '',
-          );
+          content = content.replace(/class ISteamNetworkingFakeUDPPort;/gm, '');
           fs.writeFileSync(path.resolve('./steam', steamHeader), content); // The ISteamNetworkingFakeUDPPort class don't play nice.
         }
         if (
@@ -317,50 +319,6 @@ ${steamInterfacesStr}`;
       JSON.stringify(steamApiJson, null, 2),
     );
 
-    const steamApiTypeDefs = {};
-    steamApiJson.typedefs.forEach(
-      type => (steamApiTypeDefs[type.typedef] = type.type),
-    );
-    const steamApiEnumNames = steamApiJson.enums.map(e => e.enumname);
-    const steamApiStructNames = steamApiJson.structs.map(s => s.struct);
-
-    const getJsType = typeStr => {
-      if (!typeStr) {
-        return 'unknown';
-      }
-      if (typeStr === 'void') {
-        return 'undefined';
-      }
-      if (typeStr === 'bool') {
-        return 'boolean';
-      }
-      if (
-        ['int', 'unsigned', 'signed', 'double', 'float', 'long', 'short'].some(
-          t => typeStr.includes(t),
-        ) &&
-        !typeStr.includes('*') &&
-        !typeStr.includes('&')
-      ) {
-        return 'number';
-      }
-      if (
-        ['const char *', 'char *', 'char'].includes(typeStr) ||
-        /char \[\d+\]/.test(typeStr)
-      ) {
-        return 'string';
-      }
-      if (steamApiTypeDefs.hasOwnProperty(typeStr)) {
-        return getJsType(steamApiTypeDefs[typeStr]);
-      }
-      if (steamApiEnumNames.includes(typeStr)) {
-        return `SteamEnums.${typeStr}`;
-      }
-      if (steamApiStructNames.includes(typeStr)) {
-        return `SteamStructs.${typeStr}`;
-      }
-      return 'unknown';
-    };
-
     let steamApiEnumStr = `export = SteamEnums;
 declare namespace SteamEnums {`;
     for (const steamEnum of steamApiJson.enums) {
@@ -391,7 +349,10 @@ declare namespace SteamStructs {`;
         for (const constant of steamStruct.consts) {
           steamApiStructStr = `${steamApiStructStr}\n    ${
             constant.constname
-          }: ${getJsType(constant.consttype)}${isClass ? ';' : ','}`;
+          }: ${getJsTypeFromTypeOrName(
+            constant.constname,
+            constant.consttype,
+          )}${isClass ? ';' : ','}`;
         }
       }
       if (
@@ -401,7 +362,9 @@ declare namespace SteamStructs {`;
         for (const field of steamStruct.fields) {
           steamApiStructStr = `${steamApiStructStr}\n    ${
             field.fieldname
-          }: ${getJsType(field.fieldtype)}${isClass ? ';' : ','}`;
+          }: ${getJsTypeFromTypeOrName(field.fieldname, field.fieldtype)}${
+            isClass ? ';' : ','
+          }`;
         }
       }
       if (
@@ -416,7 +379,13 @@ declare namespace SteamStructs {`;
             steamApiStructStr = `${steamApiStructStr}\n    constructor(${
               method.params.length
                 ? method.params
-                  .map(p => `${p.paramname}: ${getJsType(p.paramtype)}`)
+                  .map(
+                    p =>
+                      `${p.paramname}: ${getJsTypeFromTypeOrName(
+                        p.paramname,
+                        p.paramtype,
+                      )}`,
+                  )
                   .join(', ')
                 : ''
             })${isClass ? ';' : ','}`;
@@ -426,7 +395,13 @@ declare namespace SteamStructs {`;
             }: {(${
               method.params.length
                 ? method.params
-                  .map(p => `${p.paramname}: ${getJsType(p.paramtype)}`)
+                  .map(
+                    p =>
+                      `${p.paramname}: ${getJsTypeFromTypeOrName(
+                        p.paramname,
+                        p.paramtype,
+                      )}`,
+                  )
                   .join(', ')
                 : ''
             }): ${getJsType(method.returntype)}}${isClass ? ';' : ','}`;
@@ -456,7 +431,10 @@ declare namespace SteamStructs {`;
         ) {
           returnType[`arg${i}`] = getJsType();
         } else {
-          returnType[field.fieldname] = getJsType(field.fieldtype);
+          returnType[field.fieldname] = getJsTypeFromTypeOrName(
+            field.fieldname,
+            field.fieldtype,
+          );
         }
       }
       return returnType;
@@ -575,7 +553,7 @@ namespace CCallResults {
           result: callResultName,
           args  : params.map(({ paramname, paramtype }) => ({
             name: paramname,
-            type: getJsType(paramtype),
+            type: getJsTypeFromTypeOrName(paramname, paramtype),
           })),
           returnType: getReturnTypeFromCallResultJson(callResult),
         };
@@ -677,7 +655,7 @@ namespace CCallBacks {
           result: callBackName,
           args  : params.map(({ paramname, paramtype }) => ({
             name: paramname,
-            type: getJsType(paramtype),
+            type: getJsTypeFromTypeOrName(paramname, paramtype),
           })),
           returnType: getReturnTypeFromCallResultJson(callBack),
         };
@@ -734,6 +712,54 @@ namespace CCallBacks {
     fs.writeFileSync(
       './lib/steamcallbackfunctions.json',
       JSON.stringify(callBackFunctionsMade, null, 2),
+    );
+
+    let steamApiTypeDefsStr = '';
+    const typesGenerated = [];
+    for (const method of steamApiMethodsWithPointerParams) {
+      for (const { paramtype } of method.params) {
+        if (
+          !paramtype.endsWith('*') ||
+          typesGenerated.includes(paramtype) ||
+          [
+            'const',
+            'char',
+            'int',
+            'uint',
+            'bool',
+            'void',
+            'double',
+            'float',
+            'size_t',
+          ].some(primitive => paramtype.startsWith(primitive))
+        ) {
+          continue;
+        }
+        typesGenerated.push(paramtype);
+        const paramnames = [
+          ...new Set(
+            steamApiMethodsWithPointerParams
+              .flatMap(method => method.params)
+              .filter(param => param.paramtype === paramtype)
+              .map(param => param.paramname),
+          ),
+        ];
+        for (const paramname of paramnames) {
+          steamApiTypeDefsStr = `${steamApiTypeDefsStr}
+%typemap(in, noblock=1) ${paramtype}${paramname} (void *argp = 0, int res = 0) {
+  $1 = %reinterpret_cast(argp, $ltype);
+}
+%typemap(freearg) ${paramtype}${paramname} "";
+%typemap(argout, noblock=1) ${paramtype}${paramname} {
+  $result = AppendToNonArrayTypeOutput($result, SWIG_NewPointerObj($1, $&1_descriptor, SWIG_POINTER_OWN | 0 ));
+}
+%apply ${paramtype} INOUT {${paramtype}${paramname}};`;
+        }
+      }
+    }
+    fs.writeFileSync(
+      './lib/steam_typemaps.i',
+      steamApiTypeDefsStr,
     );
   } catch (error) {
     console.error('=====================================================');

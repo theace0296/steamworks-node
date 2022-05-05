@@ -669,7 +669,7 @@
       "m_eResult": "SteamEnums.EResult",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "unknown"
+      "m_rgPublishedFileId": "number[]"
     }
   },
   "EnumerateUserSharedWorkshopFiles": {
@@ -698,7 +698,7 @@
       "m_eResult": "SteamEnums.EResult",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "unknown"
+      "m_rgPublishedFileId": "number[]"
     }
   },
   "SubscribePublishedFile": {
@@ -745,7 +745,7 @@
       "m_eResult": "SteamEnums.EResult",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "unknown",
+      "m_rgPublishedFileId": "number[]",
       "m_rgRTimeSubscribed": "number"
     }
   },
@@ -875,7 +875,7 @@
       "m_eAction": "SteamEnums.EWorkshopFileAction",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "unknown",
+      "m_rgPublishedFileId": "number[]",
       "m_rgRTimeUpdated": "number"
     }
   },
@@ -913,7 +913,7 @@
       "m_eResult": "SteamEnums.EResult",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "unknown",
+      "m_rgPublishedFileId": "number[]",
       "m_rgScore": "number",
       "m_nAppId": "number",
       "m_unStartIndex": "number"
