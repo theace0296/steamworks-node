@@ -1,7 +1,21 @@
 {
   "name": "@theace0296/steamworks",
+  "author": "TheAce0296",
+  "license": "MIT",
   "version": "1.0.0",
   "description": "A wrapper library to call the Steamworks API from nodeJS.",
+  "keywords": [
+    "steam",
+    "steamworks"
+  ],
+  "homepage": "https://github.com/theace0296/steamworks-node/wiki",
+  "bugs": {
+    "url": "https://github.com/theace0296/steamworks-node/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theace0296/steamworks-node"
+  },
   "main": "index.js",
   "bin": {
     "steamworks-init": "./utilities/init.js"
@@ -23,8 +37,6 @@
     "typedoc": "npx typedoc --options typedoc.json",
     "cleanup-docs": "node ./utilities/cleanup-docs.js"
   },
-  "author": "TheAce0296",
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/eslint-parser": "^7.17.0",
