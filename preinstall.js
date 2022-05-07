@@ -762,7 +762,7 @@ namespace CCallBacks {
     for (i = 0; i < length; i++)
     {
       if (!array->Get(SWIGV8_CURRENT_CONTEXT(), i).ToLocal(&jsvalue)) {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
+        SWIG_exception_fail(SWIG_ERROR, "Failed to get item from $input");
       }
       // Get primitive value from JSObject
       res = SWIG_AsVal(${cppType.replace(/\x20*\*/, '')})(jsvalue, &temp);
@@ -780,17 +780,7 @@ namespace CCallBacks {
 }
 %typemap(freearg) ${paramtype}${paramname} {
   free($1);
-}
-%typemap(argout, fragment=SWIG_From_frag(${cppType.replace(/\x20*\*/, '')})) ${paramtype}${paramname} (int length = 0, int i = 0) {
-  length = sizeof($1) / sizeof($*1_ltype);
-  v8::Local<v8::Array> array = v8::Array::New(v8::Isolate::GetCurrent(), length);
-  for (i = 0; i < length; i++)
-  {
-    array->Set(SWIGV8_CURRENT_CONTEXT(), i, SWIG_From(${cppType.replace(/\x20*\*/, '')})($1[i]));
-  }
-  $result = AppendToNonArrayTypeOutput($result, array);
-}
-%apply ${paramtype} INOUT {${paramtype}${paramname}};`;
+}`;
         }
       }
     }

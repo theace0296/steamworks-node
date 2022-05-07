@@ -14,13 +14,15 @@ const {
   if (SteamAPI.IsSteamRunning()) {
     console.log('Steamworks API Initialized!');
 
-    const publishedFilesResult = await SteamWorks.SteamRemoteStorage.EnumerateUserPublishedFiles(0);
-    console.log(`Published files result:\n${JSON.stringify(publishedFilesResult, null, 2)}`);
+    const remoteStorageSubscribedFilesResult = await SteamWorks.SteamRemoteStorage.EnumerateUserSubscribedFiles(0);
+    console.log(`Published files result:\n${JSON.stringify(remoteStorageSubscribedFilesResult)}`);
 
-    // const subscribedFiles = [];
-    // const subscribedFilesResult = SteamWorks.SteamUGC.GetSubscribedItems(subscribedFiles, 5);
-    // console.log(`Subscribed files result:\n${JSON.stringify(subscribedFilesResult, null, 2)}`);
-    // console.log(`Subscribed files:\n${JSON.stringify(subscribedFiles, null, 2)}`);
+    const numSubscribedFiles = SteamWorks.SteamUGC.GetNumSubscribedItems();
+    const subscribedFiles = Array.from(Array(numSubscribedFiles), (_, i) => i);
+    const subscribedFilesResult = SteamWorks.SteamUGC.GetSubscribedItems(subscribedFiles, numSubscribedFiles);
+    console.log(`Subscribed files result:\n${JSON.stringify(subscribedFilesResult)}`);
+    console.log(`Number of Subscribed files:\n${numSubscribedFiles}`);
+    console.log(`Subscribed files:\n${JSON.stringify(subscribedFiles)}`);
 
     SteamWorks.Shutdown();
     console.log('PASSED');
