@@ -153,7 +153,14 @@ const getCppTypeFromTypeOrName = (name, type) => {
   if (cppType) {
     return cppType;
   }
-  return findMatchingTypeDef(name);
+  cppType = findMatchingTypeDef(name);
+  if (cppType) {
+    return cppType;
+  }
+  cppType = findMatchingTypeDef(type.replace(/\x20*\*/, ''));
+  if (cppType) {
+    return `${cppType} *`;
+  }
 };
 
 module.exports = {

@@ -7,6 +7,7 @@ const { downloadSteamworksSdk } = require('./download_steam_sdk');
 const {
   getJsType,
   getJsTypeFromTypeOrName,
+  getCppTypeFromTypeOrName,
   steamApiMethodsWithPointerParams,
 } = require('./utilities');
 
@@ -745,13 +746,49 @@ namespace CCallBacks {
           ),
         ];
         for (const paramname of paramnames) {
+          const cppType = getCppTypeFromTypeOrName(paramname, paramtype);
+          if (!cppType) {
+            continue;
+          }
           steamApiTypeDefsStr = `${steamApiTypeDefsStr}
-%typemap(in, noblock=1) ${paramtype}${paramname} (void *argp = 0, int res = 0) {
-  $1 = %reinterpret_cast(argp, $ltype);
+%typemap(in, fragment="SWIG_JSCGetIntProperty") ${paramtype}${paramname} (int length = 0, v8::Local<v8::Array> array, v8::Local<v8::Value> jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
+  if ($input->IsArray())
+  {
+    // Convert into Array
+    array = v8::Local<v8::Array>::Cast($input);
+    length = array->Length();
+    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
+    // Get each element from array
+    for (i = 0; i < length; i++)
+    {
+      if (!array->Get(SWIGV8_CURRENT_CONTEXT(), i).ToLocal(&jsvalue)) {
+        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
+      }
+      // Get primitive value from JSObject
+      res = SWIG_AsVal(${cppType.replace(/\x20*\*/, '')})(jsvalue, &temp);
+      if (!SWIG_IsOK(res))
+      {
+        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
+      }
+      arg$argnum[i] = temp;
+    }
+  }
+  else
+  {
+    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
+  }
 }
-%typemap(freearg) ${paramtype}${paramname} "";
-%typemap(argout, noblock=1) ${paramtype}${paramname} {
-  $result = AppendToNonArrayTypeOutput($result, SWIG_NewPointerObj($1, $&1_descriptor, SWIG_POINTER_OWN | 0 ));
+%typemap(freearg) ${paramtype}${paramname} {
+  free($1);
+}
+%typemap(argout, fragment=SWIG_From_frag(${cppType.replace(/\x20*\*/, '')})) ${paramtype}${paramname} (int length = 0, int i = 0) {
+  length = sizeof($1) / sizeof($*1_ltype);
+  v8::Local<v8::Array> array = v8::Array::New(v8::Isolate::GetCurrent(), length);
+  for (i = 0; i < length; i++)
+  {
+    array->Set(SWIGV8_CURRENT_CONTEXT(), i, SWIG_From(${cppType.replace(/\x20*\*/, '')})($1[i]));
+  }
+  $result = AppendToNonArrayTypeOutput($result, array);
 }
 %apply ${paramtype} INOUT {${paramtype}${paramname}};`;
         }

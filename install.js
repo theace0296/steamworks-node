@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const modulePath = path.join('./build', 'Release', 'steamworks.node');
+const modulePath = path.join('./build', process.argv[process.argv.length - 1] === 'debug' ? 'Debug' : 'Release', 'steamworks.node');
 fs.copyFileSync(modulePath, path.join('./bin', 'steamworks.node'));
 
 const defaultSteamSdkBinPath = './sdk';
