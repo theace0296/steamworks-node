@@ -146,10 +146,10 @@ declare class SteamWorks {`;
   }
   for (const property of Object.keys(SteamWorks)) {
     typingsStr = `${typingsStr}
-  ${property}: ${property.toLowerCase()};`;
+  ${property}: ${property};`;
     externTypesStr = `${externTypesStr}\n${getNestedTypings(
       SteamWorks[property],
-      property.toLowerCase(),
+      property,
     )}`;
   }
   typingsStr = `${typingsStr}

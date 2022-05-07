@@ -17,14 +17,18 @@
     "copy-bin:debug": "node ./install.js debug",
     "generate-types": "node ./generate_typings.js",
     "preinstall": "node ./preinstall.js",
-    "install": "npm-run-all swig node-gyp copy-bin"
+    "install": "npm-run-all swig node-gyp copy-bin",
+    "generate-docs": "npx typedoc --options typedoc.json"
   },
   "author": "TheAce0296",
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.17.10",
     "@babel/eslint-parser": "^7.17.0",
-    "eslint": "^8.14.0"
+    "eslint": "^8.14.0",
+    "typedoc": "^0.22.15",
+    "typedoc-plugin-missing-exports": "^0.22.6",
+    "typedoc-plugin-rename-defaults": "^0.5.1"
   },
   "dependencies": {
     "decompress": "^4.2.1",

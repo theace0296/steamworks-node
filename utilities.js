@@ -83,10 +83,14 @@ const getType = variable => {
   if (Number.isNaN(variable)) {
     return 'NaN';
   }
-  return (
+  const type = (
     Object.getPrototypeOf(variable)?.constructor?.name ??
     Object.prototype.toString.call(variable).match(/\s(\w+)/)[1]
   );
+  if (['Number', 'String', 'Boolean'].includes(type)) {
+    return type.toLowerCase();
+  }
+  return type;
 };
 
 const getTsType = typeStr => {
