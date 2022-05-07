@@ -1,10 +1,10 @@
 {
-  "name": "steamworks-node",
+  "name": "@theace0296/steamworks",
   "version": "1.0.0",
-  "description": "A wrapper library to call the steamworks API from nodeJS.",
+  "description": "A wrapper library to call the Steamworks API from nodeJS.",
   "main": "index.js",
   "bin": {
-    "steamworks-node-init": "./utilities/init.js"
+    "steamworks-init": "./utilities/init.js"
   },
   "scripts": {
     "test": "node ./index.test.js",

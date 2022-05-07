@@ -2,6 +2,10 @@ const fs = require('fs-extra');
 const path = require('path');
 const steam = require('./bin/steamworks.node');
 
+if (!fs.existsSync(path.resolve(__dirname, 'lib/steam_api.json'))) {
+  throw new Error('An error occured while locating steamworks!');
+}
+
 const set = (obj, record, value) => {
   if (Object(obj) !== obj) {
     return obj;
@@ -68,7 +72,10 @@ class SteamWorks {
       this.Init(appId);
 
       const steamApiJson = JSON.parse(
-        fs.readFileSync(path.resolve('./lib', 'steam_api.json'), 'utf8'),
+        fs.readFileSync(
+          path.resolve(__dirname, 'lib/steam_api.json'),
+          'utf8',
+        ),
       );
       const steamApiEnumNames = steamApiJson.enums.map(e => e.enumname);
       const steamApiStructNames = steamApiJson.structs.map(s => s.struct);
@@ -78,14 +85,14 @@ class SteamWorks {
 
       const SteamCallResultFunctions = JSON.parse(
         fs.readFileSync(
-          path.resolve('./lib', 'steamcallresultfunctions.json'),
+          path.resolve(__dirname, 'lib/steamcallresultfunctions.json'),
           'utf8',
         ),
       );
 
       const SteamCallBackFunctions = JSON.parse(
         fs.readFileSync(
-          path.resolve('./lib', 'steamcallbackfunctions.json'),
+          path.resolve(__dirname, 'lib/steamcallbackfunctions.json'),
           'utf8',
         ),
       );
@@ -143,7 +150,7 @@ class SteamWorks {
 
       for (const key in steam) {
         if (key.startsWith('SteamAPI_')) {
-          this.SteamAPI[key.substr('SteamAPI_'.length)] = steam[key];
+          this.SteamAPI[key.substring('SteamAPI_'.length)] = steam[key];
           continue;
         }
         if (key.startsWith('ISteam')) {
@@ -205,7 +212,7 @@ class SteamWorks {
   Init(appId = 0) {
     this.Shutdown();
     if (appId !== 0) {
-      const steamAppIdPath = path.resolve(__dirname, 'steam_appid.txt');
+      const steamAppIdPath = path.resolve(process.cwd(), 'steam_appid.txt');
       if (fs.existsSync(steamAppIdPath)) {
         fs.unlinkSync(steamAppIdPath);
       }

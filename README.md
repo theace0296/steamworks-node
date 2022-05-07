@@ -1,10 +1,20 @@
-# steamworks-node
-A wrapper library to call the steamworks API from nodeJS.
+# @theace0296/steamworks
+A wrapper library to call the Steamworks API from nodeJS.
+
+# Installation
+```
+npm install @theace0296/steamworks
+```
+
+After installing, run the initialization script:
+```
+npx steamworks-init
+```
 
 # Usage
 ```js
-const steamworks = require('steamworks-node');
-// The constructor of steamworks-node's 'steamworks' export calls the Steam API Init function.
+const steamworks = require('@theace0296/steamworks');
+// The constructor of steamworks's default export calls the Steam API Init function.
 const SteamWorks = new steamworks(/* Optional app_id */);
 const {
   SteamAPI,

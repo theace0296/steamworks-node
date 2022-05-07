@@ -322,19 +322,17 @@ const main = async () => {
             cppValueType: cppType.replace(/\x20*\*/, ''),
           });
           steamApiTypeDefsStr = `${steamApiTypeDefsStr}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") ${paramtype}${paramname} (int length = 0, v8::Local<v8::Array> array, v8::Local<v8::Value> jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
+%typemap(in, fragment="SWIG_JSCGetIntProperty") ${paramtype}${paramname} (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
   if ($input->IsArray())
   {
     // Convert into Array
-    array = v8::Local<v8::Array>::Cast($input);
+    array = SWIGV8_ARRAY::Cast($input);
     length = array->Length();
     $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
     // Get each element from array
     for (i = 0; i < length; i++)
     {
-      if (!array->Get(SWIGV8_CURRENT_CONTEXT(), i).ToLocal(&jsvalue)) {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to get item from $input");
-      }
+      jsvalue = SWIGV8_ARRAY_GET(array, i);
       // Get primitive value from JSObject
       res = SWIG_AsVal(${cppType.replace(/\x20*\*/, '')})(jsvalue, &temp);
       if (!SWIG_IsOK(res))
@@ -570,7 +568,7 @@ namespace CCallResults {
       }
 
       callResultsMade.push(callResultStructName);
-      const callResultName = callResultStructName.substr(
+      const callResultName = callResultStructName.substring(
         0,
         callResultStructName.length - 2,
       );
@@ -638,7 +636,7 @@ namespace CCallResults {
         }`;
         callResultFunctions = `${callResultFunctions}
   C${callResultName}* ${functionName}(${paramsDeclarationString}) {
-    ${returntype} ${methodname}Call = ${methodNameSplit[1].substr(1)}()->${
+    ${returntype} ${methodname}Call = ${methodNameSplit[1].substring(1)}()->${
   methodNameSplit[2]
 }(${paramsString});
     C${callResultName}* ${methodname}Result = new C${callResultName}(${methodname}Call);
@@ -647,7 +645,7 @@ namespace CCallResults {
 `;
         callResultFunctionsMade[functionName] = {
           name  : functionName,
-          parent: methodNameSplit[1].substr(1),
+          parent: methodNameSplit[1].substring(1),
           result: callResultName,
           args  : params.map(({ paramname, paramtype }) => ({
             name: paramname,
@@ -709,12 +707,12 @@ namespace CCallBacks {
       }
 
       callBacksMade.push(callBackStructName);
-      const callBackName = callBackStructName.substr(
+      const callBackName = callBackStructName.substring(
         0,
         callBackStructName.length - 2,
       );
 
-      const callbackAltName = callBack.struct.substr(
+      const callbackAltName = callBack.struct.substring(
         0,
         callBackStructName.length - 8,
       );
@@ -749,14 +747,14 @@ namespace CCallBacks {
         }`;
         callBackFunctions = `${callBackFunctions}
   C${callBackName}* ${functionName}(${paramsDeclarationString}) {
-    ${methodNameSplit[1].substr(1)}()->${methodNameSplit[2]}(${paramsString});
+    ${methodNameSplit[1].substring(1)}()->${methodNameSplit[2]}(${paramsString});
     C${callBackName}* ${methodname}Result = new C${callBackName}();
     return ${methodname}Result;
   };
 `;
         callBackFunctionsMade[functionName] = {
           name  : functionName,
-          parent: methodNameSplit[1].substr(1),
+          parent: methodNameSplit[1].substring(1),
           result: callBackName,
           args  : params.map(({ paramname, paramtype }) => ({
             name: paramname,

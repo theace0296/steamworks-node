@@ -10,7 +10,7 @@
     "./utilities/jsdoc-theme.js"
   ],
   "theme": "github-wiki-custom",
-  "name": "Steamworks-Node",
+  "name": "Steamworks",
   "includeVersion": true,
   "emit": "docs",
   "githubPages": true

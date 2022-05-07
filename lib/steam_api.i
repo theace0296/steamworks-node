@@ -48,13 +48,13 @@
 
 %typemap(in) char** {
 	if ($input->IsArray()) {
-    v8::Local<v8::Array> array = v8::Local<v8::Array>::Cast($input);
+    SWIGV8_ARRAY array = SWIGV8_ARRAY::Cast($input);
     char** c_arr = new char*[array->Length()];
     v8::Isolate* isolate = v8::Isolate::GetCurrent();
     for (uint32_t i = 0; i < array->Length(); i++) {
-      v8::Local<v8::Value> tempVal;
-      if (array->Get(SWIGV8_CURRENT_CONTEXT(), i).ToLocal(&tempVal) && tempVal->IsString()) {
-        v8::String::Utf8Value value(isolate, v8::Local<v8::String>::Cast(tempVal));
+      SWIGV8_VALUE jsvalue = SWIGV8_ARRAY_GET(array, i);
+      if (jsvalue->IsString()) {
+        v8::String::Utf8Value value(isolate, v8::Local<v8::String>::Cast(jsvalue));
         auto c_str = new char[value.length() + 1];
         strcpy(c_str, *value);
         c_arr[i] = c_str;
@@ -89,19 +89,17 @@
 
 %define js_array_out(TYPE)
 %typemap(in, fragment="SWIG_JSCGetIntProperty") TYPE[], TYPE[ANY]
-    (int length = 0, v8::Local<v8::Array> array, v8::Local<v8::Value> jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
+    (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
   if ($input->IsArray())
   {
     // Convert into Array
-    array = v8::Local<v8::Array>::Cast($input);
+    array = SWIGV8_ARRAY::Cast($input);
     length = $1_dim0;
     $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
     // Get each element from array
     for (i = 0; i < length; i++)
     {
-      if (!array->Get(SWIGV8_CURRENT_CONTEXT(), i).ToLocal(&jsvalue)) {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
+      jsvalue = SWIGV8_ARRAY_GET(array, i);
       // Get primitive value from JSObject
       res = SWIG_AsVal(TYPE)(jsvalue, &temp);
       if (!SWIG_IsOK(res))
@@ -124,10 +122,10 @@
 %typemap(out, fragment=SWIG_From_frag(TYPE)) TYPE[], TYPE[ANY] (int length = 0, int i = 0)
 {
   length = $1_dim0;
-  v8::Local<v8::Array> array = v8::Array::New(v8::Isolate::GetCurrent(), length);
+  SWIGV8_ARRAY array = SWIGV8_ARRAY_NEW_SIZE(length);
   for (i = 0; i < length; i++)
   {
-    array->Set(SWIGV8_CURRENT_CONTEXT(), i, SWIG_From(TYPE)($1[i]));
+    SWIGV8_ARRAY_SET(array, i, SWIG_From(TYPE)($1[i]));
   }
   $result = array;
 }
@@ -196,13 +194,27 @@ bool Shutdown() {
   return !applicationRunning;
 };
 
-v8::Local<v8::Value> AppendToNonArrayTypeOutput(v8::Local<v8::Value> result, v8::Local<v8::Value> obj) {
-  v8::EscapableHandleScope scope(v8::Isolate::GetCurrent());
-  v8::Local<v8::Array> arr = v8::Array::New(v8::Isolate::GetCurrent());
-  arr->Set(SWIGV8_CURRENT_CONTEXT(), arr->Length(), result);
-  arr->Set(SWIGV8_CURRENT_CONTEXT(), arr->Length(), obj);
-  return scope.Escape(arr);
-}
+#if (V8_MAJOR_VERSION-0) < 5
+#define SWIGV8_MAYBE_CHECK(maybe) maybe
+#elif (SWIG_V8_VERSION < 0x0704)
+#define SWIGV8_MAYBE_CHECK(maybe) maybe.FromJust()
+#else
+#define SWIGV8_MAYBE_CHECK(maybe) maybe.Check()
+#endif
+
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032318)
+#define SWIGV8_VALUE v8::Handle<v8::Value>
+#define SWIGV8_ARRAY v8::Handle<v8::Array>
+#define SWIGV8_ARRAY_NEW_SIZE(size) v8::Array::New(size)
+#define SWIGV8_ARRAY_GET(array, index) (array)->Get(index)
+#define SWIGV8_ARRAY_SET(array, index, value) (array)->Set(index, value)
+#else
+#define SWIGV8_VALUE v8::Local<v8::Value>
+#define SWIGV8_ARRAY v8::Local<v8::Array>
+#define SWIGV8_ARRAY_NEW_SIZE(size) v8::Array::New(v8::Isolate::GetCurrent(), size)
+#define SWIGV8_ARRAY_GET(array, index) (array)->Get(SWIGV8_CURRENT_CONTEXT(), index).ToLocalChecked()
+#define SWIGV8_ARRAY_SET(array, index, value) SWIGV8_MAYBE_CHECK((array)->Set(SWIGV8_CURRENT_CONTEXT(), index, value))
+#endif
 %}
 
 

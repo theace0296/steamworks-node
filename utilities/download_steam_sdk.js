@@ -28,7 +28,7 @@ const downloadSteamworksSdk = async () => {
   };
 
   console.log(
-    'steamworks-node:\nThe Steamworks SDK will be downloaded, your Steam credentials are required for this.',
+    '@theace0296/steamworks:\nThe Steamworks SDK will be downloaded, your Steam credentials are required for this.',
   );
   const proceed = prompt('Continue? [Y/n]: ', 'Y').toLowerCase() === 'y';
   if (!proceed) {

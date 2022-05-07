@@ -11,8 +11,8 @@ const fs = require('fs-extra');
           .replace(/index\.index/g, 'index.SteamWorksClass')
           .replace(/\)\.index/g, ').SteamWorksClass')
           .replace(/# Class:\x20index/g, '# Class: SteamWorksClass')
-          .replace(/# Module:\x20index/g, '# Module: Steamworks-Node')
-          .replace(/\[index\]\(\.\.\/wiki\/index\)/g, '[Steamworks-Node](../wiki/index)')
+          .replace(/# Module:\x20index/g, '# Module: Steamworks')
+          .replace(/\[index\]\(\.\.\/wiki\/index\)/g, '[Steamworks](../wiki/index)')
           .replace(/\[index\]\(\.\.\/wiki\/index\.SteamWorksClass\)/g, '[SteamWorksClass](../wiki/index.SteamWorksClass)')
           .replace(/-1\)/g, ')'),
       );
