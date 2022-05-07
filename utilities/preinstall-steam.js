@@ -53,7 +53,7 @@ const main = async () => {
       recursive: true,
       overwrite: true,
     });
-    fs.rmSync('./build', { recursive: true, force: true });
+    fs.rmSync('./lib/build', { recursive: true, force: true });
     fs.rmSync('./lib/steam_api_wrap.cxx', { force: true });
 
     const steamRedisDir = './steam/redistributable_bin';
@@ -97,7 +97,7 @@ const main = async () => {
 
     for (const steamRedisFile of steamRedisFiles) {
       if (path.basename(steamRedisFile).includes('lib')) {
-        const gypContent = fs.readFileSync('./binding.gyp', 'utf-8');
+        const gypContent = fs.readFileSync('./lib/binding.gyp', 'utf-8');
         const gypObject = JSON.parse(gypContent);
         if (
           gypObject &&
@@ -105,9 +105,9 @@ const main = async () => {
           gypObject?.targets[0]?.libraries
         ) {
           gypObject.targets[0].libraries = [
-            path.relative(path.resolve('./build'), steamRedisFile),
+            path.relative(path.resolve('./lib/build'), steamRedisFile),
           ];
-          fs.writeFileSync('./binding.gyp', JSON.stringify(gypObject, null, 2));
+          fs.writeFileSync('./lib/binding.gyp', JSON.stringify(gypObject, null, 2));
         } else {
           throw new Error(
             'bindings.gyp was unreadable or formatted incorrectly!',
@@ -154,7 +154,7 @@ const main = async () => {
 
     for (const steamAuthlibFile of steamAuthlibFiles) {
       if (path.basename(steamAuthlibFile).includes('lib')) {
-        const gypContent = fs.readFileSync('./binding.gyp', 'utf-8');
+        const gypContent = fs.readFileSync('./lib/binding.gyp', 'utf-8');
         const gypObject = JSON.parse(gypContent);
         if (
           gypObject &&
@@ -163,9 +163,9 @@ const main = async () => {
         ) {
           gypObject.targets[0].libraries = [
             ...gypObject.targets[0].libraries,
-            path.relative(path.resolve('./build'), steamAuthlibFile),
+            path.relative(path.resolve('./lib/build'), steamAuthlibFile),
           ];
-          fs.writeFileSync('./binding.gyp', JSON.stringify(gypObject, null, 2));
+          fs.writeFileSync('./lib/binding.gyp', JSON.stringify(gypObject, null, 2));
         } else {
           throw new Error(
             'bindings.gyp was unreadable or formatted incorrectly!',
