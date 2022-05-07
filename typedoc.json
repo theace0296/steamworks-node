@@ -7,6 +7,5 @@
   "name": "Steamworks-Node",
   "includeVersion": true,
   "emit": "docs",
-  "readme": false,
   "githubPages": true
 }
