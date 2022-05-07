@@ -16,6 +16,10 @@ const steamSdkBasePath =
   process?.env?.STEAMWORKS_SDK_PATH ?? defaultSteamSdkPath;
 
 const main = async () => {
+  if (!fs.existsSync('./steam')) {
+    fs.mkdirSync('./steam');
+  }
+
   try {
     const swigArchiveName = (() => {
       switch (process.platform) {

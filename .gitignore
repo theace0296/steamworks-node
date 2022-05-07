@@ -5,7 +5,6 @@ build
 node_modules
 sdk
 swig
-steam/redistributable_bin
-steam/lib
+steam
 wiki
 theace0296-steamworks-*.tgz
