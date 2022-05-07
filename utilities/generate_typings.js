@@ -12,7 +12,7 @@ const {
   getJsTypeFromTypeOrName,
 } = require('./utilities');
 
-const steamworks = require('.');
+const steamworks = require('../');
 const SteamWorks = new steamworks();
 
 const SteamCallResultFunctions = JSON.parse(

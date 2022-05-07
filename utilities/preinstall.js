@@ -29,7 +29,7 @@ const main = async () => {
         throw new Error(`${process.platform} is not supported!`);
       }
     })();
-    await decompress(`./${swigArchiveName}.tar.gz`, './swig', {
+    await decompress(`./swig-binaries/${swigArchiveName}.tar.gz`, './swig', {
       plugins: [decompressTargz()],
     });
 
