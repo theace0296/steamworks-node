@@ -19,13 +19,6 @@ jobs:
           node-version: 16
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - name: Creating .npmrc
-        run: |
-          cat << EOF > "$HOME/.npmrc"
-            //registry.npmjs.org/:_authToken=$NPM_TOKEN
-          EOF
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
