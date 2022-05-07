@@ -381,7 +381,7 @@ declare interface steamclient {
   CreateSteamPipe: {(): number}
   BReleaseSteamPipe: {(hSteamPipe: number): boolean}
   ConnectToGlobalUser: {(hSteamPipe: number): number}
-  CreateLocalUser: {(phSteamPipe: unknown, eAccountType: SteamEnums.EAccountType): number}
+  CreateLocalUser: {(phSteamPipe: number[], eAccountType: SteamEnums.EAccountType): number}
   ReleaseUser: {(hSteamPipe: number, hUser: number): undefined}
   GetISteamUser: {(hSteamUser: number, hSteamPipe: number, pchVersion: string): unknown}
   GetISteamGameServer: {(hSteamUser: number, hSteamPipe: number, pchVersion: string): unknown}
@@ -567,7 +567,7 @@ declare interface steamutils {
 }
 declare interface steammatchmaking {
   GetFavoriteGameCount: {(): number}
-  GetFavoriteGame: {(iGame: number, pnAppID: unknown, pnIP: unknown, pnConnPort: unknown, pnQueryPort: unknown, punFlags: unknown, pRTime32LastPlayedOnServer: unknown): boolean}
+  GetFavoriteGame: {(iGame: number, pnAppID: number[], pnIP: unknown, pnConnPort: unknown, pnQueryPort: unknown, punFlags: unknown, pRTime32LastPlayedOnServer: unknown): boolean}
   AddFavoriteGame: {(nAppID: number, nIP: number, nConnPort: number, nQueryPort: number, unFlags: number, rTime32LastPlayedOnServer: number): number}
   RemoveFavoriteGame: {(nAppID: number, nIP: number, nConnPort: number, nQueryPort: number, unFlags: number): boolean}
   RequestLobbyList: {(): Promise<{ m_nLobbiesMatching: number }>};
@@ -707,13 +707,13 @@ declare interface steamapps {
   GetEarliestPurchaseUnixTime: {(nAppID: number): number}
   BIsSubscribedFromFreeWeekend: {(): boolean}
   GetDLCCount: {(): number}
-  BGetDLCDataByIndex: {(iDLC: number, pAppID: unknown, pbAvailable: unknown, pchName: string, cchNameBufferSize: number): boolean}
+  BGetDLCDataByIndex: {(iDLC: number, pAppID: number[], pbAvailable: unknown, pchName: string, cchNameBufferSize: number): boolean}
   InstallDLC: {(nAppID: number): undefined}
   UninstallDLC: {(nAppID: number): undefined}
   RequestAppProofOfPurchaseKey: {(nAppID: number): undefined}
   GetCurrentBetaName: {(pchName: string, cchNameBufferSize: number): boolean}
   MarkContentCorrupt: {(bMissingFilesOnly: boolean): boolean}
-  GetInstalledDepots: {(appID: number, pvecDepots: unknown, cMaxDepots: number): number}
+  GetInstalledDepots: {(appID: number, pvecDepots: number[], cMaxDepots: number): number}
   GetAppInstallDir: {(appID: number, pchFolder: string, cchFolderBufferSize: number): number}
   BIsAppInstalled: {(appID: number): boolean}
   GetAppOwner: {(): unknown}
@@ -743,8 +743,8 @@ declare interface steamnetworking {
   SendDataOnSocket: {(hSocket: number, pubData: unknown, cubData: number, bReliable: boolean): boolean}
   IsDataAvailableOnSocket: {(hSocket: number, pcubMsgSize: unknown): boolean}
   RetrieveDataFromSocket: {(hSocket: number, pubDest: unknown, cubDest: number, pcubMsgSize: unknown): boolean}
-  IsDataAvailable: {(hListenSocket: number, pcubMsgSize: unknown, phSocket: unknown): boolean}
-  RetrieveData: {(hListenSocket: number, pubDest: unknown, cubDest: number, pcubMsgSize: unknown, phSocket: unknown): boolean}
+  IsDataAvailable: {(hListenSocket: number, pcubMsgSize: unknown, phSocket: number[]): boolean}
+  RetrieveData: {(hListenSocket: number, pubDest: unknown, cubDest: number, pcubMsgSize: unknown, phSocket: number[]): boolean}
   GetSocketInfo: {(hSocket: number, pSteamIDRemote: unknown, peSocketStatus: unknown, punIPRemote: unknown, punPortRemote: unknown): boolean}
   GetListenSocketInfo: {(hListenSocket: number, pnIP: unknown, pnPort: unknown): boolean}
   GetSocketConnectionType: {(hSocket: number): SteamEnums.ESNetSocketConnectionType}
@@ -777,7 +777,7 @@ declare interface steamremotestorage {
   SetCloudEnabledForApp: {(bEnabled: boolean): undefined}
   UGCDownload: {(hContent: number, unPriority: number): Promise<{ m_eResult: SteamEnums.EResult, m_hFile: number, m_nAppID: number, m_nSizeInBytes: number, m_pchFileName: string, m_ulSteamIDOwner: number }>};
   GetUGCDownloadProgress: {(hContent: number, pnBytesDownloaded: unknown, pnBytesExpected: unknown): boolean}
-  GetUGCDetails: {(hContent: number, pnAppID: unknown, ppchName: unknown, pnFileSizeInBytes: unknown, pSteamIDOwner: unknown): boolean}
+  GetUGCDetails: {(hContent: number, pnAppID: number[], ppchName: unknown, pnFileSizeInBytes: unknown, pSteamIDOwner: unknown): boolean}
   UGCRead: {(hContent: number, pvData: unknown, cubDataToRead: number, cOffset: number, eAction: SteamEnums.EUGCReadAction): number}
   GetCachedUGCCount: {(): number}
   GetCachedUGCHandle: {(iCachedContent: number): number}
@@ -873,8 +873,8 @@ declare interface steamhttp {
   SetHTTPRequestNetworkActivityTimeout: {(hRequest: number, unTimeoutSeconds: number): boolean}
   SetHTTPRequestHeaderValue: {(hRequest: number, pchHeaderName: string, pchHeaderValue: string): boolean}
   SetHTTPRequestGetOrPostParameter: {(hRequest: number, pchParamName: string, pchParamValue: string): boolean}
-  SendHTTPRequest: {(hRequest: number, pCallHandle: unknown): boolean}
-  SendHTTPRequestAndStreamResponse: {(hRequest: number, pCallHandle: unknown): boolean}
+  SendHTTPRequest: {(hRequest: number, pCallHandle: number[]): boolean}
+  SendHTTPRequestAndStreamResponse: {(hRequest: number, pCallHandle: number[]): boolean}
   DeferHTTPRequest: {(hRequest: number): boolean}
   PrioritizeHTTPRequest: {(hRequest: number): boolean}
   GetHTTPResponseHeaderSize: {(hRequest: number, pchHeaderName: string, unResponseHeaderSize: unknown): boolean}
@@ -898,14 +898,14 @@ declare interface steamcontroller {
   Init: {(): boolean}
   Shutdown: {(): boolean}
   RunFrame: {(): undefined}
-  GetConnectedControllers: {(handlesOut: unknown): number}
+  GetConnectedControllers: {(handlesOut: number[]): number}
   GetActionSetHandle: {(pszActionSetName: string): number}
   ActivateActionSet: {(controllerHandle: number, actionSetHandle: number): undefined}
   GetCurrentActionSet: {(controllerHandle: number): number}
   ActivateActionSetLayer: {(controllerHandle: number, actionSetLayerHandle: number): undefined}
   DeactivateActionSetLayer: {(controllerHandle: number, actionSetLayerHandle: number): undefined}
   DeactivateAllActionSetLayers: {(controllerHandle: number): undefined}
-  GetActiveActionSetLayers: {(controllerHandle: number, handlesOut: unknown): number}
+  GetActiveActionSetLayers: {(controllerHandle: number, handlesOut: number[]): number}
   GetDigitalActionHandle: {(pszActionName: string): number}
   GetDigitalActionData: {(controllerHandle: number, digitalActionHandle: number): SteamStructs.InputDigitalActionData_t}
   GetDigitalActionOrigins: {(controllerHandle: number, actionSetHandle: number, digitalActionHandle: number, originsOut: unknown): number}
@@ -933,7 +933,7 @@ declare interface steamcontroller {
 declare interface steamugc {
   CreateQueryUserUGCRequest: {(unAccountID: number, eListType: SteamEnums.EUserUGCList, eMatchingUGCType: SteamEnums.EUGCMatchingUGCType, eSortOrder: SteamEnums.EUserUGCListSortOrder, nCreatorAppID: number, nConsumerAppID: number, unPage: number): number}
   CreateQueryAllUGCRequest: {(eQueryType: SteamEnums.EUGCQuery, eMatchingeMatchingUGCTypeFileType: SteamEnums.EUGCMatchingUGCType, nCreatorAppID: number, nConsumerAppID: number, unPage: number): number}
-  CreateQueryUGCDetailsRequest: {(pvecPublishedFileID: unknown, unNumPublishedFileIDs: number): number}
+  CreateQueryUGCDetailsRequest: {(pvecPublishedFileID: number[], unNumPublishedFileIDs: number): number}
   SendQueryUGCRequest: {(handle: number): Promise<{ m_handle: number, m_eResult: SteamEnums.EResult, m_unNumResultsReturned: number, m_unTotalMatchingResults: number, m_bCachedData: boolean, m_rgchNextCursor: string }>};
   GetQueryUGCResult: {(handle: number, index: number, pDetails: unknown): boolean}
   GetQueryUGCNumTags: {(handle: number, index: number): number}
@@ -941,7 +941,7 @@ declare interface steamugc {
   GetQueryUGCTagDisplayName: {(handle: number, index: number, indexTag: number, pchValue: string, cchValueSize: number): boolean}
   GetQueryUGCPreviewURL: {(handle: number, index: number, pchURL: string, cchURLSize: number): boolean}
   GetQueryUGCMetadata: {(handle: number, index: number, pchMetadata: string, cchMetadatasize: number): boolean}
-  GetQueryUGCChildren: {(handle: number, index: number, pvecPublishedFileID: unknown, cMaxEntries: number): boolean}
+  GetQueryUGCChildren: {(handle: number, index: number, pvecPublishedFileID: number[], cMaxEntries: number): boolean}
   GetQueryUGCStatistic: {(handle: number, index: number, eStatType: SteamEnums.EItemStatistic, pStatValue: unknown): boolean}
   GetQueryUGCNumAdditionalPreviews: {(handle: number, index: number): number}
   GetQueryUGCAdditionalPreview: {(handle: number, index: number, previewIndex: number, pchURLOrVideoID: string, cchURLSize: number, pchOriginalFileName: string, cchOriginalFileNameSize: number, pPreviewType: unknown): boolean}
@@ -997,15 +997,15 @@ declare interface steamugc {
   SubscribeItem: {(nPublishedFileID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number }>};
   UnsubscribeItem: {(nPublishedFileID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number }>};
   GetNumSubscribedItems: {(): number}
-  GetSubscribedItems: {(pvecPublishedFileID: unknown, cMaxEntries: number): number}
+  GetSubscribedItems: {(pvecPublishedFileID: number[], cMaxEntries: number): number}
   GetItemState: {(nPublishedFileID: number): number}
   GetItemInstallInfo: {(nPublishedFileID: number, punSizeOnDisk: unknown, pchFolder: string, cchFolderSize: number, punTimeStamp: unknown): boolean}
   GetItemDownloadInfo: {(nPublishedFileID: number, punBytesDownloaded: unknown, punBytesTotal: unknown): boolean}
   DownloadItem: {(nPublishedFileID: number, bHighPriority: boolean): boolean}
   BInitWorkshopForGameServer: {(unWorkshopDepotID: number, pszFolder: string): boolean}
   SuspendDownloads: {(bSuspend: boolean): undefined}
-  StartPlaytimeTracking: {(pvecPublishedFileID: unknown, unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamEnums.EResult }>};
-  StopPlaytimeTracking: {(pvecPublishedFileID: unknown, unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamEnums.EResult }>};
+  StartPlaytimeTracking: {(pvecPublishedFileID: number[], unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamEnums.EResult }>};
+  StopPlaytimeTracking: {(pvecPublishedFileID: number[], unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamEnums.EResult }>};
   StopPlaytimeTrackingForAllItems: {(): Promise<{ m_eResult: SteamEnums.EResult }>};
   AddDependency: {(nParentPublishedFileID: number, nChildPublishedFileID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number, m_nChildPublishedFileId: number }>};
   RemoveDependency: {(nParentPublishedFileID: number, nChildPublishedFileID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number, m_nChildPublishedFileId: number }>};
@@ -1018,7 +1018,7 @@ declare interface steamugc {
 }
 declare interface steamapplist {
   GetNumInstalledApps: {(): number}
-  GetInstalledApps: {(pvecAppID: unknown, unMaxAppIDs: number): number}
+  GetInstalledApps: {(pvecAppID: number[], unMaxAppIDs: number): number}
   GetAppName: {(nAppID: number, pchName: string, cchNameMax: number): number}
   GetAppInstallDir: {(nAppID: number, pchDirectory: string, cchNameMax: number): number}
   GetAppBuildId: {(nAppID: number): number}
@@ -1069,35 +1069,35 @@ declare interface steaminventory {
   GetResultTimestamp: {(resultHandle: number): number}
   CheckResultSteamID: {(resultHandle: number, steamIDExpected: unknown): boolean}
   DestroyResult: {(resultHandle: number): undefined}
-  GetAllItems: {(pResultHandle: unknown): boolean}
-  GetItemsByID: {(pResultHandle: unknown, pInstanceIDs: unknown, unCountInstanceIDs: number): boolean}
+  GetAllItems: {(pResultHandle: number[]): boolean}
+  GetItemsByID: {(pResultHandle: number[], pInstanceIDs: unknown, unCountInstanceIDs: number): boolean}
   SerializeResult: {(resultHandle: number, pOutBuffer: unknown, punOutBufferSize: unknown): boolean}
-  DeserializeResult: {(pOutResultHandle: unknown, pBuffer: unknown, unBufferSize: number, bRESERVED_MUST_BE_FALSE: boolean): boolean}
-  GenerateItems: {(pResultHandle: unknown, pArrayItemDefs: unknown, punArrayQuantity: unknown, unArrayLength: number): boolean}
-  GrantPromoItems: {(pResultHandle: unknown): boolean}
-  AddPromoItem: {(pResultHandle: unknown, itemDef: number): boolean}
-  AddPromoItems: {(pResultHandle: unknown, pArrayItemDefs: unknown, unArrayLength: number): boolean}
-  ConsumeItem: {(pResultHandle: unknown, itemConsume: number, unQuantity: number): boolean}
-  ExchangeItems: {(pResultHandle: unknown, pArrayGenerate: unknown, punArrayGenerateQuantity: unknown, unArrayGenerateLength: number, pArrayDestroy: unknown, punArrayDestroyQuantity: unknown, unArrayDestroyLength: number): boolean}
-  TransferItemQuantity: {(pResultHandle: unknown, itemIdSource: number, unQuantity: number, itemIdDest: number): boolean}
+  DeserializeResult: {(pOutResultHandle: number[], pBuffer: unknown, unBufferSize: number, bRESERVED_MUST_BE_FALSE: boolean): boolean}
+  GenerateItems: {(pResultHandle: number[], pArrayItemDefs: unknown, punArrayQuantity: unknown, unArrayLength: number): boolean}
+  GrantPromoItems: {(pResultHandle: number[]): boolean}
+  AddPromoItem: {(pResultHandle: number[], itemDef: number): boolean}
+  AddPromoItems: {(pResultHandle: number[], pArrayItemDefs: unknown, unArrayLength: number): boolean}
+  ConsumeItem: {(pResultHandle: number[], itemConsume: number, unQuantity: number): boolean}
+  ExchangeItems: {(pResultHandle: number[], pArrayGenerate: unknown, punArrayGenerateQuantity: unknown, unArrayGenerateLength: number, pArrayDestroy: unknown, punArrayDestroyQuantity: unknown, unArrayDestroyLength: number): boolean}
+  TransferItemQuantity: {(pResultHandle: number[], itemIdSource: number, unQuantity: number, itemIdDest: number): boolean}
   SendItemDropHeartbeat: {(): undefined}
-  TriggerItemDrop: {(pResultHandle: unknown, dropListDefinition: number): boolean}
-  TradeItems: {(pResultHandle: unknown, steamIDTradePartner: unknown, pArrayGive: unknown, pArrayGiveQuantity: unknown, nArrayGiveLength: number, pArrayGet: unknown, pArrayGetQuantity: unknown, nArrayGetLength: number): boolean}
+  TriggerItemDrop: {(pResultHandle: number[], dropListDefinition: number): boolean}
+  TradeItems: {(pResultHandle: number[], steamIDTradePartner: unknown, pArrayGive: unknown, pArrayGiveQuantity: unknown, nArrayGiveLength: number, pArrayGet: unknown, pArrayGetQuantity: unknown, nArrayGetLength: number): boolean}
   LoadItemDefinitions: {(): boolean}
-  GetItemDefinitionIDs: {(pItemDefIDs: unknown, punItemDefIDsArraySize: unknown): boolean}
+  GetItemDefinitionIDs: {(pItemDefIDs: number[], punItemDefIDsArraySize: unknown): boolean}
   GetItemDefinitionProperty: {(iDefinition: number, pchPropertyName: string, pchValueBuffer: string, punValueBufferSizeOut: unknown): boolean}
   RequestEligiblePromoItemDefinitionsIDs: {(steamID: unknown): Promise<{ m_result: SteamEnums.EResult, m_steamID: unknown, m_numEligiblePromoItemDefs: number, m_bCachedData: boolean }>};
-  GetEligiblePromoItemDefinitionIDs: {(steamID: unknown, pItemDefIDs: unknown, punItemDefIDsArraySize: unknown): boolean}
+  GetEligiblePromoItemDefinitionIDs: {(steamID: unknown, pItemDefIDs: number[], punItemDefIDsArraySize: unknown): boolean}
   StartPurchase: {(pArrayItemDefs: unknown, punArrayQuantity: unknown, unArrayLength: number): Promise<{ m_result: SteamEnums.EResult, m_ulOrderID: number, m_ulTransID: number }>};
   RequestPrices: {(): Promise<{ m_result: SteamEnums.EResult, m_rgchCurrency: string }>};
   GetNumItemsWithPrices: {(): number}
-  GetItemsWithPrices: {(pArrayItemDefs: unknown, pCurrentPrices: unknown, pBasePrices: unknown, unArrayLength: number): boolean}
+  GetItemsWithPrices: {(pArrayItemDefs: number[], pCurrentPrices: unknown, pBasePrices: unknown, unArrayLength: number): boolean}
   GetItemPrice: {(iDefinition: number, pCurrentPrice: unknown, pBasePrice: unknown): boolean}
   StartUpdateProperties: {(): number}
   RemoveProperty: {(handle: number, nItemID: number, pchPropertyName: string): boolean}
   SetProperty: {(handle: number, nItemID: number, pchPropertyName: string, pchPropertyValue: string): boolean}
-  SubmitUpdateProperties: {(handle: number, pResultHandle: unknown): boolean}
-  InspectItem: {(pResultHandle: unknown, pchItemToken: string): boolean}
+  SubmitUpdateProperties: {(handle: number, pResultHandle: number[]): boolean}
+  InspectItem: {(pResultHandle: number[], pchItemToken: string): boolean}
 }
 declare interface steamvideo {
   GetVideoURL: {(unVideoAppID: number): Promise<{ m_eResult: SteamEnums.EResult, m_unVideoAppID: number, m_rgchURL: string }>};
@@ -1120,7 +1120,7 @@ declare interface steaminput {
   RunFrame: {(bReservedValue: boolean): undefined}
   BWaitForData: {(bWaitForever: boolean, unTimeout: number): boolean}
   BNewDataAvailable: {(): boolean}
-  GetConnectedControllers: {(handlesOut: unknown): number}
+  GetConnectedControllers: {(handlesOut: number[]): number}
   EnableDeviceCallbacks: {(): undefined}
   EnableActionEventCallbacks: {(pCallback: number): undefined}
   GetActionSetHandle: {(pszActionSetName: string): number}
@@ -1129,7 +1129,7 @@ declare interface steaminput {
   ActivateActionSetLayer: {(inputHandle: number, actionSetLayerHandle: number): undefined}
   DeactivateActionSetLayer: {(inputHandle: number, actionSetLayerHandle: number): undefined}
   DeactivateAllActionSetLayers: {(inputHandle: number): undefined}
-  GetActiveActionSetLayers: {(inputHandle: number, handlesOut: unknown): number}
+  GetActiveActionSetLayers: {(inputHandle: number, handlesOut: number[]): number}
   GetDigitalActionHandle: {(pszActionName: string): number}
   GetDigitalActionData: {(inputHandle: number, digitalActionHandle: number): SteamStructs.InputDigitalActionData_t}
   GetDigitalActionOrigins: {(inputHandle: number, actionSetHandle: number, digitalActionHandle: number, originsOut: unknown): number}

@@ -279,6 +279,87 @@ const main = async () => {
       }
     }
 
+    let steamApiTypeDefsStr = '';
+    const typesGenerated = [];
+    const inputParams = [];
+    for (const method of steamApiMethodsWithPointerParams) {
+      for (const { paramtype } of method.params) {
+        if (
+          !paramtype.endsWith('*') ||
+          typesGenerated.includes(paramtype) ||
+          [
+            'const',
+            'char',
+            'int',
+            'uint',
+            'bool',
+            'void',
+            'double',
+            'float',
+            'size_t',
+          ].some(primitive => paramtype.startsWith(primitive))
+        ) {
+          continue;
+        }
+        typesGenerated.push(paramtype);
+        const paramnames = [
+          ...new Set(
+            steamApiMethodsWithPointerParams
+              .flatMap(method => method.params)
+              .filter(param => param.paramtype === paramtype)
+              .map(param => param.paramname),
+          ),
+        ];
+        for (const paramname of paramnames) {
+          const cppType = getCppTypeFromTypeOrName(paramname, paramtype);
+          if (!cppType) {
+            continue;
+          }
+          inputParams.push({
+            paramname,
+            paramtype,
+            cppType,
+            cppValueType: cppType.replace(/\x20*\*/, ''),
+          });
+          steamApiTypeDefsStr = `${steamApiTypeDefsStr}
+%typemap(in, fragment="SWIG_JSCGetIntProperty") ${paramtype}${paramname} (int length = 0, v8::Local<v8::Array> array, v8::Local<v8::Value> jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
+  if ($input->IsArray())
+  {
+    // Convert into Array
+    array = v8::Local<v8::Array>::Cast($input);
+    length = array->Length();
+    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
+    // Get each element from array
+    for (i = 0; i < length; i++)
+    {
+      if (!array->Get(SWIGV8_CURRENT_CONTEXT(), i).ToLocal(&jsvalue)) {
+        SWIG_exception_fail(SWIG_ERROR, "Failed to get item from $input");
+      }
+      // Get primitive value from JSObject
+      res = SWIG_AsVal(${cppType.replace(/\x20*\*/, '')})(jsvalue, &temp);
+      if (!SWIG_IsOK(res))
+      {
+        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
+      }
+      arg$argnum[i] = temp;
+    }
+  }
+  else
+  {
+    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
+  }
+}
+%typemap(freearg) ${paramtype}${paramname} {
+  free($1);
+}`;
+        }
+      }
+    }
+    fs.writeFileSync('./lib/steam_typemaps.i', steamApiTypeDefsStr);
+    fs.writeFileSync(
+      './lib/steamInputParams.json',
+      JSON.stringify(inputParams, null, 2),
+    );
     let steamInterfaceIncludes = [];
     let steamInterfacesStr = '';
     for (const {
@@ -382,10 +463,18 @@ declare namespace SteamStructs {`;
                 ? method.params
                   .map(
                     p =>
-                      `${p.paramname}: ${getJsTypeFromTypeOrName(
-                        p.paramname,
-                        p.paramtype,
-                      )}`,
+                      `${p.paramname}: ${
+                        inputParams.some(
+                          ({ paramname, paramtype }) =>
+                            p.paramname === paramname &&
+                              p.paramtype === paramtype,
+                        )
+                          ? getJsTypeFromTypeOrName(p.paramname, p.paramtype)
+                          : getJsTypeFromTypeOrName(
+                            p.paramname,
+                            p.paramtype.replace(/\x20*\*/, ''),
+                          )
+                      }`,
                   )
                   .join(', ')
                 : ''
@@ -398,10 +487,18 @@ declare namespace SteamStructs {`;
                 ? method.params
                   .map(
                     p =>
-                      `${p.paramname}: ${getJsTypeFromTypeOrName(
-                        p.paramname,
-                        p.paramtype,
-                      )}`,
+                      `${p.paramname}: ${
+                        inputParams.some(
+                          ({ paramname, paramtype }) =>
+                            p.paramname === paramname &&
+                              p.paramtype === paramtype,
+                        )
+                          ? getJsTypeFromTypeOrName(p.paramname, p.paramtype)
+                          : getJsTypeFromTypeOrName(
+                            p.paramname,
+                            p.paramtype.replace(/\x20*\*/, ''),
+                          )
+                      }`,
                   )
                   .join(', ')
                 : ''
@@ -554,7 +651,14 @@ namespace CCallResults {
           result: callResultName,
           args  : params.map(({ paramname, paramtype }) => ({
             name: paramname,
-            type: getJsTypeFromTypeOrName(paramname, paramtype),
+            type: inputParams.some(
+              p => p.paramname === paramname && p.paramtype === paramtype,
+            )
+              ? `${getJsTypeFromTypeOrName(
+                paramname,
+                paramtype.replace(/\x20*\*/, ''),
+              )}[]`
+              : getJsTypeFromTypeOrName(paramname, paramtype),
           })),
           returnType: getReturnTypeFromCallResultJson(callResult),
         };
@@ -656,7 +760,14 @@ namespace CCallBacks {
           result: callBackName,
           args  : params.map(({ paramname, paramtype }) => ({
             name: paramname,
-            type: getJsTypeFromTypeOrName(paramname, paramtype),
+            type: inputParams.some(
+              p => p.paramname === paramname && p.paramtype === paramtype,
+            )
+              ? `${getJsTypeFromTypeOrName(
+                paramname,
+                paramtype.replace(/\x20*\*/, ''),
+              )}[]`
+              : getJsTypeFromTypeOrName(paramname, paramtype),
           })),
           returnType: getReturnTypeFromCallResultJson(callBack),
         };
@@ -713,80 +824,6 @@ namespace CCallBacks {
     fs.writeFileSync(
       './lib/steamcallbackfunctions.json',
       JSON.stringify(callBackFunctionsMade, null, 2),
-    );
-
-    let steamApiTypeDefsStr = '';
-    const typesGenerated = [];
-    for (const method of steamApiMethodsWithPointerParams) {
-      for (const { paramtype } of method.params) {
-        if (
-          !paramtype.endsWith('*') ||
-          typesGenerated.includes(paramtype) ||
-          [
-            'const',
-            'char',
-            'int',
-            'uint',
-            'bool',
-            'void',
-            'double',
-            'float',
-            'size_t',
-          ].some(primitive => paramtype.startsWith(primitive))
-        ) {
-          continue;
-        }
-        typesGenerated.push(paramtype);
-        const paramnames = [
-          ...new Set(
-            steamApiMethodsWithPointerParams
-              .flatMap(method => method.params)
-              .filter(param => param.paramtype === paramtype)
-              .map(param => param.paramname),
-          ),
-        ];
-        for (const paramname of paramnames) {
-          const cppType = getCppTypeFromTypeOrName(paramname, paramtype);
-          if (!cppType) {
-            continue;
-          }
-          steamApiTypeDefsStr = `${steamApiTypeDefsStr}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") ${paramtype}${paramname} (int length = 0, v8::Local<v8::Array> array, v8::Local<v8::Value> jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = v8::Local<v8::Array>::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      if (!array->Get(SWIGV8_CURRENT_CONTEXT(), i).ToLocal(&jsvalue)) {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to get item from $input");
-      }
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(${cppType.replace(/\x20*\*/, '')})(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) ${paramtype}${paramname} {
-  free($1);
-}`;
-        }
-      }
-    }
-    fs.writeFileSync(
-      './lib/steam_typemaps.i',
-      steamApiTypeDefsStr,
     );
   } catch (error) {
     console.error('=====================================================');

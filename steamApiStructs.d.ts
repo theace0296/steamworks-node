@@ -59,7 +59,7 @@ declare namespace SteamStructs {
     m_steamID: unknown;
     constructor();
     GetName: {(): string};
-    SetName: {(pName: string): undefined};
+    SetName: {(pName: unknown): undefined};
   }
 
   export interface SteamPartyBeaconLocation_t {
@@ -164,14 +164,14 @@ declare namespace SteamStructs {
     m_port: number,
     Clear: {(): undefined},
     IsIPv6AllZeros: {(): boolean},
-    SetIPv6: {(ipv6: unknown, nPort: number): undefined},
+    SetIPv6: {(ipv6: number, nPort: number): undefined},
     SetIPv4: {(nIP: number, nPort: number): undefined},
     IsIPv4: {(): boolean},
     GetIPv4: {(): number},
     SetIPv6LocalHost: {(nPort: number): undefined},
     IsLocalHost: {(): boolean},
     ToString: {(buf: string, cbBuf: number, bWithPort: boolean): undefined},
-    ParseString: {(pszStr: string): boolean},
+    ParseString: {(pszStr: unknown): boolean},
     GetFakeIPType: {(): SteamEnums.ESteamNetworkingFakeIPType},
     IsFakeIP: {(): boolean},
   }
@@ -190,7 +190,7 @@ declare namespace SteamStructs {
     GetSteamID: {(): unknown},
     SetSteamID64: {(steamID: number): undefined},
     GetSteamID64: {(): number},
-    SetXboxPairwiseID: {(pszString: string): boolean},
+    SetXboxPairwiseID: {(pszString: unknown): boolean},
     GetXboxPairwiseID: {(): string},
     SetPSNID: {(id: number): undefined},
     GetPSNID: {(): number},
@@ -204,12 +204,12 @@ declare namespace SteamStructs {
     IsFakeIP: {(): boolean},
     SetLocalHost: {(): undefined},
     IsLocalHost: {(): boolean},
-    SetGenericString: {(pszString: string): boolean},
+    SetGenericString: {(pszString: unknown): boolean},
     GetGenericString: {(): string},
     SetGenericBytes: {(data: unknown, cbLen: number): boolean},
     GetGenericBytes: {(cbLen: unknown): unknown},
     ToString: {(buf: string, cbBuf: number): undefined},
-    ParseString: {(pszStr: string): boolean},
+    ParseString: {(pszStr: unknown): boolean},
   }
 
   export interface SteamNetConnectionInfo_t {
@@ -283,8 +283,8 @@ declare namespace SteamStructs {
     SetInt32: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: number): undefined},
     SetInt64: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: number): undefined},
     SetFloat: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: number): undefined},
-    SetPtr: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: unknown): undefined},
-    SetString: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: string): undefined},
+    SetPtr: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: undefined): undefined},
+    SetString: {(eVal: SteamEnums.ESteamNetworkingConfigValue, data: unknown): undefined},
   }
 
   export interface SteamDatagramHostedAddress {

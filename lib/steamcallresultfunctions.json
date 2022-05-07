@@ -1082,7 +1082,7 @@
     "args": [
       {
         "name": "pvecPublishedFileID",
-        "type": "unknown"
+        "type": "number[]"
       },
       {
         "name": "unNumPublishedFileIDs",
@@ -1100,7 +1100,7 @@
     "args": [
       {
         "name": "pvecPublishedFileID",
-        "type": "unknown"
+        "type": "number[]"
       },
       {
         "name": "unNumPublishedFileIDs",

@@ -24,6 +24,9 @@ const SteamCallResultFunctions = JSON.parse(
 const SteamCallBackFunctions = JSON.parse(
   fs.readFileSync(path.resolve('./lib', 'steamcallbackfunctions.json'), 'utf8'),
 );
+const SteamInputParams = JSON.parse(
+  fs.readFileSync('./lib/steamInputParams.json', 'utf8'),
+);
 
 const getNestedTypings = (obj, name) => {
   if (!obj || Array.isArray(obj)) {
@@ -58,7 +61,9 @@ const getNestedTypings = (obj, name) => {
       typeStr = `${typeStr}
   ${property}: {(${
   callResult.args.length
-    ? callResult.args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
+    ? callResult.args
+      .map(arg => `${arg.name}: ${arg.type}`)
+      .join(', ')
     : ''
 }): Promise<{ ${Object.entries(callResult.returnType)
   .map(r => `${r[0]}: ${r[1]}`)
@@ -68,7 +73,9 @@ const getNestedTypings = (obj, name) => {
       typeStr = `${typeStr}
   ${property}: {(${
   callBack.args.length
-    ? callBack.args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
+    ? callBack.args
+      .map(arg => `${arg.name}: ${arg.type}`)
+      .join(', ')
     : ''
 }): Promise<{ ${Object.entries(callBack.returnType)
   .map(r => `${r[0]}: ${r[1]}`)
@@ -89,14 +96,23 @@ const getNestedTypings = (obj, name) => {
       const args = steamApiInterfaceMethod.params.map(
         ({ paramname, paramtype }) => ({
           name: paramname,
-          type: getJsTypeFromTypeOrName(paramname, paramtype),
+          type: SteamInputParams.some(
+            p => p.paramname === paramname && p.paramtype === paramtype,
+          )
+            ? `${getJsTypeFromTypeOrName(
+              paramname,
+              paramtype.replace(/\x20*\*/, ''),
+            )}[]`
+            : getJsTypeFromTypeOrName(paramname, paramtype),
         }),
       );
       const returnType = getJsType(steamApiInterfaceMethod.returntype);
       typeStr = `${typeStr}
   ${property}: {(${
   args.length
-    ? args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
+    ? args
+      .map(arg => `${arg.name}: ${arg.type}`)
+      .join(', ')
     : ''
 }): ${returnType}}`;
     } else {
