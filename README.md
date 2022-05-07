@@ -11,7 +11,9 @@ After installing, run the initialization script:
 npx steamworks-init
 ```
 
-# Usage
+# [Docs](https://github.com/theace0296/steamworks-node/wiki)
+
+# Basic Usage
 ```js
 const steamworks = require('@theace0296/steamworks');
 // The constructor of steamworks's default export calls the Steam API Init function.
@@ -44,7 +46,3 @@ const {
   console.error('Steamworks API failed to Initialize!');
 })();
 ```
-
-
-# Call Result and Callback Functions
-Functions listed as 'Call Results' or 'Callbacks' in the Steam API docs return a Promise whose resolved value is the corresponding result.
