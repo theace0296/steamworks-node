@@ -1,3 +1,4 @@
+![npm](https://img.shields.io/npm/v/@theace0296/steamworks?label=%40theace0296%2Fsteamworks)  ![GitHub release (latest by date)](https://img.shields.io/github/v/release/theace0296/steamworks-node)
 # @theace0296/steamworks
 A wrapper library to call the Steamworks API from nodeJS.
 
