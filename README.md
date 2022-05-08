@@ -11,6 +11,7 @@ After installing, run the initialization script:
 ```
 npx steamworks-init
 ```
+This step will authenticate and download the Steamworks SDK, if you already have the Steamworks SDK on your computer, you can set the `STEAMWORKS_SDK_PATH` environment variable to the location of the Steamworks SDK. 
 
 # [Docs](https://github.com/theace0296/steamworks-node/wiki)
 
