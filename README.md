@@ -11,7 +11,7 @@ After installing, run the initialization script:
 ```
 npx steamworks-init
 ```
-This step will authenticate and download the Steamworks SDK, if you already have the Steamworks SDK on your computer, you can set the `STEAMWORKS_SDK_PATH` environment variable to the location of the Steamworks SDK. 
+This step will authenticate and download the Steamworks SDK, if you already have the Steamworks SDK on your computer, you can set the `STEAMWORKS_SDK_PATH` environment variable to the location of the Steamworks SDK.
 
 # [Docs](https://github.com/theace0296/steamworks-node/wiki)
 
@@ -37,9 +37,9 @@ const {
     console.log(`Published files result:\n${JSON.stringify(remoteStorageSubscribedFilesResult)}`);
 
     const numSubscribedFiles = SteamWorks.SteamUGC.GetNumSubscribedItems();
-    const subscribedFiles = Array.from(Array(numSubscribedFiles), (_, i) => i);
-    const subscribedFilesResult = SteamWorks.SteamUGC.GetSubscribedItems(subscribedFiles, numSubscribedFiles);
-    console.log(`Subscribed files result:\n${JSON.stringify(subscribedFilesResult)}`);
+    const [subscribedFilesResult, subscribedFiles] =
+      SteamWorks.SteamUGC.GetSubscribedItems(numSubscribedFiles);
+    console.log(`Subscribed files result:\n${subscribedFilesResult}`);
     console.log(`Number of Subscribed files:\n${numSubscribedFiles}`);
     console.log(`Subscribed files:\n${JSON.stringify(subscribedFiles)}`);
 

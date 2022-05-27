@@ -10,23 +10,26 @@ const { SteamAPI, Constants, Enums, Structs, Uncategorized } = SteamWorks;
 
     const remoteStorageSubscribedFilesResult =
       await SteamWorks.SteamRemoteStorage.EnumerateUserSubscribedFiles(0);
-    Assert.deepStrictEqual(Object.keys(remoteStorageSubscribedFilesResult), [
-      'm_rgRTimeSubscribed',
-      'm_rgPublishedFileId',
-      'm_nTotalResultCount',
-      'm_nResultsReturned',
-      'm_eResult',
-    ]);
+    Assert.deepStrictEqual(
+      Object.entries(remoteStorageSubscribedFilesResult).map(([key, value]) => [
+        key,
+        Object.prototype.toString.call(value),
+      ]),
+      [
+        ['m_rgRTimeSubscribed', '[object Array]'],
+        ['m_rgPublishedFileId', '[object Array]'],
+        ['m_nTotalResultCount', '[object Number]'],
+        ['m_nResultsReturned', '[object Number]'],
+        ['m_eResult', '[object Number]'],
+      ],
+    );
 
     const numSubscribedFiles = SteamWorks.SteamUGC.GetNumSubscribedItems();
 
     Assert.strictEqual(typeof numSubscribedFiles, 'number');
 
-    const subscribedFiles = Array.from(Array(numSubscribedFiles), (_, i) => i);
-    const subscribedFilesResult = SteamWorks.SteamUGC.GetSubscribedItems(
-      subscribedFiles,
-      numSubscribedFiles,
-    );
+    const [subscribedFilesResult, subscribedFiles] =
+      SteamWorks.SteamUGC.GetSubscribedItems(numSubscribedFiles);
 
     Assert.strictEqual(subscribedFilesResult, numSubscribedFiles);
     Assert.strictEqual(Array.isArray(subscribedFiles), true);

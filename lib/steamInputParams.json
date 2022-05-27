@@ -1,122 +1,34 @@
 [
   {
-    "paramname": "phSteamPipe",
-    "paramtype": "HSteamPipe *",
-    "cppType": "int *",
-    "cppValueType": "int"
-  },
-  {
-    "paramname": "pnAppID",
-    "paramtype": "AppId_t *",
-    "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
-  },
-  {
-    "paramname": "pAppID",
-    "paramtype": "AppId_t *",
-    "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
-  },
-  {
-    "paramname": "pvecAppID",
-    "paramtype": "AppId_t *",
-    "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
-  },
-  {
     "paramname": "pvecDepots",
     "paramtype": "DepotId_t *",
     "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
-  },
-  {
-    "paramname": "phSocket",
-    "paramtype": "SNetSocket_t *",
-    "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
-  },
-  {
-    "paramname": "pCallHandle",
-    "paramtype": "SteamAPICall_t *",
-    "cppType": "unsigned long long *",
-    "cppValueType": "unsigned long long"
-  },
-  {
-    "paramname": "handlesOut",
-    "paramtype": "InputHandle_t *",
-    "cppType": "unsigned long long *",
-    "cppValueType": "unsigned long long"
-  },
-  {
-    "paramname": "handlesOut",
-    "paramtype": "InputActionSetHandle_t *",
-    "cppType": "unsigned long long *",
-    "cppValueType": "unsigned long long"
-  },
-  {
-    "paramname": "handlesOut",
-    "paramtype": "ControllerHandle_t *",
-    "cppType": "unsigned long long *",
-    "cppValueType": "unsigned long long"
-  },
-  {
-    "paramname": "handlesOut",
-    "paramtype": "ControllerActionSetHandle_t *",
-    "cppType": "unsigned long long *",
-    "cppValueType": "unsigned long long"
+    "cppValueType": "unsigned int",
+    "methodname": "GetInstalledDepots",
+    "typestr": "DepotId_t * pvecDepots, uint32 cMaxDepots"
   },
   {
     "paramname": "pvecPublishedFileID",
     "paramtype": "PublishedFileId_t *",
     "cppType": "unsigned long long *",
-    "cppValueType": "unsigned long long"
+    "cppValueType": "unsigned long long",
+    "methodname": "CreateQueryUGCDetailsRequest",
+    "typestr": "PublishedFileId_t * pvecPublishedFileID, uint32 unNumPublishedFileIDs"
   },
   {
-    "paramname": "pResultHandle",
-    "paramtype": "SteamInventoryResult_t *",
-    "cppType": "int *",
-    "cppValueType": "int"
+    "paramname": "pvecPublishedFileID",
+    "paramtype": "PublishedFileId_t *",
+    "cppType": "unsigned long long *",
+    "cppValueType": "unsigned long long",
+    "methodname": "GetQueryUGCChildren",
+    "typestr": "PublishedFileId_t * pvecPublishedFileID, uint32 cMaxEntries"
   },
   {
-    "paramname": "pOutResultHandle",
-    "paramtype": "SteamInventoryResult_t *",
-    "cppType": "int *",
-    "cppValueType": "int"
-  },
-  {
-    "paramname": "pItemDefIDs",
-    "paramtype": "SteamItemDef_t *",
-    "cppType": "int *",
-    "cppValueType": "int"
-  },
-  {
-    "paramname": "pArrayItemDefs",
-    "paramtype": "SteamItemDef_t *",
-    "cppType": "int *",
-    "cppValueType": "int"
-  },
-  {
-    "paramname": "pOutConnection1",
-    "paramtype": "HSteamNetConnection *",
+    "paramname": "pvecAppID",
+    "paramtype": "AppId_t *",
     "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
-  },
-  {
-    "paramname": "pOutConnection2",
-    "paramtype": "HSteamNetConnection *",
-    "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
-  },
-  {
-    "paramname": "pViaRelayPoP",
-    "paramtype": "SteamNetworkingPOPID *",
-    "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
-  },
-  {
-    "paramname": "list",
-    "paramtype": "SteamNetworkingPOPID *",
-    "cppType": "unsigned int *",
-    "cppValueType": "unsigned int"
+    "cppValueType": "unsigned int",
+    "methodname": "GetInstalledApps",
+    "typestr": "AppId_t * pvecAppID, uint32 unMaxAppIDs"
   }
 ]

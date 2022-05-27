@@ -1004,8 +1004,8 @@ declare interface SteamUGC {
   DownloadItem: {(/* Args Unknown */): unknown};
   BInitWorkshopForGameServer: {(/* Args Unknown */): unknown};
   SuspendDownloads: {(/* Args Unknown */): unknown};
-  StartPlaytimeTracking: {(pvecPublishedFileID: number[], unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamEnums.EResult }>};
-  StopPlaytimeTracking: {(pvecPublishedFileID: number[], unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamEnums.EResult }>};
+  StartPlaytimeTracking: {(unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamEnums.EResult }>};
+  StopPlaytimeTracking: {(unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamEnums.EResult }>};
   StopPlaytimeTrackingForAllItems: {(): Promise<{ m_eResult: SteamEnums.EResult }>};
   AddDependency: {(nParentPublishedFileID: number, nChildPublishedFileID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number, m_nChildPublishedFileId: number }>};
   RemoveDependency: {(nParentPublishedFileID: number, nChildPublishedFileID: number): Promise<{ m_eResult: SteamEnums.EResult, m_nPublishedFileId: number, m_nChildPublishedFileId: number }>};

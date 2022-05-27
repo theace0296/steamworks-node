@@ -1,561 +1,81 @@
 
-%typemap(in, fragment="SWIG_JSCGetIntProperty") HSteamPipe *phSteamPipe (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
+%typemap(in, fragment="SWIG_JSCGetIntProperty", numinputs=1) (DepotId_t * pvecDepots, uint32 cMaxDepots) (unsigned int val, int ecode) {
+  ecode = SWIG_AsVal(unsigned int)($input, &val);
+  if (!SWIG_IsOK(ecode)) {
+    %argument_fail(ecode, "uint32", $symname, $argnum);
   }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
+  $2 = %static_cast(val,uint32);
+  $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * $2);
 }
-%typemap(freearg) HSteamPipe *phSteamPipe {
+%typemap(freearg) (DepotId_t * pvecDepots, uint32 cMaxDepots) {
   free($1);
 }
-%typemap(in, fragment="SWIG_JSCGetIntProperty") AppId_t *pnAppID (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
+%typemap(argout, fragment=SWIG_From_frag(unsigned int)) (DepotId_t * pvecDepots, uint32 cMaxDepots) (unsigned int i = 0)
+{
+  SWIGV8_ARRAY array = SWIGV8_ARRAY_NEW_SIZE($2);
+  for (i = 0; i < $2; i++)
   {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
+    SWIGV8_ARRAY_SET(array, i, SWIG_From(unsigned int)($1[i]));
   }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
+  $result = AppendOutputToResult($result, array);
 }
-%typemap(freearg) AppId_t *pnAppID {
+%typemap(in, fragment="SWIG_JSCGetIntProperty", numinputs=1) (PublishedFileId_t * pvecPublishedFileID, uint32 unNumPublishedFileIDs) (unsigned int val, int ecode) {
+  ecode = SWIG_AsVal(unsigned int)($input, &val);
+  if (!SWIG_IsOK(ecode)) {
+    %argument_fail(ecode, "uint32", $symname, $argnum);
+  }
+  $2 = %static_cast(val,uint32);
+  $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * $2);
+}
+%typemap(freearg) (PublishedFileId_t * pvecPublishedFileID, uint32 unNumPublishedFileIDs) {
   free($1);
 }
-%typemap(in, fragment="SWIG_JSCGetIntProperty") AppId_t *pAppID (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
+%typemap(argout, fragment=SWIG_From_frag(unsigned long long)) (PublishedFileId_t * pvecPublishedFileID, uint32 unNumPublishedFileIDs) (unsigned int i = 0)
+{
+  SWIGV8_ARRAY array = SWIGV8_ARRAY_NEW_SIZE($2);
+  for (i = 0; i < $2; i++)
   {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
+    SWIGV8_ARRAY_SET(array, i, SWIG_From(unsigned long long)($1[i]));
   }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
+  $result = AppendOutputToResult($result, array);
 }
-%typemap(freearg) AppId_t *pAppID {
+%typemap(in, fragment="SWIG_JSCGetIntProperty", numinputs=1) (PublishedFileId_t * pvecPublishedFileID, uint32 cMaxEntries) (unsigned int val, int ecode) {
+  ecode = SWIG_AsVal(unsigned int)($input, &val);
+  if (!SWIG_IsOK(ecode)) {
+    %argument_fail(ecode, "uint32", $symname, $argnum);
+  }
+  $2 = %static_cast(val,uint32);
+  $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * $2);
+}
+%typemap(freearg) (PublishedFileId_t * pvecPublishedFileID, uint32 cMaxEntries) {
   free($1);
 }
-%typemap(in, fragment="SWIG_JSCGetIntProperty") AppId_t *pvecAppID (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
+%typemap(argout, fragment=SWIG_From_frag(unsigned long long)) (PublishedFileId_t * pvecPublishedFileID, uint32 cMaxEntries) (unsigned int i = 0)
+{
+  SWIGV8_ARRAY array = SWIGV8_ARRAY_NEW_SIZE($2);
+  for (i = 0; i < $2; i++)
   {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
+    SWIGV8_ARRAY_SET(array, i, SWIG_From(unsigned long long)($1[i]));
   }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
+  $result = AppendOutputToResult($result, array);
 }
-%typemap(freearg) AppId_t *pvecAppID {
+%typemap(in, fragment="SWIG_JSCGetIntProperty", numinputs=1) (AppId_t * pvecAppID, uint32 unMaxAppIDs) (unsigned int val, int ecode) {
+  ecode = SWIG_AsVal(unsigned int)($input, &val);
+  if (!SWIG_IsOK(ecode)) {
+    %argument_fail(ecode, "uint32", $symname, $argnum);
+  }
+  $2 = %static_cast(val,uint32);
+  $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * $2);
+}
+%typemap(freearg) (AppId_t * pvecAppID, uint32 unMaxAppIDs) {
   free($1);
 }
-%typemap(in, fragment="SWIG_JSCGetIntProperty") DepotId_t *pvecDepots (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
+%typemap(argout, fragment=SWIG_From_frag(unsigned int)) (AppId_t * pvecAppID, uint32 unMaxAppIDs) (unsigned int i = 0)
+{
+  SWIGV8_ARRAY array = SWIGV8_ARRAY_NEW_SIZE($2);
+  for (i = 0; i < $2; i++)
   {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
+    SWIGV8_ARRAY_SET(array, i, SWIG_From(unsigned int)($1[i]));
   }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) DepotId_t *pvecDepots {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") SNetSocket_t *phSocket (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) SNetSocket_t *phSocket {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") SteamAPICall_t *pCallHandle (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned long long)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) SteamAPICall_t *pCallHandle {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") InputHandle_t *handlesOut (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned long long)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) InputHandle_t *handlesOut {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") InputActionSetHandle_t *handlesOut (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned long long)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) InputActionSetHandle_t *handlesOut {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") ControllerHandle_t *handlesOut (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned long long)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) ControllerHandle_t *handlesOut {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") ControllerActionSetHandle_t *handlesOut (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned long long)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) ControllerActionSetHandle_t *handlesOut {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") PublishedFileId_t *pvecPublishedFileID (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned long long)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) PublishedFileId_t *pvecPublishedFileID {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") SteamInventoryResult_t *pResultHandle (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) SteamInventoryResult_t *pResultHandle {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") SteamInventoryResult_t *pOutResultHandle (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) SteamInventoryResult_t *pOutResultHandle {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") SteamItemDef_t *pItemDefIDs (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) SteamItemDef_t *pItemDefIDs {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") SteamItemDef_t *pArrayItemDefs (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) SteamItemDef_t *pArrayItemDefs {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") HSteamNetConnection *pOutConnection1 (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) HSteamNetConnection *pOutConnection1 {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") HSteamNetConnection *pOutConnection2 (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) HSteamNetConnection *pOutConnection2 {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") SteamNetworkingPOPID *pViaRelayPoP (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) SteamNetworkingPOPID *pViaRelayPoP {
-  free($1);
-}
-%typemap(in, fragment="SWIG_JSCGetIntProperty") SteamNetworkingPOPID *list (int length = 0, SWIGV8_ARRAY array, SWIGV8_VALUE jsvalue, int i = 0, int res = 0, $*1_ltype temp) {
-  if ($input->IsArray())
-  {
-    // Convert into Array
-    array = SWIGV8_ARRAY::Cast($input);
-    length = array->Length();
-    $1  = ($*1_ltype *)malloc(sizeof($*1_ltype) * length);
-    // Get each element from array
-    for (i = 0; i < length; i++)
-    {
-      jsvalue = SWIGV8_ARRAY_GET(array, i);
-      // Get primitive value from JSObject
-      res = SWIG_AsVal(unsigned int)(jsvalue, &temp);
-      if (!SWIG_IsOK(res))
-      {
-        SWIG_exception_fail(SWIG_ERROR, "Failed to convert $input to $ltype");
-      }
-      arg$argnum[i] = temp;
-    }
-  }
-  else
-  {
-    SWIG_exception_fail(SWIG_ERROR, "$input is not JSObjectRef");
-  }
-}
-%typemap(freearg) SteamNetworkingPOPID *list {
-  free($1);
+  $result = AppendOutputToResult($result, array);
 }

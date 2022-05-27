@@ -1,6 +1,10 @@
 %include "windows.i"
 %include "typemaps.i"
 
+%typemap(out) SWIGTYPE {
+  $result = SWIG_NewPointerObj(new $1_ltype(std::move($1)), $&1_descriptor, SWIG_POINTER_OWN | 0 );
+}
+
 %typemap(in) int* {
 	if ($input->IsInt32Array()) {
     v8::Local<v8::Int32Array> myarr = $input.As<v8::Int32Array>();
@@ -157,6 +161,30 @@ js_array_out(double);
 #include "steamcallresultfunctions.h"
 #include "steamcallbackfunctions.h"
 #include "steaminterfaces.h"
+
+#if (V8_MAJOR_VERSION-0) < 5
+#define SWIGV8_MAYBE_CHECK(maybe) maybe
+#elif (SWIG_V8_VERSION < 0x0704)
+#define SWIGV8_MAYBE_CHECK(maybe) maybe.FromJust()
+#else
+#define SWIGV8_MAYBE_CHECK(maybe) maybe.Check()
+#endif
+
+#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032318)
+#define SWIGV8_VALUE v8::Handle<v8::Value>
+#define SWIGV8_ARRAY v8::Handle<v8::Array>
+#define SWIGV8_ARRAY_NEW_SIZE(size) v8::Array::New(size)
+#define SWIGV8_ARRAY_GET(array, index) (array)->Get(index)
+#define SWIGV8_ARRAY_SET(array, index, value) (array)->Set(index, value)
+#else
+#define SWIGV8_VALUE v8::Local<v8::Value>
+#define SWIGV8_ARRAY v8::Local<v8::Array>
+#define SWIGV8_ARRAY_NEW_SIZE(size) v8::Array::New(v8::Isolate::GetCurrent(), size)
+#define SWIGV8_ARRAY_GET(array, index) (array)->Get(SWIGV8_CURRENT_CONTEXT(), index).ToLocalChecked()
+#define SWIGV8_ARRAY_SET(array, index, value) SWIGV8_MAYBE_CHECK((array)->Set(SWIGV8_CURRENT_CONTEXT(), index, value))
+#endif
+
+
 std::thread SteamCallbackThread;
 bool applicationRunning = false;
 bool callbackThreadRunning = false;
@@ -194,27 +222,18 @@ bool Shutdown() {
   return !applicationRunning;
 };
 
-#if (V8_MAJOR_VERSION-0) < 5
-#define SWIGV8_MAYBE_CHECK(maybe) maybe
-#elif (SWIG_V8_VERSION < 0x0704)
-#define SWIGV8_MAYBE_CHECK(maybe) maybe.FromJust()
-#else
-#define SWIGV8_MAYBE_CHECK(maybe) maybe.Check()
-#endif
-
-#if (V8_MAJOR_VERSION-0) < 4 && (SWIG_V8_VERSION < 0x032318)
-#define SWIGV8_VALUE v8::Handle<v8::Value>
-#define SWIGV8_ARRAY v8::Handle<v8::Array>
-#define SWIGV8_ARRAY_NEW_SIZE(size) v8::Array::New(size)
-#define SWIGV8_ARRAY_GET(array, index) (array)->Get(index)
-#define SWIGV8_ARRAY_SET(array, index, value) (array)->Set(index, value)
-#else
-#define SWIGV8_VALUE v8::Local<v8::Value>
-#define SWIGV8_ARRAY v8::Local<v8::Array>
-#define SWIGV8_ARRAY_NEW_SIZE(size) v8::Array::New(v8::Isolate::GetCurrent(), size)
-#define SWIGV8_ARRAY_GET(array, index) (array)->Get(SWIGV8_CURRENT_CONTEXT(), index).ToLocalChecked()
-#define SWIGV8_ARRAY_SET(array, index, value) SWIGV8_MAYBE_CHECK((array)->Set(SWIGV8_CURRENT_CONTEXT(), index, value))
-#endif
+SWIGV8_ARRAY AppendOutputToResult(SWIGV8_VALUE result, SWIGV8_VALUE output) {
+  SWIGV8_ARRAY array;
+  if (result->IsArray()) {
+    array = SWIGV8_ARRAY::Cast(result);
+    SWIGV8_ARRAY_SET(array, array->Length(), output);
+    return array;
+  }
+  array = SWIGV8_ARRAY_NEW_SIZE(2);
+  SWIGV8_ARRAY_SET(array, 0, result);
+  SWIGV8_ARRAY_SET(array, 1, output);
+  return array;
+}
 %}
 
 
@@ -248,10 +267,6 @@ bool Shutdown() {
 %rename(__binary_shiftright__) operator>>;
 
 %include "steam_typemaps.i"
-%typemap(out) SWIGTYPE
-{
-  $result = SWIG_NewPointerObj(new $1_ltype(std::move($1)), $&1_descriptor, SWIG_POINTER_OWN | 0 );
-}
 
 %include "steamtypes.h"
 %include "steamclientpublic.h"

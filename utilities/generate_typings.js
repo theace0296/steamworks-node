@@ -61,9 +61,7 @@ const getNestedTypings = (obj, name) => {
       typeStr = `${typeStr}
   ${property}: {(${
   callResult.args.length
-    ? callResult.args
-      .map(arg => `${arg.name}: ${arg.type}`)
-      .join(', ')
+    ? callResult.args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
     : ''
 }): Promise<{ ${Object.entries(callResult.returnType)
   .map(r => `${r[0]}: ${r[1]}`)
@@ -73,9 +71,7 @@ const getNestedTypings = (obj, name) => {
       typeStr = `${typeStr}
   ${property}: {(${
   callBack.args.length
-    ? callBack.args
-      .map(arg => `${arg.name}: ${arg.type}`)
-      .join(', ')
+    ? callBack.args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
     : ''
 }): Promise<{ ${Object.entries(callBack.returnType)
   .map(r => `${r[0]}: ${r[1]}`)
@@ -93,26 +89,28 @@ const getNestedTypings = (obj, name) => {
       const steamApiInterfaceMethod = steamApiInterfaces[name].find(
         m => property === m.methodname,
       );
-      const args = steamApiInterfaceMethod.params.map(
-        ({ paramname, paramtype }) => ({
+      const args = steamApiInterfaceMethod.params
+        .filter(
+          (param, i, params) =>
+            !SteamInputParams.some(
+              p =>
+                p.typestr ===
+                [param, params[i + 1] ?? {}]
+                  .map(
+                    ({ paramname, paramtype }) => `${paramtype} ${paramname}`,
+                  )
+                  .join(', '),
+            ),
+        )
+        .map(({ paramname, paramtype }) => ({
           name: paramname,
-          type: SteamInputParams.some(
-            p => p.paramname === paramname && p.paramtype === paramtype,
-          )
-            ? `${getJsTypeFromTypeOrName(
-              paramname,
-              paramtype.replace(/\x20*\*/, ''),
-            )}[]`
-            : getJsTypeFromTypeOrName(paramname, paramtype),
-        }),
-      );
+          type: getJsTypeFromTypeOrName(paramname, paramtype),
+        }));
       const returnType = getJsType(steamApiInterfaceMethod.returntype);
       typeStr = `${typeStr}
   ${property}: {(${
   args.length
-    ? args
-      .map(arg => `${arg.name}: ${arg.type}`)
-      .join(', ')
+    ? args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
     : ''
 }): ${returnType}}`;
     } else {

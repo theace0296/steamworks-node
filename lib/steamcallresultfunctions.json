@@ -1081,10 +1081,6 @@
     "result": "StartPlaytimeTrackingResult",
     "args": [
       {
-        "name": "pvecPublishedFileID",
-        "type": "number[]"
-      },
-      {
         "name": "unNumPublishedFileIDs",
         "type": "number"
       }
@@ -1098,10 +1094,6 @@
     "parent": "SteamUGC",
     "result": "StopPlaytimeTrackingResult",
     "args": [
-      {
-        "name": "pvecPublishedFileID",
-        "type": "number[]"
-      },
       {
         "name": "unNumPublishedFileIDs",
         "type": "number"
