@@ -2,6 +2,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 const {
+  steamApiJson,
   steamApiEnumNames,
   steamApiStructNames,
   steamApiInterfaces,
@@ -28,6 +29,72 @@ const SteamInputParams = JSON.parse(
   fs.readFileSync('./lib/steamInputParams.json', 'utf8'),
 );
 
+const getStructTyping = (steamStruct, indents = '      ') => {
+  let typeStr = '';
+  if (
+    steamStruct.hasOwnProperty('consts') &&
+    Array.isArray(steamStruct.consts)
+  ) {
+    for (const constant of steamStruct.consts) {
+      typeStr = `${typeStr}\n${indents}${
+        constant.constname
+      }: ${getJsTypeFromTypeOrName(
+        constant.constname,
+        constant.consttype,
+      )},`;
+    }
+  }
+  if (
+    steamStruct.hasOwnProperty('fields') &&
+    Array.isArray(steamStruct.fields)
+  ) {
+    for (const field of steamStruct.fields) {
+      typeStr = `${typeStr}\n${indents}${
+        field.fieldname
+      }: ${getJsTypeFromTypeOrName(field.fieldname, field.fieldtype)},`;
+    }
+  }
+  if (
+    steamStruct.hasOwnProperty('methods') &&
+    Array.isArray(steamStruct.methods)
+  ) {
+    for (const method of steamStruct.methods) {
+      if (/operator[^\x20\w]/.test(method.methodname)) {
+        continue;
+      }
+      if (method.methodname !== 'Construct') {
+        typeStr = `${typeStr}\n${indents}${method.methodname}: {(${
+          method.params.length
+            ? method.params
+              .filter(
+                (param, i, params) =>
+                  !SteamInputParams.some(
+                    p =>
+                      p.typestr ===
+                        [param, params[i + 1] ?? {}]
+                          .map(
+                            ({ paramname, paramtype }) =>
+                              `${paramtype} ${paramname}`,
+                          )
+                          .join(', '),
+                  ),
+              )
+              .map(
+                ({ paramname, paramtype }) =>
+                  `${paramname}: ${getJsTypeFromTypeOrName(
+                    paramname,
+                    paramtype,
+                  )}`,
+              )
+              .join(', ')
+            : ''
+        }): ${getJsType(method.returntype)}},`;
+      }
+    }
+  }
+  return typeStr;
+};
+
 const getNestedTypings = (obj, name) => {
   if (!obj || Array.isArray(obj)) {
     return '';
@@ -38,7 +105,7 @@ const getNestedTypings = (obj, name) => {
     obj?.constructor?.toString()?.startsWith('class') &&
     (obj?.prototype || obj?.__proto__) &&
     objType !== 'Object';
-  let typeStr = `declare ${isClass ? 'class' : 'interface'} ${name} {`;
+  let typeStr = `  ${isClass ? 'class' : 'interface'} ${name} {`;
   const properties = (
     !(obj?.prototype || obj?.__proto__)
       ? Object.keys(obj)
@@ -49,7 +116,7 @@ const getNestedTypings = (obj, name) => {
   ).filter(property => !excludedNames.includes(property));
   if (isClass) {
     typeStr = `${typeStr}
-  constructor(/* Args Unknown */);`;
+    constructor(/* Args Unknown */);`;
   }
   for (const property of properties) {
     if (typedNames.includes(property)) {
@@ -59,7 +126,7 @@ const getNestedTypings = (obj, name) => {
     if (SteamCallResultFunctions.hasOwnProperty(property)) {
       const callResult = SteamCallResultFunctions[property];
       typeStr = `${typeStr}
-  ${property}: {(${
+    ${property}: {(${
   callResult.args.length
     ? callResult.args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
     : ''
@@ -69,7 +136,7 @@ const getNestedTypings = (obj, name) => {
     } else if (SteamCallBackFunctions.hasOwnProperty(property)) {
       const callBack = SteamCallBackFunctions[property];
       typeStr = `${typeStr}
-  ${property}: {(${
+    ${property}: {(${
   callBack.args.length
     ? callBack.args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
     : ''
@@ -77,11 +144,22 @@ const getNestedTypings = (obj, name) => {
   .map(r => `${r[0]}: ${r[1]}`)
   .join(', ')} }>};`;
     } else if (steamApiEnumNames.includes(property)) {
-      typeStr = `${typeStr}
-  ${property}: SteamEnums.${property};`;
+      typeStr = `${typeStr}\n    ${property}: {`;
+      const steamEnum = steamApiJson.enums.find(
+        ({ enumname }) => enumname === property,
+      );
+      for (const enumValue of steamEnum.values) {
+        typeStr = `${typeStr}\n      ${enumValue.name}: ${enumValue.value},`;
+      }
+      typeStr = `${typeStr}\n    };`;
     } else if (steamApiStructNames.includes(property)) {
-      typeStr = `${typeStr}
-  ${property}: SteamStructs.${property};`;
+      typeStr = `${typeStr}\n    ${property}: {`;
+      const steamStruct = steamApiJson.structs.find(
+        ({ struct }) => struct === property,
+      );
+      typeStr = `${typeStr}\n      new (): {${getStructTyping(steamStruct, '        ')}\n      },`;
+      typeStr = `${typeStr}${getStructTyping(steamStruct, '      ')}`;
+      typeStr = `${typeStr}\n    };`;
     } else if (
       steamApiInterfaces.hasOwnProperty(name) &&
       steamApiInterfaces[name].some(m => property === m.methodname)
@@ -108,27 +186,24 @@ const getNestedTypings = (obj, name) => {
         }));
       const returnType = getJsType(steamApiInterfaceMethod.returntype);
       typeStr = `${typeStr}
-  ${property}: {(${
+    ${property}: {(${
   args.length
     ? args.map(arg => `${arg.name}: ${arg.type}`).join(', ')
     : ''
 }): ${returnType}}`;
     } else {
       typeStr = `${typeStr}
-  ${property}: ${getTsType(getType(obj[property]))};`;
+    ${property}: ${getTsType(getType(obj[property]))};`;
     }
   }
   typeStr = `${typeStr}
-}`;
+  }`;
   return typeStr;
 };
 
 if (SteamWorks.SteamAPI.IsSteamRunning()) {
-  let externTypesStr = '';
+  let externTypesStr = 'declare namespace SteamWorksNS {';
   let typingsStr = `
-import SteamEnums from './steamApiEnums';
-import SteamStructs from './steamApiStructs';
-
 export = SteamWorks;
 declare class SteamWorks {`;
   for (const method of Object.getOwnPropertyNames(steamworks.prototype)) {
@@ -142,9 +217,9 @@ declare class SteamWorks {`;
 }};`;
     }
   }
-  for (const property of Object.keys(SteamWorks)) {
+  for (const property of Object.getOwnPropertyNames(SteamWorks)) {
     typingsStr = `${typingsStr}
-  ${property}: ${property};`;
+  ${property}: SteamWorksNS.${property};`;
     externTypesStr = `${externTypesStr}\n${getNestedTypings(
       SteamWorks[property],
       property,
@@ -153,7 +228,8 @@ declare class SteamWorks {`;
   typingsStr = `${typingsStr}
 }
 
-${externTypesStr}`;
+${externTypesStr}
+}`;
 
   fs.writeFileSync('./index.d.ts', typingsStr);
   SteamWorks.Shutdown();

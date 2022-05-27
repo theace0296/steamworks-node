@@ -10,7 +10,7 @@
       }
     ],
     "returnType": {
-      "m_eResult": "SteamEnums.EResult",
+      "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_unVideoAppID": "number",
       "m_rgchURL": "string"
     }
@@ -26,7 +26,7 @@
       }
     ],
     "returnType": {
-      "m_eResult": "SteamEnums.EResult",
+      "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_unVideoAppID": "number"
     }
   }

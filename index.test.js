@@ -1,11 +1,11 @@
 /* eslint-disable no-unused-vars */
 const Assert = require('assert');
 const steamworks = require('.');
-const SteamWorks = new steamworks();
-const { SteamAPI, Constants, Enums, Structs, Uncategorized } = SteamWorks;
+const APP_ID = 480;
+const SteamWorks = new steamworks(APP_ID);
 
 (async () => {
-  if (SteamAPI.IsSteamRunning()) {
+  if (SteamWorks.SteamAPI.IsSteamRunning()) {
     console.log('Steamworks API Initialized!');
 
     const remoteStorageSubscribedFilesResult =
@@ -34,6 +34,29 @@ const { SteamAPI, Constants, Enums, Structs, Uncategorized } = SteamWorks;
     Assert.strictEqual(subscribedFilesResult, numSubscribedFiles);
     Assert.strictEqual(Array.isArray(subscribedFiles), true);
     Assert.strictEqual(subscribedFiles.length, subscribedFilesResult);
+
+    const userSteamId = SteamWorks.SteamUser.GetSteamID();
+    const query = SteamWorks.SteamUGC.CreateQueryUserUGCRequest(
+      userSteamId.GetAccountID(),
+      SteamWorks.Enums.EUserUGCList.k_EUserUGCList_Subscribed,
+      SteamWorks.Enums.EUGCMatchingUGCType.k_EUGCMatchingUGCType_Items,
+      SteamWorks.Enums.EUserUGCListSortOrder.k_EUserUGCListSortOrder_SubscriptionDateDesc,
+      APP_ID,
+      APP_ID,
+      1,
+    );
+
+    const result = await SteamWorks.SteamUGC.SendQueryUGCRequest(query);
+    if (result.m_eResult == 1) {
+      const subscribedItems = [];
+      let item = new SteamWorks.Structs.SteamUGCDetails_t();
+      for (let i = 0; i < result.m_unNumResultsReturned; i++) {
+        SteamWorks.SteamUGC.GetQueryUGCResult(result.m_handle, i, item);
+        subscribedItems.push(item.m_nPublishedFileId);
+      }
+    }
+
+    SteamWorks.SteamUGC.ReleaseQueryUGCRequest(result.m_handle);
 
     SteamWorks.Shutdown();
     console.log('PASSED');

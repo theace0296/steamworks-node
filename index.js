@@ -159,13 +159,9 @@ class SteamWorks {
         if (steamApiStructNames.some(name => key.includes(name))) {
           this.Structs[key] = steam[key];
         } else if (
-          steamApiEnumNames.some(
-            name => key.includes(name) || name.includes(key.split('_')[1]),
-          )
+          steamApiEnumNames.some(name => key === name || name === key.split('_')[1])
         ) {
-          const enumName = steamApiEnumNames.find(
-            name => key.includes(name) || name.includes(key.split('_')[1]),
-          );
+          const enumName = steamApiEnumNames.find(name => key === name || name === key.split('_')[1]);
           set(this.Enums, [enumName, key], steam[key]);
         } else {
           unsetKeys.push(key);

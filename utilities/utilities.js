@@ -15,7 +15,7 @@ const steamApiInterfaces = steamApiJson.interfaces
   .filter(i => i?.methods?.length)
   .reduce((acc, i) => {
     const methods = i.methods.filter(m => !m?.callresult);
-    acc[i.classname.slice(1).toLowerCase()] = methods;
+    acc[i.classname.slice(1)] = methods;
     return acc;
   }, {});
 
@@ -83,10 +83,9 @@ const getType = variable => {
   if (Number.isNaN(variable)) {
     return 'NaN';
   }
-  const type = (
+  const type =
     Object.getPrototypeOf(variable)?.constructor?.name ??
-    Object.prototype.toString.call(variable).match(/\s(\w+)/)[1]
-  );
+    Object.prototype.toString.call(variable).match(/\s(\w+)/)[1];
   if (['Number', 'String', 'Boolean'].includes(type)) {
     return type.toLowerCase();
   }
@@ -120,9 +119,7 @@ const getJsType = typeStr => {
   if (
     ['int', 'unsigned', 'signed', 'double', 'float', 'long', 'short'].some(t =>
       typeStr.includes(t),
-    ) &&
-    !typeStr.includes('*') &&
-    !typeStr.includes('&')
+    )
   ) {
     return 'number';
   }
@@ -136,10 +133,13 @@ const getJsType = typeStr => {
     return getJsType(findMatchingTypeDef(typeStr));
   }
   if (steamApiEnumNames.includes(typeStr)) {
-    return `SteamEnums.${typeStr}`;
+    return `SteamWorksNS.Enums.${typeStr}`;
   }
   if (steamApiStructNames.includes(typeStr)) {
-    return `SteamStructs.${typeStr}`;
+    return `SteamWorksNS.Structs.${typeStr}`;
+  }
+  if (steamApiStructNames.includes(typeStr.replace(/\x20*\*$/, ''))) {
+    return `SteamWorksNS.Structs.${typeStr.replace(/\x20*\*$/, '')}`;
   }
   return 'unknown';
 };
@@ -168,6 +168,7 @@ const getCppTypeFromTypeOrName = (name, type) => {
 };
 
 module.exports = {
+  steamApiJson,
   steamApiTypeDefs,
   steamApiEnumNames,
   steamApiStructNames,
