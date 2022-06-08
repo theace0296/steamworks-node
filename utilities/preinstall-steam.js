@@ -57,7 +57,7 @@ const main = async () => {
       recursive: true,
       overwrite: true,
     });
-    fs.rmSync('./lib/build', { recursive: true, force: true });
+    fs.rmSync('./build', { recursive: true, force: true });
     fs.rmSync('./lib/steam_api_wrap.cxx', { force: true });
 
     const steamRedisDir = './steam/redistributable_bin';
@@ -100,7 +100,7 @@ const main = async () => {
     }
 
     for (const steamRedisFile of steamRedisFiles) {
-      if (path.basename(steamRedisFile).includes('lib')) {
+      if (path.extname(steamRedisFile).includes('lib')) {
         const gypContent = fs.readFileSync('./lib/binding.gyp', 'utf-8');
         const gypObject = JSON.parse(gypContent);
         if (
@@ -109,10 +109,10 @@ const main = async () => {
           gypObject?.targets[0]?.libraries
         ) {
           gypObject.targets[0].libraries = [
-            path.relative(path.resolve('./lib/build'), steamRedisFile),
+            path.relative(path.resolve('./build'), steamRedisFile),
           ];
           fs.writeFileSync(
-            './lib/binding.gyp',
+            './binding.gyp',
             JSON.stringify(gypObject, null, 2),
           );
         } else {
@@ -170,10 +170,10 @@ const main = async () => {
         ) {
           gypObject.targets[0].libraries = [
             ...gypObject.targets[0].libraries,
-            path.relative(path.resolve('./lib/build'), steamAuthlibFile),
+            path.relative(path.resolve('./build'), steamAuthlibFile),
           ];
           fs.writeFileSync(
-            './lib/binding.gyp',
+            './binding.gyp',
             JSON.stringify(gypObject, null, 2),
           );
         } else {

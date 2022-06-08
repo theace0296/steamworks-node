@@ -8,7 +8,7 @@
 %typemap(in) int* {
 	if ($input->IsInt32Array()) {
     v8::Local<v8::Int32Array> myarr = $input.As<v8::Int32Array>();
-    $1 = (int*)((int*)myarr->Buffer()->GetBackingStore()->Data() + myarr->ByteOffset());
+    $1 = (int*)((int*)SWIGV8_ARRAYBUFFER_DATA(myarr->Buffer()) + myarr->ByteOffset());
   } else {
     SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "Illegal argument '$argnum' must be of type '""Int32Array""'");
   }
@@ -17,7 +17,7 @@
 %typemap(in) double* {
 	if ($input->IsFloat64Array()) {
     v8::Local<v8::Float64Array> myarr = $input.As<v8::Float64Array>();
-    $1 = (double*)((double*)myarr->Buffer()->GetBackingStore()->Data() + myarr->ByteOffset());
+    $1 = (double*)((double*)SWIGV8_ARRAYBUFFER_DATA(myarr->Buffer()) + myarr->ByteOffset());
   } else {
     SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "Illegal argument '$argnum' must be of type '""Float64Array""'");
   }
@@ -26,7 +26,7 @@
 %typemap(in) long* {
 	if ($input->IsBigInt64Array()) {
     v8::Local<v8::BigInt64Array> myarr = $input.As<v8::BigInt64Array>();
-    $1 = (long*)((long*)myarr->Buffer()->GetBackingStore()->Data() + myarr->ByteOffset());
+    $1 = (long*)((long*)SWIGV8_ARRAYBUFFER_DATA(myarr->Buffer()) + myarr->ByteOffset());
   } else {
     SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "Illegal argument '$argnum' must be of type '""BigInt64Array""'");
   }
@@ -35,7 +35,7 @@
 %typemap(in) unsigned long* {
 	if ($input->IsBigInt64Array()) {
     v8::Local<v8::BigInt64Array> myarr = $input.As<v8::BigInt64Array>();
-    $1 = (unsigned long*)((unsigned long*)myarr->Buffer()->GetBackingStore()->Data() + myarr->ByteOffset());
+    $1 = (unsigned long*)((unsigned long*)SWIGV8_ARRAYBUFFER_DATA(myarr->Buffer()) + myarr->ByteOffset());
   } else {
     SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "Illegal argument '$argnum' must be of type '""BigInt64Array""'");
   }
@@ -44,7 +44,7 @@
 %typemap(in) unsigned char* {
 	if ($input->IsUint8Array()) {
     v8::Local<v8::Uint8Array> myarr = $input.As<v8::Uint8Array>();
-    $1 = (unsigned char*)((unsigned char*)myarr->Buffer()->GetBackingStore()->Data() + myarr->ByteOffset());
+    $1 = (unsigned char*)((unsigned char*)SWIGV8_ARRAYBUFFER_DATA(myarr->Buffer()) + myarr->ByteOffset());
   } else {
     SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "Illegal argument '$argnum' must be of type '""Uint8Array""'");
   }
@@ -82,7 +82,7 @@
 %typemap(in) enum SWIGTYPE* {
 	if ($input->IsInt32Array()) {
     v8::Local<v8::Int32Array> myarr = $input.As<v8::Int32Array>();
-    $1 = ($1_ltype)((int*)myarr->Buffer()->GetBackingStore()->Data() + myarr->ByteOffset());
+    $1 = ($1_ltype)((int*)SWIGV8_ARRAYBUFFER_DATA(myarr->Buffer()) + myarr->ByteOffset());
   } else {
     SWIG_exception_fail(SWIG_ArgError(SWIG_TypeError), "Illegal argument '$argnum' must be of type '""Int32Array""'");
   }
@@ -182,6 +182,12 @@ js_array_out(double);
 #define SWIGV8_ARRAY_NEW_SIZE(size) v8::Array::New(v8::Isolate::GetCurrent(), size)
 #define SWIGV8_ARRAY_GET(array, index) (array)->Get(SWIGV8_CURRENT_CONTEXT(), index).ToLocalChecked()
 #define SWIGV8_ARRAY_SET(array, index, value) SWIGV8_MAYBE_CHECK((array)->Set(SWIGV8_CURRENT_CONTEXT(), index, value))
+#endif
+
+#if (V8_MAJOR_VERSION >= 8)
+#define SWIGV8_ARRAYBUFFER_DATA(buffer) buffer->GetBackingStore()->Data()
+#else
+#define SWIGV8_ARRAYBUFFER_DATA(buffer) buffer->GetContents().Data()
 #endif
 
 

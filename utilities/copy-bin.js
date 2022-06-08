@@ -1,11 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const modulePath = path.join('./lib/build', process.argv[process.argv.length - 1] === 'debug' ? 'Debug' : 'Release', 'steamworks.node');
-if (!fs.existsSync('./bin')) {
-  fs.mkdirSync('./bin');
-}
-fs.copyFileSync(modulePath, path.join('./bin', 'steamworks.node'));
+const buildDir = path.join('./build', process.argv[process.argv.length - 1] === 'debug' ? 'Debug' : 'Release');
 
 const defaultSteamSdkBinPath = './sdk';
 const steamSdkBasePath =
@@ -58,7 +54,7 @@ try {
   for (const steamRedisFile of steamRedisFiles) {
     fs.copyFileSync(
       steamRedisFile,
-      path.join('./bin', path.basename(steamRedisFile)),
+      path.join(buildDir, path.basename(steamRedisFile)),
     );
   }
 
@@ -101,7 +97,7 @@ try {
   for (const steamAuthlibFile of steamAuthlibFiles) {
     fs.copyFileSync(
       steamAuthlibFile,
-      path.join('./bin', path.basename(steamAuthlibFile)),
+      path.join(buildDir, path.basename(steamAuthlibFile)),
     );
   }
 } catch (error) {

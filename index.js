@@ -1,6 +1,11 @@
 const fs = require('fs-extra');
 const path = require('path');
-const steam = require('./bin/steamworks.node');
+const steam = (() => {
+  if (fs.existsSync(path.resolve(__dirname, 'build/Release/steamworks.node'))) {
+    return require('./build/Release/steamworks.node');
+  }
+  return require('./build/Debug/steamworks.node');
+})();
 
 if (!fs.existsSync(path.resolve(__dirname, 'lib/steam_api.json'))) {
   throw new Error('An error occured while locating steamworks!');

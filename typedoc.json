@@ -1,6 +1,6 @@
 {
   "$schema": "https://typedoc.org/schema.json",
-  "entryPoints": ["index.d.ts", "steamApiEnums.d.ts", "steamApiStructs.d.ts"],
+  "entryPoints": ["index.d.ts"],
   "entryPointStrategy": "Expand",
   "out": "wiki",
   "plugin": [
