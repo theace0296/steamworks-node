@@ -72,7 +72,7 @@ class SteamWorks {
   Enums = {};
   Uncategorized = {};
 
-  constructor(appId = 0) {
+  constructor(appId = 480) {
     try {
       this.Init(appId);
 
@@ -210,7 +210,7 @@ class SteamWorks {
     }
   }
 
-  Init(appId = 0) {
+  Init(appId = 480) {
     this.Shutdown();
     if (appId !== 0) {
       const steamAppIdPath = path.resolve(process.cwd(), 'steam_appid.txt');
