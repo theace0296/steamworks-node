@@ -2,7 +2,7 @@
   "name": "@theace0296/steamworks",
   "author": "TheAce0296",
   "license": "MIT",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A wrapper library to call the Steamworks API from nodeJS.",
   "keywords": [
     "steam",
@@ -20,6 +20,14 @@
   "bin": {
     "steamworks-init": "./utilities/init.js"
   },
+  "files": [
+    "lib",
+    "swig-binaries",
+    "utilities",
+    "index.d.ts",
+    "index.js",
+    "README.md"
+  ],
   "scripts": {
     "test": "node ./index.test.js",
     "build": "npm-run-all preinstall-steam swig node-gyp copy-bin generate-types",
