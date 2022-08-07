@@ -213,7 +213,7 @@ void RunSteamCallbacks() {
 
 bool Init() {
 	applicationRunning = SteamAPI_Init();
-	std::thread SteamCallbackThread = std::thread::thread(&RunSteamCallbacks);
+	std::thread SteamCallbackThread = std::thread(&RunSteamCallbacks);
 	SteamCallbackThread.detach();
   return applicationRunning;
 };

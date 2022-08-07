@@ -72,7 +72,7 @@ if(MSVC)
   add_definitions("/wd4251" "/wd4275")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++17")
 else()
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -Wno-unused-result")
 endif()
 
 target_link_libraries(${PROJECT_NAME} ${CMAKE_JS_LIB} ${LIB_FILES})
@@ -81,4 +81,5 @@ add_custom_command(
   TARGET steamworks POST_BUILD
   COMMAND ${CMAKE_COMMAND} -E copy
           ${BIN_FILES}
-          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE})
+          ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}
+  COMMENT "Copying Steam binary files...")
