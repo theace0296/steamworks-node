@@ -100,7 +100,7 @@ const main = async () => {
     }
 
     for (const steamRedisFile of steamRedisFiles) {
-      if (path.extname(steamRedisFile).includes('lib')) {
+      if (!path.extname(steamRedisFile).includes('dll')) {
         const gypContent = fs.readFileSync('./lib/binding.gyp', 'utf-8');
         const gypObject = JSON.parse(gypContent);
         if (
@@ -160,8 +160,8 @@ const main = async () => {
     }
 
     for (const steamAuthlibFile of steamAuthlibFiles) {
-      if (path.basename(steamAuthlibFile).includes('lib')) {
-        const gypContent = fs.readFileSync('./lib/binding.gyp', 'utf-8');
+      if (!path.extname(steamAuthlibFile).includes('dll')) {
+        const gypContent = fs.readFileSync('./binding.gyp', 'utf-8');
         const gypObject = JSON.parse(gypContent);
         if (
           gypObject &&
@@ -182,6 +182,11 @@ const main = async () => {
           );
         }
       }
+    }
+
+    if (process.platform !== 'win32') {
+      const gypContent = fs.readFileSync('./binding.gyp', 'utf-8');
+      fs.writeFileSync('./binding.gyp', gypContent.replace(/\\\\/g, '/'));
     }
 
     const SteamCallResultNames = [];
