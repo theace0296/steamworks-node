@@ -12,8 +12,7 @@ if (!fs.existsSync(path.join(process.cwd(), 'node_modules/@theace0296/steamworks
 
 execSync('npm run preinstall-steam', { stdio: 'inherit', cwd: path.join(process.cwd(), 'node_modules/@theace0296/steamworks') });
 execSync('npm run swig', { stdio: 'inherit', cwd: path.join(process.cwd(), 'node_modules/@theace0296/steamworks') });
-execSync('npm run node-gyp', { stdio: 'inherit', cwd: path.join(process.cwd(), 'node_modules/@theace0296/steamworks') });
-execSync('npm run copy-bin', { stdio: 'inherit', cwd: path.join(process.cwd(), 'node_modules/@theace0296/steamworks') });
+execSync('npm run cmake', { stdio: 'inherit', cwd: path.join(process.cwd(), 'node_modules/@theace0296/steamworks') });
 execSync('npm run generate-types', { stdio: 'inherit', cwd: path.join(process.cwd(), 'node_modules/@theace0296/steamworks') });
 
 console.log('=====================================================');

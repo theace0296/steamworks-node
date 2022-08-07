@@ -2,7 +2,7 @@
   "name": "@theace0296/steamworks",
   "author": "TheAce0296",
   "license": "MIT",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "description": "A wrapper library to call the Steamworks API from nodeJS.",
   "keywords": [
     "steam",
@@ -30,16 +30,14 @@
   ],
   "scripts": {
     "test": "node ./index.test.js",
-    "build": "npm-run-all preinstall-steam swig node-gyp copy-bin generate-types",
-    "build:debug": "npm-run-all preinstall-steam swig node-gyp:debug copy-bin:debug generate-types",
+    "build": "npm-run-all preinstall-steam swig cmake generate-types",
+    "build:debug": "npm-run-all preinstall-steam swig cmake:debug generate-types",
     "preinstall-steam": "node ./utilities/preinstall-steam.js",
     "swig": "run-script-os",
     "swig:default": "export SWIG_LIB=$(node -p 'process.cwd()')/swig/lib && ./swig/swig -Isteam -javascript -node -c++ -cpperraswarn -includeall ./lib/steam_api.i",
     "swig:win32": ".\\swig\\swig.exe -Isteam -javascript -node -c++ -cpperraswarn .\\lib\\steam_api.i",
-    "node-gyp": "npx node-gyp rebuild",
-    "node-gyp:debug": "npx node-gyp rebuild --debug",
-    "copy-bin": "node ./utilities/copy-bin.js",
-    "copy-bin:debug": "node ./utilities/copy-bin.js debug",
+    "cmake": "npx cmake-js rebuild",
+    "cmake:debug": "npx cmake-js rebuild --debug",
     "generate-types": "node ./utilities/generate_typings.js",
     "generate-docs": "npm-run-all typedoc cleanup-docs",
     "typedoc": "npx typedoc --options typedoc.json",
@@ -55,12 +53,12 @@
     "typedoc-plugin-rename-defaults": "^0.5.1"
   },
   "dependencies": {
+    "cmake-js": "^6.3.2",
     "decompress": "^4.2.1",
     "decompress-targz": "^4.1.1",
     "fs-extra": "^10.1.0",
     "node-bignumber": "^1.2.2",
     "node-fetch": "^2.6.7",
-    "node-gyp": "^8.4.1",
     "npm-run-all": "^4.1.5",
     "prompt-sync": "^4.2.0",
     "run-script-os": "^1.1.6"
