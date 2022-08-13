@@ -50,6 +50,12 @@ namespace CCallResults {
     return EnumerateFollowingListResult;
   };
 
+  CEquippedProfileItems* RequestEquippedProfileItems(CSteamID steamID) {
+    SteamAPICall_t RequestEquippedProfileItemsCall = SteamFriends()->RequestEquippedProfileItems(steamID);
+    CEquippedProfileItems* RequestEquippedProfileItemsResult = new CEquippedProfileItems(RequestEquippedProfileItemsCall);
+    return RequestEquippedProfileItemsResult;
+  };
+
   CGSReputation* GetServerReputation() {
     SteamAPICall_t GetServerReputationCall = SteamGameServer()->GetServerReputation();
     CGSReputation* GetServerReputationResult = new CGSReputation(GetServerReputationCall);

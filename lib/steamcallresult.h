@@ -109,6 +109,19 @@ namespace CCallResults {
       bool m_isComplete;
   };
 
+  class CEquippedProfileItems {
+    public:
+      CEquippedProfileItems(SteamAPICall_t hSteamAPICall);
+      bool GetIsCompleted();
+      EquippedProfileItems_t GetResult();
+    private:
+      void OnEquippedProfileItems(EquippedProfileItems_t* result, bool bIOFailure);
+      SteamAPICall_t m_steamApiCall;
+      CCallResult<CEquippedProfileItems, EquippedProfileItems_t> m_callresult;
+      EquippedProfileItems_t m_result;
+      bool m_isComplete;
+  };
+
   class CGSReputation {
     public:
       CGSReputation(SteamAPICall_t hSteamAPICall);

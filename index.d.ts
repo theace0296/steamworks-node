@@ -192,6 +192,9 @@ declare namespace SteamWorksNS {
     k_EResultInvalidSignature: number;
     k_EResultParseFailure: number;
     k_EResultNoVerifiedPhone: number;
+    k_EResultInsufficientBattery: number;
+    k_EResultChargerRequired: number;
+    k_EResultCachedCredentialInvalid: number;
     k_EVoiceResultOK: number;
     k_EVoiceResultNotInitialized: number;
     k_EVoiceResultNotRecording: number;
@@ -929,6 +932,27 @@ declare namespace SteamWorksNS {
     EActivateGameOverlayToWebPageMode: {
       k_EActivateGameOverlayToWebPageMode_Default: 0,
       k_EActivateGameOverlayToWebPageMode_Modal: 1,
+    };
+    ECommunityProfileItemType: {
+      k_ECommunityProfileItemType_AnimatedAvatar: 0,
+      k_ECommunityProfileItemType_AvatarFrame: 1,
+      k_ECommunityProfileItemType_ProfileModifier: 2,
+      k_ECommunityProfileItemType_ProfileBackground: 3,
+      k_ECommunityProfileItemType_MiniProfileBackground: 4,
+    };
+    ECommunityProfileItemProperty: {
+      k_ECommunityProfileItemProperty_ImageSmall: 0,
+      k_ECommunityProfileItemProperty_ImageLarge: 1,
+      k_ECommunityProfileItemProperty_InternalName: 2,
+      k_ECommunityProfileItemProperty_Title: 3,
+      k_ECommunityProfileItemProperty_Description: 4,
+      k_ECommunityProfileItemProperty_AppID: 5,
+      k_ECommunityProfileItemProperty_TypeID: 6,
+      k_ECommunityProfileItemProperty_Class: 7,
+      k_ECommunityProfileItemProperty_MovieWebM: 8,
+      k_ECommunityProfileItemProperty_MovieMP4: 9,
+      k_ECommunityProfileItemProperty_MovieWebMSmall: 10,
+      k_ECommunityProfileItemProperty_MovieMP4Small: 11,
     };
     ESteamPartyBeaconLocationType: {
       k_ESteamPartyBeaconLocationType_Invalid: 0,
@@ -1932,6 +1956,7 @@ declare namespace SteamWorksNS {
     };
   }
   interface Uncategorized {
+    K_EResultPhoneNumberIsVOIP: number;
     AudioPlayback_Undefined: number;
     AudioPlayback_Playing: number;
     AudioPlayback_Paused: number;
@@ -2107,6 +2132,10 @@ declare namespace SteamWorksNS {
     ActivateGameOverlayRemotePlayTogetherInviteDialog: {(steamIDLobby: unknown): undefined}
     RegisterProtocolInOverlayBrowser: {(pchProtocol: string): boolean}
     ActivateGameOverlayInviteDialogConnectString: {(pchConnectString: string): undefined}
+    RequestEquippedProfileItems: {(steamID: unknown): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamID: unknown, m_bHasAnimatedAvatar: boolean, m_bHasAvatarFrame: boolean, m_bHasProfileModifier: boolean, m_bHasProfileBackground: boolean, m_bHasMiniProfileBackground: boolean }>};
+    BHasEquippedProfileItem: {(steamID: unknown, itemType: SteamWorksNS.Enums.ECommunityProfileItemType): boolean}
+    GetProfileItemPropertyString: {(steamID: unknown, itemType: SteamWorksNS.Enums.ECommunityProfileItemType, prop: SteamWorksNS.Enums.ECommunityProfileItemProperty): string}
+    GetProfileItemPropertyUint: {(steamID: unknown, itemType: SteamWorksNS.Enums.ECommunityProfileItemType, prop: SteamWorksNS.Enums.ECommunityProfileItemProperty): number}
   }
   interface SteamUtils {
     GetSecondsSinceAppActive: {(): number}
@@ -2306,6 +2335,7 @@ declare namespace SteamWorksNS {
     GetLaunchCommandLine: {(pszCommandLine: string, cubCommandLine: number): number}
     BIsSubscribedFromFamilySharing: {(): boolean}
     BIsTimedTrial: {(punSecondsAllowed: number, punSecondsPlayed: number): boolean}
+    SetDlcContext: {(nAppID: number): boolean}
   }
   interface SteamNetworking {
     SendP2PPacket: {(steamIDRemote: unknown, pubData: unknown, cubData: number, eP2PSendType: SteamWorksNS.Enums.EP2PSend, nChannel: number): boolean}
@@ -2742,6 +2772,7 @@ declare namespace SteamWorksNS {
     GetDeviceBindingRevision: {(inputHandle: number, pMajor: number, pMinor: number): boolean}
     GetRemotePlaySessionID: {(inputHandle: number): number}
     GetSessionInputConfigurationSettings: {(): number}
+    SetDualSenseTriggerEffect: {(inputHandle: number, pParam: unknown): undefined}
   }
   interface SteamRemotePlay {
     GetSessionCount: {(): number}

@@ -178,6 +178,28 @@ namespace CCallResults {
     m_result = *result;
   };
 
+  CEquippedProfileItems::CEquippedProfileItems(SteamAPICall_t hSteamAPICall): m_steamApiCall(hSteamAPICall) {
+    memset(&m_result, 0, sizeof(m_result));
+    m_isComplete = false;
+    m_callresult.Set((SteamAPICall_t)m_steamApiCall, this, &CEquippedProfileItems::OnEquippedProfileItems);
+  };
+
+  bool CEquippedProfileItems::GetIsCompleted() {
+    return m_isComplete;
+  };
+
+  EquippedProfileItems_t CEquippedProfileItems::GetResult() {
+    return m_result;
+  };
+
+  void CEquippedProfileItems::OnEquippedProfileItems(EquippedProfileItems_t* result, bool bIOFailure) {
+    m_isComplete = true;
+    if (bIOFailure || result == nullptr) {
+      return;
+    }
+    m_result = *result;
+  };
+
   CGSReputation::CGSReputation(SteamAPICall_t hSteamAPICall): m_steamApiCall(hSteamAPICall) {
     memset(&m_result, 0, sizeof(m_result));
     m_isComplete = false;

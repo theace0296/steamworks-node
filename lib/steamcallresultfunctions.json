@@ -130,6 +130,26 @@
       "m_nTotalResultCount": "number"
     }
   },
+  "RequestEquippedProfileItems": {
+    "name": "RequestEquippedProfileItems",
+    "parent": "SteamFriends",
+    "result": "EquippedProfileItems",
+    "args": [
+      {
+        "name": "steamID",
+        "type": "unknown"
+      }
+    ],
+    "returnType": {
+      "m_eResult": "SteamWorksNS.Enums.EResult",
+      "m_steamID": "unknown",
+      "m_bHasAnimatedAvatar": "boolean",
+      "m_bHasAvatarFrame": "boolean",
+      "m_bHasProfileModifier": "boolean",
+      "m_bHasProfileBackground": "boolean",
+      "m_bHasMiniProfileBackground": "boolean"
+    }
+  },
   "GetServerReputation": {
     "name": "GetServerReputation",
     "parent": "SteamGameServer",
