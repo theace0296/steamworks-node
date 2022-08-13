@@ -2,6 +2,10 @@
 # @theace0296/steamworks
 A wrapper library to call the Steamworks API from nodeJS.
 
+# Requirements
+
+This package uses [CMake.js](https://github.com/cmake-js/cmake-js), and therefore requires [CMake](https://cmake.org/download/) to install.
+
 # Installation
 ```
 npm install @theace0296/steamworks

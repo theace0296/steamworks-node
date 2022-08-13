@@ -35,7 +35,7 @@
     "build:debug": "npm-run-all preinstall-steam swig cmake:debug generate-types",
     "preinstall-steam": "node ./utilities/preinstall-steam.js",
     "swig": "run-script-os",
-    "swig:default": "export SWIG_LIB=$(node -p 'process.cwd()')/swig/lib && ./swig/swig -Isteam -javascript -node -c++ -cpperraswarn -ignoremissing -includeall ./lib/steam_api.i",
+    "swig:default": "export SWIG_LIB=$(node -p 'process.cwd()')/swig/Lib && ./swig/swig -Isteam -javascript -node -c++ -cpperraswarn -ignoremissing -includeall ./lib/steam_api.i",
     "swig:win32": ".\\swig\\swig.exe -Isteam -javascript -node -c++ -cpperraswarn .\\lib\\steam_api.i",
     "cmake": "npx cmake-js rebuild",
     "cmake:debug": "npx cmake-js rebuild --debug",
