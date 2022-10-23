@@ -38,16 +38,16 @@ const SteamWorks = new steamworks(APP_ID);
     const userSteamId = SteamWorks.SteamUser.GetSteamID();
     const query = SteamWorks.SteamUGC.CreateQueryUserUGCRequest(
       userSteamId.GetAccountID(),
-      SteamWorks.Enums.EUserUGCList.k_EUserUGCList_Subscribed,
-      SteamWorks.Enums.EUGCMatchingUGCType.k_EUGCMatchingUGCType_Items,
-      SteamWorks.Enums.EUserUGCListSortOrder.k_EUserUGCListSortOrder_SubscriptionDateDesc,
+      SteamWorks.Enums.EUserUGCList.Subscribed,
+      SteamWorks.Enums.EUGCMatchingUGCType.Items,
+      SteamWorks.Enums.EUserUGCListSortOrder.SubscriptionDateDesc,
       APP_ID,
       APP_ID,
       1,
     );
 
     const result = await SteamWorks.SteamUGC.SendQueryUGCRequest(query);
-    if (result.m_eResult == 1) {
+    if (result.m_eResult === SteamWorks.Enums.EResult.OK) {
       const subscribedItems = [];
       let item = new SteamWorks.Structs.SteamUGCDetails_t();
       for (let i = 0; i < result.m_unNumResultsReturned; i++) {

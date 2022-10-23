@@ -38,10 +38,7 @@ const getStructTyping = (steamStruct, indents = '      ') => {
     for (const constant of steamStruct.consts) {
       typeStr = `${typeStr}\n${indents}${
         constant.constname
-      }: ${getJsTypeFromTypeOrName(
-        constant.constname,
-        constant.consttype,
-      )},`;
+      }: ${getJsTypeFromTypeOrName(constant.constname, constant.consttype)},`;
     }
   }
   if (
@@ -149,7 +146,9 @@ const getNestedTypings = (obj, name) => {
         ({ enumname }) => enumname === property,
       );
       for (const enumValue of steamEnum.values) {
-        typeStr = `${typeStr}\n      ${enumValue.name}: ${enumValue.value},`;
+        const splitName = enumValue.name.split('_').slice(1).join('_');
+        const name = splitName.replace(new RegExp(`${property}_?`), '');
+        typeStr = `${typeStr}\n      ${/^\d+/.test(name) ? `'${name}'` : name}: ${enumValue.value},`;
       }
       typeStr = `${typeStr}\n    };`;
     } else if (steamApiStructNames.includes(property)) {
@@ -157,7 +156,10 @@ const getNestedTypings = (obj, name) => {
       const steamStruct = steamApiJson.structs.find(
         ({ struct }) => struct === property,
       );
-      typeStr = `${typeStr}\n      new (): {${getStructTyping(steamStruct, '        ')}\n      },`;
+      typeStr = `${typeStr}\n      new (): {${getStructTyping(
+        steamStruct,
+        '        ',
+      )}\n      },`;
       typeStr = `${typeStr}${getStructTyping(steamStruct, '      ')}`;
       typeStr = `${typeStr}\n    };`;
     } else if (

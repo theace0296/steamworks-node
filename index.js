@@ -77,10 +77,7 @@ class SteamWorks {
       this.Init(appId);
 
       const steamApiJson = JSON.parse(
-        fs.readFileSync(
-          path.resolve(__dirname, 'lib/steam_api.json'),
-          'utf8',
-        ),
+        fs.readFileSync(path.resolve(__dirname, 'lib/steam_api.json'), 'utf8'),
       );
       const steamApiEnumNames = steamApiJson.enums.map(e => e.enumname);
       const steamApiStructNames = steamApiJson.structs.map(s => s.struct);
@@ -161,13 +158,34 @@ class SteamWorks {
         if (key.startsWith('ISteam')) {
           continue;
         }
+        const normalizedCategory = key.split('_')[1];
+        const normalizedKey = key.split('_').slice(1).join('_');
         if (steamApiStructNames.some(name => key.includes(name))) {
           this.Structs[key] = steam[key];
         } else if (
-          steamApiEnumNames.some(name => key === name || name === key.split('_')[1])
+          steamApiEnumNames.some(name => normalizedCategory === name)
         ) {
-          const enumName = steamApiEnumNames.find(name => key === name || name === key.split('_')[1]);
-          set(this.Enums, [enumName, key], steam[key]);
+          const enumName = steamApiEnumNames.find(
+            name => normalizedCategory === name,
+          );
+          const replacedKey = normalizedKey.replace(
+            new RegExp(`${enumName}_?`),
+            '',
+          );
+          set(this.Enums, [enumName, replacedKey], steam[key]);
+        } else if (
+          steamApiEnumNames.some(
+            name => normalizedCategory && normalizedCategory.startsWith(name),
+          )
+        ) {
+          const enumName = steamApiEnumNames.find(name =>
+            normalizedCategory.startsWith(name),
+          );
+          const replacedKey = normalizedKey.replace(
+            new RegExp(`${enumName}_?`),
+            '',
+          );
+          set(this.Enums, [enumName, replacedKey], steam[key]);
         } else {
           unsetKeys.push(key);
         }
