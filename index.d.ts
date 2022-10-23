@@ -39,6 +39,30 @@ declare class SteamWorks {
 }
 
 declare namespace SteamWorksNS {
+  class servernetadr_t {
+    constructor(/* Args Unknown */);
+  }
+  class gameserveritem_t {
+    constructor(/* Args Unknown */);
+  }
+  class CSteamID {
+    constructor(/* Args Unknown */);
+  }
+  class CGameID {
+    constructor(/* Args Unknown */);
+  }
+  class CCallbackImpl {
+    constructor(/* Args Unknown */);
+  }
+  class CCallResult {
+    constructor(/* Args Unknown */);
+  }
+  class CCallback {
+    constructor(/* Args Unknown */);
+  }
+  class CCallbackManual {
+    constructor(/* Args Unknown */);
+  }
   interface SteamAPI {
     RunCallbacks: {(/* Args Unknown */): unknown};
     GetHSteamPipe: {(/* Args Unknown */): unknown};
@@ -65,8 +89,8 @@ declare namespace SteamWorksNS {
   interface Constants {
     k_uAppIdInvalid: number;
     k_uDepotIdInvalid: number;
-    k_uAPICallInvalid: number;
-    k_ulPartyBeaconIdInvalid: number;
+    k_uAPICallInvalid: BigInt;
+    k_ulPartyBeaconIdInvalid: BigInt;
     k_EDenyInvalid: number;
     k_EDenyInvalidVersion: number;
     k_EDenyGeneric: number;
@@ -204,10 +228,10 @@ declare namespace SteamWorksNS {
     k_ERegisterActivationCodeAlreadyOwned: number;
     STEAMNETWORKING_INTERFACE_VERSION: string;
     k_unMaxCloudFileChunkSize: number;
-    k_PublishedFileIdInvalid: number;
-    k_UGCHandleInvalid: number;
-    k_PublishedFileUpdateHandleInvalid: number;
-    k_UGCFileStreamHandleInvalid: number;
+    k_PublishedFileIdInvalid: BigInt;
+    k_UGCHandleInvalid: BigInt;
+    k_PublishedFileUpdateHandleInvalid: BigInt;
+    k_UGCFileStreamHandleInvalid: BigInt;
     k_cchPublishedDocumentTitleMax: number;
     k_cchPublishedDocumentDescriptionMax: number;
     k_cchPublishedDocumentChangeDescriptionMax: number;
@@ -241,15 +265,15 @@ declare namespace SteamWorksNS {
     STEAM_CONTROLLER_MIN_ANALOG_ACTION_DATA: number;
     STEAM_CONTROLLER_MAX_ANALOG_ACTION_DATA: number;
     STEAMCONTROLLER_INTERFACE_VERSION: string;
-    k_UGCQueryHandleInvalid: number;
-    k_UGCUpdateHandleInvalid: number;
+    k_UGCQueryHandleInvalid: BigInt;
+    k_UGCUpdateHandleInvalid: BigInt;
     kNumUGCResultsPerPage: number;
     k_cchDeveloperMetadataMax: number;
     STEAMUGC_INTERFACE_VERSION: string;
     STEAMAPPLIST_INTERFACE_VERSION: string;
     INVALID_HTMLBROWSER: number;
     STEAMHTMLSURFACE_INTERFACE_VERSION: string;
-    k_SteamItemInstanceIDInvalid: number;
+    k_SteamItemInstanceIDInvalid: BigInt;
     k_ESteamItemNoTrade: number;
     k_ESteamItemRemoved: number;
     k_ESteamItemConsumed: number;
@@ -308,39 +332,39 @@ declare namespace SteamWorksNS {
     };
     FriendGameInfo_t: {
       new (): {
-        m_gameID: unknown,
+        m_gameID: SteamWorksNS.CGameID,
         m_unGameIP: number,
         m_usGamePort: number,
         m_usQueryPort: number,
-        m_steamIDLobby: unknown,
+        m_steamIDLobby: SteamWorksNS.CSteamID,
       },
-      m_gameID: unknown,
+      m_gameID: SteamWorksNS.CGameID,
       m_unGameIP: number,
       m_usGamePort: number,
       m_usQueryPort: number,
-      m_steamIDLobby: unknown,
+      m_steamIDLobby: SteamWorksNS.CSteamID,
     };
     SteamPartyBeaconLocation_t: {
       new (): {
         m_eType: SteamWorksNS.Enums.ESteamPartyBeaconLocationType,
-        m_ulLocationID: number,
+        m_ulLocationID: bigint,
       },
       m_eType: SteamWorksNS.Enums.ESteamPartyBeaconLocationType,
-      m_ulLocationID: number,
+      m_ulLocationID: bigint,
     };
     LeaderboardEntry_t: {
       new (): {
-        m_steamIDUser: unknown,
+        m_steamIDUser: SteamWorksNS.CSteamID,
         m_nGlobalRank: number,
         m_nScore: number,
         m_cDetails: number,
-        m_hUGC: number,
+        m_hUGC: bigint,
       },
-      m_steamIDUser: unknown,
+      m_steamIDUser: SteamWorksNS.CSteamID,
       m_nGlobalRank: number,
       m_nScore: number,
       m_cDetails: number,
-      m_hUGC: number,
+      m_hUGC: bigint,
     };
     P2PSessionState_t: {
       new (): {
@@ -372,14 +396,14 @@ declare namespace SteamWorksNS {
     };
     SteamUGCDetails_t: {
       new (): {
-        m_nPublishedFileId: number,
+        m_nPublishedFileId: bigint,
         m_eResult: SteamWorksNS.Enums.EResult,
         m_eFileType: SteamWorksNS.Enums.EWorkshopFileType,
         m_nCreatorAppID: number,
         m_nConsumerAppID: number,
         m_rgchTitle: string,
         m_rgchDescription: string,
-        m_ulSteamIDOwner: number,
+        m_ulSteamIDOwner: bigint,
         m_rtimeCreated: number,
         m_rtimeUpdated: number,
         m_rtimeAddedToUserList: number,
@@ -388,8 +412,8 @@ declare namespace SteamWorksNS {
         m_bAcceptedForUse: boolean,
         m_bTagsTruncated: boolean,
         m_rgchTags: string,
-        m_hFile: number,
-        m_hPreviewFile: number,
+        m_hFile: bigint,
+        m_hPreviewFile: bigint,
         m_pchFileName: string,
         m_nFileSize: number,
         m_nPreviewFileSize: number,
@@ -399,14 +423,14 @@ declare namespace SteamWorksNS {
         m_flScore: number,
         m_unNumChildren: number,
       },
-      m_nPublishedFileId: number,
+      m_nPublishedFileId: bigint,
       m_eResult: SteamWorksNS.Enums.EResult,
       m_eFileType: SteamWorksNS.Enums.EWorkshopFileType,
       m_nCreatorAppID: number,
       m_nConsumerAppID: number,
       m_rgchTitle: string,
       m_rgchDescription: string,
-      m_ulSteamIDOwner: number,
+      m_ulSteamIDOwner: bigint,
       m_rtimeCreated: number,
       m_rtimeUpdated: number,
       m_rtimeAddedToUserList: number,
@@ -415,8 +439,8 @@ declare namespace SteamWorksNS {
       m_bAcceptedForUse: boolean,
       m_bTagsTruncated: boolean,
       m_rgchTags: string,
-      m_hFile: number,
-      m_hPreviewFile: number,
+      m_hFile: bigint,
+      m_hPreviewFile: bigint,
       m_pchFileName: string,
       m_nFileSize: number,
       m_nPreviewFileSize: number,
@@ -428,12 +452,12 @@ declare namespace SteamWorksNS {
     };
     SteamItemDetails_t: {
       new (): {
-        m_itemId: number,
+        m_itemId: bigint,
         m_iDefinition: number,
         m_unQuantity: number,
         m_unFlags: number,
       },
-      m_itemId: number,
+      m_itemId: bigint,
       m_iDefinition: number,
       m_unQuantity: number,
       m_unFlags: number,
@@ -484,11 +508,11 @@ declare namespace SteamWorksNS {
     };
     SteamInputActionEvent_t: {
       new (): {
-        controllerHandle: number,
+        controllerHandle: bigint,
         eEventType: SteamWorksNS.Enums.ESteamInputActionEventType,
         analogAction: unknown,
       },
-      controllerHandle: number,
+      controllerHandle: bigint,
       eEventType: SteamWorksNS.Enums.ESteamInputActionEventType,
       analogAction: unknown,
     };
@@ -2064,8 +2088,8 @@ declare namespace SteamWorksNS {
     SteamNetworkingConnectionSignaling: {(/* Args Unknown */): unknown};
     SteamNetworkingSignalingRecvContext: {(/* Args Unknown */): unknown};
     SteamNetworkingFakeUDPPort: {(/* Args Unknown */): unknown};
-    CSteamID: {(/* Args Unknown */): unknown};
-    CGameID: {(/* Args Unknown */): unknown};
+    CSteamID: SteamWorksNS.CSteamID;
+    CGameID: SteamWorksNS.CGameID;
     ValvePackingSentinel_t: {(/* Args Unknown */): unknown};
     CCallbackBase: {(/* Args Unknown */): unknown};
     CallbackMsg_t: {(/* Args Unknown */): unknown};
@@ -2115,10 +2139,10 @@ declare namespace SteamWorksNS {
   interface SteamUser {
     GetHSteamUser: {(): number}
     BLoggedOn: {(): boolean}
-    GetSteamID: {(): unknown}
-    InitiateGameConnection_DEPRECATED: {(pAuthBlob: unknown, cbMaxAuthBlob: number, steamIDGameServer: unknown, unIPServer: number, usPortServer: number, bSecure: boolean): number}
+    GetSteamID: {(): SteamWorksNS.CSteamID}
+    InitiateGameConnection_DEPRECATED: {(pAuthBlob: unknown, cbMaxAuthBlob: number, steamIDGameServer: SteamWorksNS.CSteamID, unIPServer: number, usPortServer: number, bSecure: boolean): number}
     TerminateGameConnection_DEPRECATED: {(unIPServer: number, usPortServer: number): undefined}
-    TrackAppUsageEvent: {(gameID: unknown, eAppUsageEvent: number, pchExtraInfo: string): undefined}
+    TrackAppUsageEvent: {(gameID: SteamWorksNS.CGameID, eAppUsageEvent: number, pchExtraInfo: string): undefined}
     GetUserDataFolder: {(pchBuffer: string, cubBuffer: number): boolean}
     StartVoiceRecording: {(): undefined}
     StopVoiceRecording: {(): undefined}
@@ -2127,12 +2151,12 @@ declare namespace SteamWorksNS {
     DecompressVoice: {(pCompressed: unknown, cbCompressed: number, pDestBuffer: unknown, cbDestBufferSize: number, nBytesWritten: number, nDesiredSampleRate: number): SteamWorksNS.Enums.EVoiceResult}
     GetVoiceOptimalSampleRate: {(): number}
     GetAuthSessionTicket: {(pTicket: unknown, cbMaxTicket: number, pcbTicket: number): number}
-    BeginAuthSession: {(pAuthTicket: unknown, cbAuthTicket: number, steamID: unknown): SteamWorksNS.Enums.EBeginAuthSessionResult}
-    EndAuthSession: {(steamID: unknown): undefined}
+    BeginAuthSession: {(pAuthTicket: unknown, cbAuthTicket: number, steamID: SteamWorksNS.CSteamID): SteamWorksNS.Enums.EBeginAuthSessionResult}
+    EndAuthSession: {(steamID: SteamWorksNS.CSteamID): undefined}
     CancelAuthTicket: {(hAuthTicket: number): undefined}
-    UserHasLicenseForApp: {(steamID: unknown, appID: number): SteamWorksNS.Enums.EUserHasLicenseForAppResult}
+    UserHasLicenseForApp: {(steamID: SteamWorksNS.CSteamID, appID: number): SteamWorksNS.Enums.EUserHasLicenseForAppResult}
     BIsBehindNAT: {(): boolean}
-    AdvertiseGame: {(steamIDGameServer: unknown, unIPServer: number, usPortServer: number): undefined}
+    AdvertiseGame: {(steamIDGameServer: SteamWorksNS.CSteamID, unIPServer: number, usPortServer: number): undefined}
     RequestEncryptedAppTicket: {(pDataToInclude: unknown, cbDataToInclude: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult }>};
     GetEncryptedAppTicket: {(pTicket: unknown, cbMaxTicket: number, pcbTicket: number): boolean}
     GetGameBadgeLevel: {(nSeries: number, bFoil: boolean): number}
@@ -2151,82 +2175,82 @@ declare namespace SteamWorksNS {
     SetPersonaName: {(pchPersonaName: string): Promise<{ m_bSuccess: boolean, m_bLocalSuccess: boolean, m_result: SteamWorksNS.Enums.EResult }>};
     GetPersonaState: {(): SteamWorksNS.Enums.EPersonaState}
     GetFriendCount: {(iFriendFlags: number): number}
-    GetFriendByIndex: {(iFriend: number, iFriendFlags: number): unknown}
-    GetFriendRelationship: {(steamIDFriend: unknown): SteamWorksNS.Enums.EFriendRelationship}
-    GetFriendPersonaState: {(steamIDFriend: unknown): SteamWorksNS.Enums.EPersonaState}
-    GetFriendPersonaName: {(steamIDFriend: unknown): string}
-    GetFriendGamePlayed: {(steamIDFriend: unknown, pFriendGameInfo: SteamWorksNS.Structs.FriendGameInfo_t): boolean}
-    GetFriendPersonaNameHistory: {(steamIDFriend: unknown, iPersonaName: number): string}
-    GetFriendSteamLevel: {(steamIDFriend: unknown): number}
-    GetPlayerNickname: {(steamIDPlayer: unknown): string}
+    GetFriendByIndex: {(iFriend: number, iFriendFlags: number): SteamWorksNS.CSteamID}
+    GetFriendRelationship: {(steamIDFriend: SteamWorksNS.CSteamID): SteamWorksNS.Enums.EFriendRelationship}
+    GetFriendPersonaState: {(steamIDFriend: SteamWorksNS.CSteamID): SteamWorksNS.Enums.EPersonaState}
+    GetFriendPersonaName: {(steamIDFriend: SteamWorksNS.CSteamID): string}
+    GetFriendGamePlayed: {(steamIDFriend: SteamWorksNS.CSteamID, pFriendGameInfo: SteamWorksNS.Structs.FriendGameInfo_t): boolean}
+    GetFriendPersonaNameHistory: {(steamIDFriend: SteamWorksNS.CSteamID, iPersonaName: number): string}
+    GetFriendSteamLevel: {(steamIDFriend: SteamWorksNS.CSteamID): number}
+    GetPlayerNickname: {(steamIDPlayer: SteamWorksNS.CSteamID): string}
     GetFriendsGroupCount: {(): number}
     GetFriendsGroupIDByIndex: {(iFG: number): number}
     GetFriendsGroupName: {(friendsGroupID: number): string}
     GetFriendsGroupMembersCount: {(friendsGroupID: number): number}
     GetFriendsGroupMembersList: {(friendsGroupID: number, pOutSteamIDMembers: unknown, nMembersCount: number): undefined}
-    HasFriend: {(steamIDFriend: unknown, iFriendFlags: number): boolean}
+    HasFriend: {(steamIDFriend: SteamWorksNS.CSteamID, iFriendFlags: number): boolean}
     GetClanCount: {(): number}
-    GetClanByIndex: {(iClan: number): unknown}
-    GetClanName: {(steamIDClan: unknown): string}
-    GetClanTag: {(steamIDClan: unknown): string}
-    GetClanActivityCounts: {(steamIDClan: unknown, pnOnline: number, pnInGame: number, pnChatting: number): boolean}
+    GetClanByIndex: {(iClan: number): SteamWorksNS.CSteamID}
+    GetClanName: {(steamIDClan: SteamWorksNS.CSteamID): string}
+    GetClanTag: {(steamIDClan: SteamWorksNS.CSteamID): string}
+    GetClanActivityCounts: {(steamIDClan: SteamWorksNS.CSteamID, pnOnline: number, pnInGame: number, pnChatting: number): boolean}
     DownloadClanActivityCounts: {(psteamIDClans: unknown, cClansToRequest: number): Promise<{ m_bSuccess: boolean }>};
-    GetFriendCountFromSource: {(steamIDSource: unknown): number}
-    GetFriendFromSourceByIndex: {(steamIDSource: unknown, iFriend: number): unknown}
-    IsUserInSource: {(steamIDUser: unknown, steamIDSource: unknown): boolean}
-    SetInGameVoiceSpeaking: {(steamIDUser: unknown, bSpeaking: boolean): undefined}
+    GetFriendCountFromSource: {(steamIDSource: SteamWorksNS.CSteamID): number}
+    GetFriendFromSourceByIndex: {(steamIDSource: SteamWorksNS.CSteamID, iFriend: number): SteamWorksNS.CSteamID}
+    IsUserInSource: {(steamIDUser: SteamWorksNS.CSteamID, steamIDSource: SteamWorksNS.CSteamID): boolean}
+    SetInGameVoiceSpeaking: {(steamIDUser: SteamWorksNS.CSteamID, bSpeaking: boolean): undefined}
     ActivateGameOverlay: {(pchDialog: string): undefined}
-    ActivateGameOverlayToUser: {(pchDialog: string, steamID: unknown): undefined}
+    ActivateGameOverlayToUser: {(pchDialog: string, steamID: SteamWorksNS.CSteamID): undefined}
     ActivateGameOverlayToWebPage: {(pchURL: string, eMode: SteamWorksNS.Enums.EActivateGameOverlayToWebPageMode): undefined}
     ActivateGameOverlayToStore: {(nAppID: number, eFlag: SteamWorksNS.Enums.EOverlayToStoreFlag): undefined}
-    SetPlayedWith: {(steamIDUserPlayedWith: unknown): undefined}
-    ActivateGameOverlayInviteDialog: {(steamIDLobby: unknown): undefined}
-    GetSmallFriendAvatar: {(steamIDFriend: unknown): number}
-    GetMediumFriendAvatar: {(steamIDFriend: unknown): number}
-    GetLargeFriendAvatar: {(steamIDFriend: unknown): number}
-    RequestUserInformation: {(steamIDUser: unknown, bRequireNameOnly: boolean): boolean}
-    RequestClanOfficerList: {(steamIDClan: unknown): Promise<{ m_steamIDClan: unknown, m_cOfficers: number, m_bSuccess: number }>};
-    GetClanOwner: {(steamIDClan: unknown): unknown}
-    GetClanOfficerCount: {(steamIDClan: unknown): number}
-    GetClanOfficerByIndex: {(steamIDClan: unknown, iOfficer: number): unknown}
+    SetPlayedWith: {(steamIDUserPlayedWith: SteamWorksNS.CSteamID): undefined}
+    ActivateGameOverlayInviteDialog: {(steamIDLobby: SteamWorksNS.CSteamID): undefined}
+    GetSmallFriendAvatar: {(steamIDFriend: SteamWorksNS.CSteamID): number}
+    GetMediumFriendAvatar: {(steamIDFriend: SteamWorksNS.CSteamID): number}
+    GetLargeFriendAvatar: {(steamIDFriend: SteamWorksNS.CSteamID): number}
+    RequestUserInformation: {(steamIDUser: SteamWorksNS.CSteamID, bRequireNameOnly: boolean): boolean}
+    RequestClanOfficerList: {(steamIDClan: SteamWorksNS.CSteamID): Promise<{ m_steamIDClan: SteamWorksNS.CSteamID, m_cOfficers: number, m_bSuccess: number }>};
+    GetClanOwner: {(steamIDClan: SteamWorksNS.CSteamID): SteamWorksNS.CSteamID}
+    GetClanOfficerCount: {(steamIDClan: SteamWorksNS.CSteamID): number}
+    GetClanOfficerByIndex: {(steamIDClan: SteamWorksNS.CSteamID, iOfficer: number): SteamWorksNS.CSteamID}
     GetUserRestrictions: {(): number}
     SetRichPresence: {(pchKey: string, pchValue: string): boolean}
     ClearRichPresence: {(): undefined}
-    GetFriendRichPresence: {(steamIDFriend: unknown, pchKey: string): string}
-    GetFriendRichPresenceKeyCount: {(steamIDFriend: unknown): number}
-    GetFriendRichPresenceKeyByIndex: {(steamIDFriend: unknown, iKey: number): string}
-    RequestFriendRichPresence: {(steamIDFriend: unknown): undefined}
-    InviteUserToGame: {(steamIDFriend: unknown, pchConnectString: string): boolean}
+    GetFriendRichPresence: {(steamIDFriend: SteamWorksNS.CSteamID, pchKey: string): string}
+    GetFriendRichPresenceKeyCount: {(steamIDFriend: SteamWorksNS.CSteamID): number}
+    GetFriendRichPresenceKeyByIndex: {(steamIDFriend: SteamWorksNS.CSteamID, iKey: number): string}
+    RequestFriendRichPresence: {(steamIDFriend: SteamWorksNS.CSteamID): undefined}
+    InviteUserToGame: {(steamIDFriend: SteamWorksNS.CSteamID, pchConnectString: string): boolean}
     GetCoplayFriendCount: {(): number}
-    GetCoplayFriend: {(iCoplayFriend: number): unknown}
-    GetFriendCoplayTime: {(steamIDFriend: unknown): number}
-    GetFriendCoplayGame: {(steamIDFriend: unknown): number}
-    JoinClanChatRoom: {(steamIDClan: unknown): Promise<{ m_steamIDClanChat: unknown, m_eChatRoomEnterResponse: SteamWorksNS.Enums.EChatRoomEnterResponse }>};
-    LeaveClanChatRoom: {(steamIDClan: unknown): boolean}
-    GetClanChatMemberCount: {(steamIDClan: unknown): number}
-    GetChatMemberByIndex: {(steamIDClan: unknown, iUser: number): unknown}
-    SendClanChatMessage: {(steamIDClanChat: unknown, pchText: string): boolean}
-    GetClanChatMessage: {(steamIDClanChat: unknown, iMessage: number, prgchText: unknown, cchTextMax: number, peChatEntryType: unknown, psteamidChatter: unknown): number}
-    IsClanChatAdmin: {(steamIDClanChat: unknown, steamIDUser: unknown): boolean}
-    IsClanChatWindowOpenInSteam: {(steamIDClanChat: unknown): boolean}
-    OpenClanChatWindowInSteam: {(steamIDClanChat: unknown): boolean}
-    CloseClanChatWindowInSteam: {(steamIDClanChat: unknown): boolean}
+    GetCoplayFriend: {(iCoplayFriend: number): SteamWorksNS.CSteamID}
+    GetFriendCoplayTime: {(steamIDFriend: SteamWorksNS.CSteamID): number}
+    GetFriendCoplayGame: {(steamIDFriend: SteamWorksNS.CSteamID): number}
+    JoinClanChatRoom: {(steamIDClan: SteamWorksNS.CSteamID): Promise<{ m_steamIDClanChat: SteamWorksNS.CSteamID, m_eChatRoomEnterResponse: SteamWorksNS.Enums.EChatRoomEnterResponse }>};
+    LeaveClanChatRoom: {(steamIDClan: SteamWorksNS.CSteamID): boolean}
+    GetClanChatMemberCount: {(steamIDClan: SteamWorksNS.CSteamID): number}
+    GetChatMemberByIndex: {(steamIDClan: SteamWorksNS.CSteamID, iUser: number): SteamWorksNS.CSteamID}
+    SendClanChatMessage: {(steamIDClanChat: SteamWorksNS.CSteamID, pchText: string): boolean}
+    GetClanChatMessage: {(steamIDClanChat: SteamWorksNS.CSteamID, iMessage: number, prgchText: unknown, cchTextMax: number, peChatEntryType: unknown, psteamidChatter: unknown): number}
+    IsClanChatAdmin: {(steamIDClanChat: SteamWorksNS.CSteamID, steamIDUser: SteamWorksNS.CSteamID): boolean}
+    IsClanChatWindowOpenInSteam: {(steamIDClanChat: SteamWorksNS.CSteamID): boolean}
+    OpenClanChatWindowInSteam: {(steamIDClanChat: SteamWorksNS.CSteamID): boolean}
+    CloseClanChatWindowInSteam: {(steamIDClanChat: SteamWorksNS.CSteamID): boolean}
     SetListenForFriendsMessages: {(bInterceptEnabled: boolean): boolean}
-    ReplyToFriendMessage: {(steamIDFriend: unknown, pchMsgToSend: string): boolean}
-    GetFriendMessage: {(steamIDFriend: unknown, iMessageID: number, pvData: unknown, cubData: number, peChatEntryType: unknown): number}
-    GetFollowerCount: {(steamID: unknown): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamID: unknown, m_nCount: number }>};
-    IsFollowing: {(steamID: unknown): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamID: unknown, m_bIsFollowing: boolean }>};
+    ReplyToFriendMessage: {(steamIDFriend: SteamWorksNS.CSteamID, pchMsgToSend: string): boolean}
+    GetFriendMessage: {(steamIDFriend: SteamWorksNS.CSteamID, iMessageID: number, pvData: unknown, cubData: number, peChatEntryType: unknown): number}
+    GetFollowerCount: {(steamID: SteamWorksNS.CSteamID): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamID: SteamWorksNS.CSteamID, m_nCount: number }>};
+    IsFollowing: {(steamID: SteamWorksNS.CSteamID): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamID: SteamWorksNS.CSteamID, m_bIsFollowing: boolean }>};
     EnumerateFollowingList: {(unStartIndex: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_rgSteamID: unknown, m_nResultsReturned: number, m_nTotalResultCount: number }>};
-    IsClanPublic: {(steamIDClan: unknown): boolean}
-    IsClanOfficialGameGroup: {(steamIDClan: unknown): boolean}
+    IsClanPublic: {(steamIDClan: SteamWorksNS.CSteamID): boolean}
+    IsClanOfficialGameGroup: {(steamIDClan: SteamWorksNS.CSteamID): boolean}
     GetNumChatsWithUnreadPriorityMessages: {(): number}
-    ActivateGameOverlayRemotePlayTogetherInviteDialog: {(steamIDLobby: unknown): undefined}
+    ActivateGameOverlayRemotePlayTogetherInviteDialog: {(steamIDLobby: SteamWorksNS.CSteamID): undefined}
     RegisterProtocolInOverlayBrowser: {(pchProtocol: string): boolean}
     ActivateGameOverlayInviteDialogConnectString: {(pchConnectString: string): undefined}
-    RequestEquippedProfileItems: {(steamID: unknown): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamID: unknown, m_bHasAnimatedAvatar: boolean, m_bHasAvatarFrame: boolean, m_bHasProfileModifier: boolean, m_bHasProfileBackground: boolean, m_bHasMiniProfileBackground: boolean }>};
-    BHasEquippedProfileItem: {(steamID: unknown, itemType: SteamWorksNS.Enums.ECommunityProfileItemType): boolean}
-    GetProfileItemPropertyString: {(steamID: unknown, itemType: SteamWorksNS.Enums.ECommunityProfileItemType, prop: SteamWorksNS.Enums.ECommunityProfileItemProperty): string}
-    GetProfileItemPropertyUint: {(steamID: unknown, itemType: SteamWorksNS.Enums.ECommunityProfileItemType, prop: SteamWorksNS.Enums.ECommunityProfileItemProperty): number}
+    RequestEquippedProfileItems: {(steamID: SteamWorksNS.CSteamID): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamID: SteamWorksNS.CSteamID, m_bHasAnimatedAvatar: boolean, m_bHasAvatarFrame: boolean, m_bHasProfileModifier: boolean, m_bHasProfileBackground: boolean, m_bHasMiniProfileBackground: boolean }>};
+    BHasEquippedProfileItem: {(steamID: SteamWorksNS.CSteamID, itemType: SteamWorksNS.Enums.ECommunityProfileItemType): boolean}
+    GetProfileItemPropertyString: {(steamID: SteamWorksNS.CSteamID, itemType: SteamWorksNS.Enums.ECommunityProfileItemType, prop: SteamWorksNS.Enums.ECommunityProfileItemProperty): string}
+    GetProfileItemPropertyUint: {(steamID: SteamWorksNS.CSteamID, itemType: SteamWorksNS.Enums.ECommunityProfileItemType, prop: SteamWorksNS.Enums.ECommunityProfileItemProperty): number}
   }
   interface SteamUtils {
     GetSecondsSinceAppActive: {(): number}
@@ -2239,9 +2263,9 @@ declare namespace SteamWorksNS {
     GetCurrentBatteryPower: {(): number}
     GetAppID: {(): number}
     SetOverlayNotificationPosition: {(eNotificationPosition: SteamWorksNS.Enums.ENotificationPosition): undefined}
-    IsAPICallCompleted: {(hSteamAPICall: number, pbFailed: unknown): boolean}
-    GetAPICallFailureReason: {(hSteamAPICall: number): SteamWorksNS.Enums.ESteamAPICallFailure}
-    GetAPICallResult: {(hSteamAPICall: number, pCallback: unknown, cubCallback: number, iCallbackExpected: number, pbFailed: unknown): boolean}
+    IsAPICallCompleted: {(hSteamAPICall: bigint, pbFailed: unknown): boolean}
+    GetAPICallFailureReason: {(hSteamAPICall: bigint): SteamWorksNS.Enums.ESteamAPICallFailure}
+    GetAPICallResult: {(hSteamAPICall: bigint, pCallback: unknown, cubCallback: number, iCallbackExpected: number, pbFailed: unknown): boolean}
     GetIPCCallCount: {(): number}
     SetWarningMessageHook: {(pFunction: unknown): undefined}
     IsOverlayEnabled: {(): boolean}
@@ -2259,7 +2283,7 @@ declare namespace SteamWorksNS {
     SetVRHeadsetStreamingEnabled: {(bEnabled: boolean): undefined}
     IsSteamChinaLauncher: {(): boolean}
     InitFilterText: {(unFilterOptions: number): boolean}
-    FilterText: {(eContext: SteamWorksNS.Enums.ETextFilteringContext, sourceSteamID: unknown, pchInputMessage: string, pchOutFilteredText: string, nByteSizeOutFilteredText: number): number}
+    FilterText: {(eContext: SteamWorksNS.Enums.ETextFilteringContext, sourceSteamID: SteamWorksNS.CSteamID, pchInputMessage: string, pchOutFilteredText: string, nByteSizeOutFilteredText: number): number}
     GetIPv6ConnectivityState: {(eProtocol: SteamWorksNS.Enums.ESteamIPv6ConnectivityProtocol): SteamWorksNS.Enums.ESteamIPv6ConnectivityState}
     IsSteamRunningOnSteamDeck: {(): boolean}
     ShowFloatingGamepadTextInput: {(eKeyboardMode: SteamWorksNS.Enums.EFloatingGamepadTextInputMode, nTextFieldXPosition: number, nTextFieldYPosition: number, nTextFieldWidth: number, nTextFieldHeight: number): boolean}
@@ -2278,33 +2302,33 @@ declare namespace SteamWorksNS {
     AddRequestLobbyListFilterSlotsAvailable: {(nSlotsAvailable: number): undefined}
     AddRequestLobbyListDistanceFilter: {(eLobbyDistanceFilter: SteamWorksNS.Enums.ELobbyDistanceFilter): undefined}
     AddRequestLobbyListResultCountFilter: {(cMaxResults: number): undefined}
-    AddRequestLobbyListCompatibleMembersFilter: {(steamIDLobby: unknown): undefined}
-    GetLobbyByIndex: {(iLobby: number): unknown}
-    CreateLobby: {(eLobbyType: SteamWorksNS.Enums.ELobbyType, cMaxMembers: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_ulSteamIDLobby: number }>};
-    JoinLobby: {(steamIDLobby: unknown): Promise<{ m_ulSteamIDLobby: number, m_rgfChatPermissions: number, m_bLocked: boolean, m_EChatRoomEnterResponse: number }>};
-    LeaveLobby: {(steamIDLobby: unknown): undefined}
-    InviteUserToLobby: {(steamIDLobby: unknown, steamIDInvitee: unknown): boolean}
-    GetNumLobbyMembers: {(steamIDLobby: unknown): number}
-    GetLobbyMemberByIndex: {(steamIDLobby: unknown, iMember: number): unknown}
-    GetLobbyData: {(steamIDLobby: unknown, pchKey: string): string}
-    SetLobbyData: {(steamIDLobby: unknown, pchKey: string, pchValue: string): boolean}
-    GetLobbyDataCount: {(steamIDLobby: unknown): number}
-    GetLobbyDataByIndex: {(steamIDLobby: unknown, iLobbyData: number, pchKey: string, cchKeyBufferSize: number, pchValue: string, cchValueBufferSize: number): boolean}
-    DeleteLobbyData: {(steamIDLobby: unknown, pchKey: string): boolean}
-    GetLobbyMemberData: {(steamIDLobby: unknown, steamIDUser: unknown, pchKey: string): string}
-    SetLobbyMemberData: {(steamIDLobby: unknown, pchKey: string, pchValue: string): undefined}
-    SendLobbyChatMsg: {(steamIDLobby: unknown, pvMsgBody: unknown, cubMsgBody: number): boolean}
-    GetLobbyChatEntry: {(steamIDLobby: unknown, iChatID: number, pSteamIDUser: unknown, pvData: unknown, cubData: number, peChatEntryType: unknown): number}
-    RequestLobbyData: {(steamIDLobby: unknown): boolean}
-    SetLobbyGameServer: {(steamIDLobby: unknown, unGameServerIP: number, unGameServerPort: number, steamIDGameServer: unknown): undefined}
-    GetLobbyGameServer: {(steamIDLobby: unknown, punGameServerIP: number, punGameServerPort: number, psteamIDGameServer: unknown): boolean}
-    SetLobbyMemberLimit: {(steamIDLobby: unknown, cMaxMembers: number): boolean}
-    GetLobbyMemberLimit: {(steamIDLobby: unknown): number}
-    SetLobbyType: {(steamIDLobby: unknown, eLobbyType: SteamWorksNS.Enums.ELobbyType): boolean}
-    SetLobbyJoinable: {(steamIDLobby: unknown, bLobbyJoinable: boolean): boolean}
-    GetLobbyOwner: {(steamIDLobby: unknown): unknown}
-    SetLobbyOwner: {(steamIDLobby: unknown, steamIDNewOwner: unknown): boolean}
-    SetLinkedLobby: {(steamIDLobby: unknown, steamIDLobbyDependent: unknown): boolean}
+    AddRequestLobbyListCompatibleMembersFilter: {(steamIDLobby: SteamWorksNS.CSteamID): undefined}
+    GetLobbyByIndex: {(iLobby: number): SteamWorksNS.CSteamID}
+    CreateLobby: {(eLobbyType: SteamWorksNS.Enums.ELobbyType, cMaxMembers: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_ulSteamIDLobby: bigint }>};
+    JoinLobby: {(steamIDLobby: SteamWorksNS.CSteamID): Promise<{ m_ulSteamIDLobby: bigint, m_rgfChatPermissions: number, m_bLocked: boolean, m_EChatRoomEnterResponse: number }>};
+    LeaveLobby: {(steamIDLobby: SteamWorksNS.CSteamID): undefined}
+    InviteUserToLobby: {(steamIDLobby: SteamWorksNS.CSteamID, steamIDInvitee: SteamWorksNS.CSteamID): boolean}
+    GetNumLobbyMembers: {(steamIDLobby: SteamWorksNS.CSteamID): number}
+    GetLobbyMemberByIndex: {(steamIDLobby: SteamWorksNS.CSteamID, iMember: number): SteamWorksNS.CSteamID}
+    GetLobbyData: {(steamIDLobby: SteamWorksNS.CSteamID, pchKey: string): string}
+    SetLobbyData: {(steamIDLobby: SteamWorksNS.CSteamID, pchKey: string, pchValue: string): boolean}
+    GetLobbyDataCount: {(steamIDLobby: SteamWorksNS.CSteamID): number}
+    GetLobbyDataByIndex: {(steamIDLobby: SteamWorksNS.CSteamID, iLobbyData: number, pchKey: string, cchKeyBufferSize: number, pchValue: string, cchValueBufferSize: number): boolean}
+    DeleteLobbyData: {(steamIDLobby: SteamWorksNS.CSteamID, pchKey: string): boolean}
+    GetLobbyMemberData: {(steamIDLobby: SteamWorksNS.CSteamID, steamIDUser: SteamWorksNS.CSteamID, pchKey: string): string}
+    SetLobbyMemberData: {(steamIDLobby: SteamWorksNS.CSteamID, pchKey: string, pchValue: string): undefined}
+    SendLobbyChatMsg: {(steamIDLobby: SteamWorksNS.CSteamID, pvMsgBody: unknown, cubMsgBody: number): boolean}
+    GetLobbyChatEntry: {(steamIDLobby: SteamWorksNS.CSteamID, iChatID: number, pSteamIDUser: unknown, pvData: unknown, cubData: number, peChatEntryType: unknown): number}
+    RequestLobbyData: {(steamIDLobby: SteamWorksNS.CSteamID): boolean}
+    SetLobbyGameServer: {(steamIDLobby: SteamWorksNS.CSteamID, unGameServerIP: number, unGameServerPort: number, steamIDGameServer: SteamWorksNS.CSteamID): undefined}
+    GetLobbyGameServer: {(steamIDLobby: SteamWorksNS.CSteamID, punGameServerIP: number, punGameServerPort: number, psteamIDGameServer: unknown): boolean}
+    SetLobbyMemberLimit: {(steamIDLobby: SteamWorksNS.CSteamID, cMaxMembers: number): boolean}
+    GetLobbyMemberLimit: {(steamIDLobby: SteamWorksNS.CSteamID): number}
+    SetLobbyType: {(steamIDLobby: SteamWorksNS.CSteamID, eLobbyType: SteamWorksNS.Enums.ELobbyType): boolean}
+    SetLobbyJoinable: {(steamIDLobby: SteamWorksNS.CSteamID, bLobbyJoinable: boolean): boolean}
+    GetLobbyOwner: {(steamIDLobby: SteamWorksNS.CSteamID): SteamWorksNS.CSteamID}
+    SetLobbyOwner: {(steamIDLobby: SteamWorksNS.CSteamID, steamIDNewOwner: SteamWorksNS.CSteamID): boolean}
+    SetLinkedLobby: {(steamIDLobby: SteamWorksNS.CSteamID, steamIDLobbyDependent: SteamWorksNS.CSteamID): boolean}
   }
   interface SteamMatchmakingServers {
     RequestInternetServerList: {(iApp: number, ppchFilters: unknown, nFilters: number, pRequestServersResponse: unknown): unknown}
@@ -2327,32 +2351,32 @@ declare namespace SteamWorksNS {
   }
   interface SteamGameSearch {
     AddGameSearchParams: {(pchKeyToFind: string, pchValuesToFind: string): SteamWorksNS.Enums.EGameSearchErrorCode_t}
-    SearchForGameWithLobby: {(steamIDLobby: unknown, nPlayerMin: number, nPlayerMax: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
+    SearchForGameWithLobby: {(steamIDLobby: SteamWorksNS.CSteamID, nPlayerMin: number, nPlayerMax: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
     SearchForGameSolo: {(nPlayerMin: number, nPlayerMax: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
     AcceptGame: {(): SteamWorksNS.Enums.EGameSearchErrorCode_t}
     DeclineGame: {(): SteamWorksNS.Enums.EGameSearchErrorCode_t}
-    RetrieveConnectionDetails: {(steamIDHost: unknown, pchConnectionDetails: string, cubConnectionDetails: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
+    RetrieveConnectionDetails: {(steamIDHost: SteamWorksNS.CSteamID, pchConnectionDetails: string, cubConnectionDetails: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
     EndGameSearch: {(): SteamWorksNS.Enums.EGameSearchErrorCode_t}
     SetGameHostParams: {(pchKey: string, pchValue: string): SteamWorksNS.Enums.EGameSearchErrorCode_t}
     SetConnectionDetails: {(pchConnectionDetails: string, cubConnectionDetails: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
     RequestPlayersForGame: {(nPlayerMin: number, nPlayerMax: number, nMaxTeamSize: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
-    HostConfirmGameStart: {(ullUniqueGameID: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
+    HostConfirmGameStart: {(ullUniqueGameID: bigint): SteamWorksNS.Enums.EGameSearchErrorCode_t}
     CancelRequestPlayersForGame: {(): SteamWorksNS.Enums.EGameSearchErrorCode_t}
-    SubmitPlayerResult: {(ullUniqueGameID: number, steamIDPlayer: unknown, EPlayerResult: SteamWorksNS.Enums.EPlayerResult_t): SteamWorksNS.Enums.EGameSearchErrorCode_t}
-    EndGame: {(ullUniqueGameID: number): SteamWorksNS.Enums.EGameSearchErrorCode_t}
+    SubmitPlayerResult: {(ullUniqueGameID: bigint, steamIDPlayer: SteamWorksNS.CSteamID, EPlayerResult: SteamWorksNS.Enums.EPlayerResult_t): SteamWorksNS.Enums.EGameSearchErrorCode_t}
+    EndGame: {(ullUniqueGameID: bigint): SteamWorksNS.Enums.EGameSearchErrorCode_t}
   }
   interface SteamParties {
     GetNumActiveBeacons: {(): number}
-    GetBeaconByIndex: {(unIndex: number): number}
-    GetBeaconDetails: {(ulBeaconID: number, pSteamIDBeaconOwner: unknown, pLocation: SteamWorksNS.Structs.SteamPartyBeaconLocation_t, pchMetadata: string, cchMetadata: number): boolean}
-    JoinParty: {(ulBeaconID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_ulBeaconID: number, m_SteamIDBeaconOwner: unknown, m_rgchConnectString: string }>};
+    GetBeaconByIndex: {(unIndex: number): bigint}
+    GetBeaconDetails: {(ulBeaconID: bigint, pSteamIDBeaconOwner: unknown, pLocation: SteamWorksNS.Structs.SteamPartyBeaconLocation_t, pchMetadata: string, cchMetadata: number): boolean}
+    JoinParty: {(ulBeaconID: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_ulBeaconID: bigint, m_SteamIDBeaconOwner: SteamWorksNS.CSteamID, m_rgchConnectString: string }>};
     GetNumAvailableBeaconLocations: {(puNumLocations: number): boolean}
     GetAvailableBeaconLocations: {(pLocationList: SteamWorksNS.Structs.SteamPartyBeaconLocation_t, uMaxNumLocations: number): boolean}
-    CreateBeacon: {(unOpenSlots: number, pBeaconLocation: SteamWorksNS.Structs.SteamPartyBeaconLocation_t, pchConnectString: string, pchMetadata: string): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_ulBeaconID: number }>};
-    OnReservationCompleted: {(ulBeacon: number, steamIDUser: unknown): undefined}
-    CancelReservation: {(ulBeacon: number, steamIDUser: unknown): undefined}
-    ChangeNumOpenSlots: {(ulBeacon: number, unOpenSlots: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult }>};
-    DestroyBeacon: {(ulBeacon: number): boolean}
+    CreateBeacon: {(unOpenSlots: number, pBeaconLocation: SteamWorksNS.Structs.SteamPartyBeaconLocation_t, pchConnectString: string, pchMetadata: string): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_ulBeaconID: bigint }>};
+    OnReservationCompleted: {(ulBeacon: bigint, steamIDUser: SteamWorksNS.CSteamID): undefined}
+    CancelReservation: {(ulBeacon: bigint, steamIDUser: SteamWorksNS.CSteamID): undefined}
+    ChangeNumOpenSlots: {(ulBeacon: bigint, unOpenSlots: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult }>};
+    DestroyBeacon: {(ulBeacon: bigint): boolean}
     GetBeaconLocationData: {(BeaconLocation: SteamWorksNS.Structs.SteamPartyBeaconLocation_t, eData: SteamWorksNS.Enums.ESteamPartyBeaconLocationData, pchDataStringOut: string, cchDataStringOut: number): boolean}
   }
   interface SteamUserStats {
@@ -2370,30 +2394,30 @@ declare namespace SteamWorksNS {
     IndicateAchievementProgress: {(pchName: string, nCurProgress: number, nMaxProgress: number): boolean}
     GetNumAchievements: {(): number}
     GetAchievementName: {(iAchievement: number): string}
-    RequestUserStats: {(steamIDUser: unknown): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamIDUser: unknown }>};
-    GetUserStat: {(steamIDUser: unknown, pchName: string, pData: number): boolean}
-    GetUserAchievement: {(steamIDUser: unknown, pchName: string, pbAchieved: unknown): boolean}
-    GetUserAchievementAndUnlockTime: {(steamIDUser: unknown, pchName: string, pbAchieved: unknown, punUnlockTime: number): boolean}
+    RequestUserStats: {(steamIDUser: SteamWorksNS.CSteamID): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_steamIDUser: SteamWorksNS.CSteamID }>};
+    GetUserStat: {(steamIDUser: SteamWorksNS.CSteamID, pchName: string, pData: number): boolean}
+    GetUserAchievement: {(steamIDUser: SteamWorksNS.CSteamID, pchName: string, pbAchieved: unknown): boolean}
+    GetUserAchievementAndUnlockTime: {(steamIDUser: SteamWorksNS.CSteamID, pchName: string, pbAchieved: unknown, punUnlockTime: number): boolean}
     ResetAllStats: {(bAchievementsToo: boolean): boolean}
-    FindOrCreateLeaderboard: {(pchLeaderboardName: string, eLeaderboardSortMethod: SteamWorksNS.Enums.ELeaderboardSortMethod, eLeaderboardDisplayType: SteamWorksNS.Enums.ELeaderboardDisplayType): Promise<{ m_hSteamLeaderboard: number, m_bLeaderboardFound: number }>};
-    FindLeaderboard: {(pchLeaderboardName: string): Promise<{ m_hSteamLeaderboard: number, m_bLeaderboardFound: number }>};
-    GetLeaderboardName: {(hSteamLeaderboard: number): string}
-    GetLeaderboardEntryCount: {(hSteamLeaderboard: number): number}
-    GetLeaderboardSortMethod: {(hSteamLeaderboard: number): SteamWorksNS.Enums.ELeaderboardSortMethod}
-    GetLeaderboardDisplayType: {(hSteamLeaderboard: number): SteamWorksNS.Enums.ELeaderboardDisplayType}
-    DownloadLeaderboardEntries: {(hSteamLeaderboard: number, eLeaderboardDataRequest: SteamWorksNS.Enums.ELeaderboardDataRequest, nRangeStart: number, nRangeEnd: number): Promise<{ m_hSteamLeaderboard: number, m_hSteamLeaderboardEntries: number, m_cEntryCount: number }>};
-    DownloadLeaderboardEntriesForUsers: {(hSteamLeaderboard: number, prgUsers: unknown, cUsers: number): Promise<{ m_hSteamLeaderboard: number, m_hSteamLeaderboardEntries: number, m_cEntryCount: number }>};
-    GetDownloadedLeaderboardEntry: {(hSteamLeaderboardEntries: number, index: number, pLeaderboardEntry: SteamWorksNS.Structs.LeaderboardEntry_t, pDetails: number, cDetailsMax: number): boolean}
-    UploadLeaderboardScore: {(hSteamLeaderboard: number, eLeaderboardUploadScoreMethod: SteamWorksNS.Enums.ELeaderboardUploadScoreMethod, nScore: number, pScoreDetails: number, cScoreDetailsCount: number): Promise<{ m_bSuccess: number, m_hSteamLeaderboard: number, m_nScore: number, m_bScoreChanged: number, m_nGlobalRankNew: number, m_nGlobalRankPrevious: number }>};
-    AttachLeaderboardUGC: {(hSteamLeaderboard: number, hUGC: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_hSteamLeaderboard: number }>};
+    FindOrCreateLeaderboard: {(pchLeaderboardName: string, eLeaderboardSortMethod: SteamWorksNS.Enums.ELeaderboardSortMethod, eLeaderboardDisplayType: SteamWorksNS.Enums.ELeaderboardDisplayType): Promise<{ m_hSteamLeaderboard: bigint, m_bLeaderboardFound: number }>};
+    FindLeaderboard: {(pchLeaderboardName: string): Promise<{ m_hSteamLeaderboard: bigint, m_bLeaderboardFound: number }>};
+    GetLeaderboardName: {(hSteamLeaderboard: bigint): string}
+    GetLeaderboardEntryCount: {(hSteamLeaderboard: bigint): number}
+    GetLeaderboardSortMethod: {(hSteamLeaderboard: bigint): SteamWorksNS.Enums.ELeaderboardSortMethod}
+    GetLeaderboardDisplayType: {(hSteamLeaderboard: bigint): SteamWorksNS.Enums.ELeaderboardDisplayType}
+    DownloadLeaderboardEntries: {(hSteamLeaderboard: bigint, eLeaderboardDataRequest: SteamWorksNS.Enums.ELeaderboardDataRequest, nRangeStart: number, nRangeEnd: number): Promise<{ m_hSteamLeaderboard: bigint, m_hSteamLeaderboardEntries: bigint, m_cEntryCount: number }>};
+    DownloadLeaderboardEntriesForUsers: {(hSteamLeaderboard: bigint, prgUsers: unknown, cUsers: number): Promise<{ m_hSteamLeaderboard: bigint, m_hSteamLeaderboardEntries: bigint, m_cEntryCount: number }>};
+    GetDownloadedLeaderboardEntry: {(hSteamLeaderboardEntries: bigint, index: number, pLeaderboardEntry: SteamWorksNS.Structs.LeaderboardEntry_t, pDetails: number, cDetailsMax: number): boolean}
+    UploadLeaderboardScore: {(hSteamLeaderboard: bigint, eLeaderboardUploadScoreMethod: SteamWorksNS.Enums.ELeaderboardUploadScoreMethod, nScore: number, pScoreDetails: unknown, cScoreDetailsCount: number): Promise<{ m_bSuccess: number, m_hSteamLeaderboard: bigint, m_nScore: number, m_bScoreChanged: number, m_nGlobalRankNew: number, m_nGlobalRankPrevious: number }>};
+    AttachLeaderboardUGC: {(hSteamLeaderboard: bigint, hUGC: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_hSteamLeaderboard: bigint }>};
     GetNumberOfCurrentPlayers: {(): Promise<{ m_bSuccess: number, m_cPlayers: number }>};
-    RequestGlobalAchievementPercentages: {(): Promise<{ m_nGameID: number, m_eResult: SteamWorksNS.Enums.EResult }>};
+    RequestGlobalAchievementPercentages: {(): Promise<{ m_nGameID: bigint, m_eResult: SteamWorksNS.Enums.EResult }>};
     GetMostAchievedAchievementInfo: {(pchName: string, unNameBufLen: number, pflPercent: number, pbAchieved: unknown): number}
     GetNextMostAchievedAchievementInfo: {(iIteratorPrevious: number, pchName: string, unNameBufLen: number, pflPercent: number, pbAchieved: unknown): number}
     GetAchievementAchievedPercent: {(pchName: string, pflPercent: number): boolean}
-    RequestGlobalStats: {(nHistoryDays: number): Promise<{ m_nGameID: number, m_eResult: SteamWorksNS.Enums.EResult }>};
-    GetGlobalStat: {(pchStatName: string, pData: number): boolean}
-    GetGlobalStatHistory: {(pchStatName: string, pData: number, cubData: number): number}
+    RequestGlobalStats: {(nHistoryDays: number): Promise<{ m_nGameID: bigint, m_eResult: SteamWorksNS.Enums.EResult }>};
+    GetGlobalStat: {(pchStatName: string, pData: bigint): boolean}
+    GetGlobalStatHistory: {(pchStatName: string, pData: bigint, cubData: number): number}
     GetAchievementProgressLimits: {(pchName: string, pnMinProgress: number, pnMaxProgress: number): boolean}
   }
   interface SteamApps {
@@ -2417,28 +2441,28 @@ declare namespace SteamWorksNS {
     GetInstalledDepots: {(appID: number, cMaxDepots: number): number}
     GetAppInstallDir: {(appID: number, pchFolder: string, cchFolderBufferSize: number): number}
     BIsAppInstalled: {(appID: number): boolean}
-    GetAppOwner: {(): unknown}
+    GetAppOwner: {(): SteamWorksNS.CSteamID}
     GetLaunchQueryParam: {(pchKey: string): string}
-    GetDlcDownloadProgress: {(nAppID: number, punBytesDownloaded: number, punBytesTotal: number): boolean}
+    GetDlcDownloadProgress: {(nAppID: number, punBytesDownloaded: bigint, punBytesTotal: bigint): boolean}
     GetAppBuildId: {(): number}
     RequestAllProofOfPurchaseKeys: {(): undefined}
-    GetFileDetails: {(pszFileName: string): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_ulFileSize: number, m_FileSHA: number, m_unFlags: number }>};
+    GetFileDetails: {(pszFileName: string): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_ulFileSize: bigint, m_FileSHA: unknown, m_unFlags: number }>};
     GetLaunchCommandLine: {(pszCommandLine: string, cubCommandLine: number): number}
     BIsSubscribedFromFamilySharing: {(): boolean}
     BIsTimedTrial: {(punSecondsAllowed: number, punSecondsPlayed: number): boolean}
     SetDlcContext: {(nAppID: number): boolean}
   }
   interface SteamNetworking {
-    SendP2PPacket: {(steamIDRemote: unknown, pubData: unknown, cubData: number, eP2PSendType: SteamWorksNS.Enums.EP2PSend, nChannel: number): boolean}
+    SendP2PPacket: {(steamIDRemote: SteamWorksNS.CSteamID, pubData: unknown, cubData: number, eP2PSendType: SteamWorksNS.Enums.EP2PSend, nChannel: number): boolean}
     IsP2PPacketAvailable: {(pcubMsgSize: number, nChannel: number): boolean}
     ReadP2PPacket: {(pubDest: unknown, cubDest: number, pcubMsgSize: number, psteamIDRemote: unknown, nChannel: number): boolean}
-    AcceptP2PSessionWithUser: {(steamIDRemote: unknown): boolean}
-    CloseP2PSessionWithUser: {(steamIDRemote: unknown): boolean}
-    CloseP2PChannelWithUser: {(steamIDRemote: unknown, nChannel: number): boolean}
-    GetP2PSessionState: {(steamIDRemote: unknown, pConnectionState: SteamWorksNS.Structs.P2PSessionState_t): boolean}
+    AcceptP2PSessionWithUser: {(steamIDRemote: SteamWorksNS.CSteamID): boolean}
+    CloseP2PSessionWithUser: {(steamIDRemote: SteamWorksNS.CSteamID): boolean}
+    CloseP2PChannelWithUser: {(steamIDRemote: SteamWorksNS.CSteamID, nChannel: number): boolean}
+    GetP2PSessionState: {(steamIDRemote: SteamWorksNS.CSteamID, pConnectionState: SteamWorksNS.Structs.P2PSessionState_t): boolean}
     AllowP2PPacketRelay: {(bAllow: boolean): boolean}
     CreateListenSocket: {(nVirtualP2PPort: number, nIP: SteamWorksNS.Structs.SteamIPAddress_t, nPort: number, bAllowUseOfPacketRelay: boolean): number}
-    CreateP2PConnectionSocket: {(steamIDTarget: unknown, nVirtualPort: number, nTimeoutSec: number, bAllowUseOfPacketRelay: boolean): number}
+    CreateP2PConnectionSocket: {(steamIDTarget: SteamWorksNS.CSteamID, nVirtualPort: number, nTimeoutSec: number, bAllowUseOfPacketRelay: boolean): number}
     CreateConnectionSocket: {(nIP: SteamWorksNS.Structs.SteamIPAddress_t, nPort: number, nTimeoutSec: number): number}
     DestroySocket: {(hSocket: number, bNotifyRemoteEnd: boolean): boolean}
     DestroyListenSocket: {(hSocket: number, bNotifyRemoteEnd: boolean): boolean}
@@ -2456,16 +2480,16 @@ declare namespace SteamWorksNS {
     FileWrite: {(pchFile: string, pvData: unknown, cubData: number): boolean}
     FileRead: {(pchFile: string, pvData: unknown, cubDataToRead: number): number}
     FileWriteAsync: {(pchFile: string, pvData: unknown, cubData: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult }>};
-    FileReadAsync: {(pchFile: string, nOffset: number, cubToRead: number): Promise<{ m_hFileReadAsync: number, m_eResult: SteamWorksNS.Enums.EResult, m_nOffset: number, m_cubRead: number }>};
-    FileReadAsyncComplete: {(hReadCall: number, pvBuffer: unknown, cubToRead: number): boolean}
+    FileReadAsync: {(pchFile: string, nOffset: number, cubToRead: number): Promise<{ m_hFileReadAsync: bigint, m_eResult: SteamWorksNS.Enums.EResult, m_nOffset: number, m_cubRead: number }>};
+    FileReadAsyncComplete: {(hReadCall: bigint, pvBuffer: unknown, cubToRead: number): boolean}
     FileForget: {(pchFile: string): boolean}
     FileDelete: {(pchFile: string): boolean}
-    FileShare: {(pchFile: string): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_hFile: number, m_rgchFilename: string }>};
+    FileShare: {(pchFile: string): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_hFile: bigint, m_rgchFilename: string }>};
     SetSyncPlatforms: {(pchFile: string, eRemoteStoragePlatform: SteamWorksNS.Enums.ERemoteStoragePlatform): boolean}
-    FileWriteStreamOpen: {(pchFile: string): number}
-    FileWriteStreamWriteChunk: {(writeHandle: number, pvData: unknown, cubData: number): boolean}
-    FileWriteStreamClose: {(writeHandle: number): boolean}
-    FileWriteStreamCancel: {(writeHandle: number): boolean}
+    FileWriteStreamOpen: {(pchFile: string): bigint}
+    FileWriteStreamWriteChunk: {(writeHandle: bigint, pvData: unknown, cubData: number): boolean}
+    FileWriteStreamClose: {(writeHandle: bigint): boolean}
+    FileWriteStreamCancel: {(writeHandle: bigint): boolean}
     FileExists: {(pchFile: string): boolean}
     FilePersisted: {(pchFile: string): boolean}
     GetFileSize: {(pchFile: string): number}
@@ -2473,41 +2497,41 @@ declare namespace SteamWorksNS {
     GetSyncPlatforms: {(pchFile: string): SteamWorksNS.Enums.ERemoteStoragePlatform}
     GetFileCount: {(): number}
     GetFileNameAndSize: {(iFile: number, pnFileSizeInBytes: number): string}
-    GetQuota: {(pnTotalBytes: number, puAvailableBytes: number): boolean}
+    GetQuota: {(pnTotalBytes: bigint, puAvailableBytes: bigint): boolean}
     IsCloudEnabledForAccount: {(): boolean}
     IsCloudEnabledForApp: {(): boolean}
     SetCloudEnabledForApp: {(bEnabled: boolean): undefined}
-    UGCDownload: {(hContent: number, unPriority: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_hFile: number, m_nAppID: number, m_nSizeInBytes: number, m_pchFileName: string, m_ulSteamIDOwner: number }>};
-    GetUGCDownloadProgress: {(hContent: number, pnBytesDownloaded: number, pnBytesExpected: number): boolean}
-    GetUGCDetails: {(hContent: number, pnAppID: unknown, ppchName: unknown, pnFileSizeInBytes: number, pSteamIDOwner: unknown): boolean}
-    UGCRead: {(hContent: number, pvData: unknown, cubDataToRead: number, cOffset: number, eAction: SteamWorksNS.Enums.EUGCReadAction): number}
+    UGCDownload: {(hContent: bigint, unPriority: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_hFile: bigint, m_nAppID: number, m_nSizeInBytes: number, m_pchFileName: string, m_ulSteamIDOwner: bigint }>};
+    GetUGCDownloadProgress: {(hContent: bigint, pnBytesDownloaded: number, pnBytesExpected: number): boolean}
+    GetUGCDetails: {(hContent: bigint, pnAppID: unknown, ppchName: unknown, pnFileSizeInBytes: number, pSteamIDOwner: unknown): boolean}
+    UGCRead: {(hContent: bigint, pvData: unknown, cubDataToRead: number, cOffset: number, eAction: SteamWorksNS.Enums.EUGCReadAction): number}
     GetCachedUGCCount: {(): number}
-    GetCachedUGCHandle: {(iCachedContent: number): number}
+    GetCachedUGCHandle: {(iCachedContent: number): bigint}
     PublishWorkshopFile: {(pchFile: string, pchPreviewFile: string, nConsumerAppId: number, pchTitle: string, pchDescription: string, eVisibility: SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility, pTags: SteamWorksNS.Structs.SteamParamStringArray_t, eWorkshopFileType: SteamWorksNS.Enums.EWorkshopFileType): Promise<{ m_dPercentFile: number, m_bPreview: boolean }>};
-    CreatePublishedFileUpdateRequest: {(unPublishedFileId: number): number}
-    UpdatePublishedFileFile: {(updateHandle: number, pchFile: string): boolean}
-    UpdatePublishedFilePreviewFile: {(updateHandle: number, pchPreviewFile: string): boolean}
-    UpdatePublishedFileTitle: {(updateHandle: number, pchTitle: string): boolean}
-    UpdatePublishedFileDescription: {(updateHandle: number, pchDescription: string): boolean}
-    UpdatePublishedFileVisibility: {(updateHandle: number, eVisibility: SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility): boolean}
-    UpdatePublishedFileTags: {(updateHandle: number, pTags: SteamWorksNS.Structs.SteamParamStringArray_t): boolean}
-    CommitPublishedFileUpdate: {(updateHandle: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_bUserNeedsToAcceptWorkshopLegalAgreement: boolean }>};
-    GetPublishedFileDetails: {(unPublishedFileId: number, unMaxSecondsOld: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_nCreatorAppID: number, m_nConsumerAppID: number, m_rgchTitle: string, m_rgchDescription: string, m_hFile: number, m_hPreviewFile: number, m_ulSteamIDOwner: number, m_rtimeCreated: number, m_rtimeUpdated: number, m_eVisibility: SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility, m_bBanned: boolean, m_rgchTags: string, m_bTagsTruncated: boolean, m_pchFileName: string, m_nFileSize: number, m_nPreviewFileSize: number, m_rgchURL: string, m_eFileType: SteamWorksNS.Enums.EWorkshopFileType, m_bAcceptedForUse: boolean }>};
-    DeletePublishedFile: {(unPublishedFileId: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number }>};
-    EnumerateUserPublishedFiles: {(unStartIndex: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: number[] }>};
-    SubscribePublishedFile: {(unPublishedFileId: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number }>};
-    EnumerateUserSubscribedFiles: {(unStartIndex: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: number[], m_rgRTimeSubscribed: number }>};
-    UnsubscribePublishedFile: {(unPublishedFileId: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number }>};
-    UpdatePublishedFileSetChangeDescription: {(updateHandle: number, pchChangeDescription: string): boolean}
-    GetPublishedItemVoteDetails: {(unPublishedFileId: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_unPublishedFileId: number, m_nVotesFor: number, m_nVotesAgainst: number, m_nReports: number, m_fScore: number }>};
-    UpdateUserPublishedItemVote: {(unPublishedFileId: number, bVoteUp: boolean): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number }>};
-    GetUserPublishedItemVoteDetails: {(unPublishedFileId: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_unPublishedFileId: number, m_nVotesFor: number, m_nVotesAgainst: number, m_nReports: number, m_fScore: number }>};
-    EnumerateUserSharedWorkshopFiles: {(steamId: unknown, unStartIndex: number, pRequiredTags: SteamWorksNS.Structs.SteamParamStringArray_t, pExcludedTags: SteamWorksNS.Structs.SteamParamStringArray_t): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: number[] }>};
+    CreatePublishedFileUpdateRequest: {(unPublishedFileId: bigint): bigint}
+    UpdatePublishedFileFile: {(updateHandle: bigint, pchFile: string): boolean}
+    UpdatePublishedFilePreviewFile: {(updateHandle: bigint, pchPreviewFile: string): boolean}
+    UpdatePublishedFileTitle: {(updateHandle: bigint, pchTitle: string): boolean}
+    UpdatePublishedFileDescription: {(updateHandle: bigint, pchDescription: string): boolean}
+    UpdatePublishedFileVisibility: {(updateHandle: bigint, eVisibility: SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility): boolean}
+    UpdatePublishedFileTags: {(updateHandle: bigint, pTags: SteamWorksNS.Structs.SteamParamStringArray_t): boolean}
+    CommitPublishedFileUpdate: {(updateHandle: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_bUserNeedsToAcceptWorkshopLegalAgreement: boolean }>};
+    GetPublishedFileDetails: {(unPublishedFileId: bigint, unMaxSecondsOld: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_nCreatorAppID: number, m_nConsumerAppID: number, m_rgchTitle: string, m_rgchDescription: string, m_hFile: bigint, m_hPreviewFile: bigint, m_ulSteamIDOwner: bigint, m_rtimeCreated: number, m_rtimeUpdated: number, m_eVisibility: SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility, m_bBanned: boolean, m_rgchTags: string, m_bTagsTruncated: boolean, m_pchFileName: string, m_nFileSize: number, m_nPreviewFileSize: number, m_rgchURL: string, m_eFileType: SteamWorksNS.Enums.EWorkshopFileType, m_bAcceptedForUse: boolean }>};
+    DeletePublishedFile: {(unPublishedFileId: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint }>};
+    EnumerateUserPublishedFiles: {(unStartIndex: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: bigint[] }>};
+    SubscribePublishedFile: {(unPublishedFileId: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint }>};
+    EnumerateUserSubscribedFiles: {(unStartIndex: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: bigint[], m_rgRTimeSubscribed: unknown }>};
+    UnsubscribePublishedFile: {(unPublishedFileId: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint }>};
+    UpdatePublishedFileSetChangeDescription: {(updateHandle: bigint, pchChangeDescription: string): boolean}
+    GetPublishedItemVoteDetails: {(unPublishedFileId: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_unPublishedFileId: bigint, m_nVotesFor: number, m_nVotesAgainst: number, m_nReports: number, m_fScore: number }>};
+    UpdateUserPublishedItemVote: {(unPublishedFileId: bigint, bVoteUp: boolean): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint }>};
+    GetUserPublishedItemVoteDetails: {(unPublishedFileId: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_unPublishedFileId: bigint, m_nVotesFor: number, m_nVotesAgainst: number, m_nReports: number, m_fScore: number }>};
+    EnumerateUserSharedWorkshopFiles: {(steamId: SteamWorksNS.CSteamID, unStartIndex: number, pRequiredTags: SteamWorksNS.Structs.SteamParamStringArray_t, pExcludedTags: SteamWorksNS.Structs.SteamParamStringArray_t): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: bigint[] }>};
     PublishVideo: {(eVideoProvider: SteamWorksNS.Enums.EWorkshopVideoProvider, pchVideoAccount: string, pchVideoIdentifier: string, pchPreviewFile: string, nConsumerAppId: number, pchTitle: string, pchDescription: string, eVisibility: SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility, pTags: SteamWorksNS.Structs.SteamParamStringArray_t): Promise<{ m_dPercentFile: number, m_bPreview: boolean }>};
-    SetUserPublishedFileAction: {(unPublishedFileId: number, eAction: SteamWorksNS.Enums.EWorkshopFileAction): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_eAction: SteamWorksNS.Enums.EWorkshopFileAction }>};
-    EnumeratePublishedFilesByUserAction: {(eAction: SteamWorksNS.Enums.EWorkshopFileAction, unStartIndex: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_eAction: SteamWorksNS.Enums.EWorkshopFileAction, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: number[], m_rgRTimeUpdated: number }>};
-    EnumeratePublishedWorkshopFiles: {(eEnumerationType: SteamWorksNS.Enums.EWorkshopEnumerationType, unStartIndex: number, unCount: number, unDays: number, pTags: SteamWorksNS.Structs.SteamParamStringArray_t, pUserTags: SteamWorksNS.Structs.SteamParamStringArray_t): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: number[], m_rgScore: number, m_nAppId: number, m_unStartIndex: number }>};
-    UGCDownloadToLocation: {(hContent: number, pchLocation: string, unPriority: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_hFile: number, m_nAppID: number, m_nSizeInBytes: number, m_pchFileName: string, m_ulSteamIDOwner: number }>};
+    SetUserPublishedFileAction: {(unPublishedFileId: bigint, eAction: SteamWorksNS.Enums.EWorkshopFileAction): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_eAction: SteamWorksNS.Enums.EWorkshopFileAction }>};
+    EnumeratePublishedFilesByUserAction: {(eAction: SteamWorksNS.Enums.EWorkshopFileAction, unStartIndex: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_eAction: SteamWorksNS.Enums.EWorkshopFileAction, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: bigint[], m_rgRTimeUpdated: unknown }>};
+    EnumeratePublishedWorkshopFiles: {(eEnumerationType: SteamWorksNS.Enums.EWorkshopEnumerationType, unStartIndex: number, unCount: number, unDays: number, pTags: SteamWorksNS.Structs.SteamParamStringArray_t, pUserTags: SteamWorksNS.Structs.SteamParamStringArray_t): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nResultsReturned: number, m_nTotalResultCount: number, m_rgPublishedFileId: bigint[], m_rgScore: unknown, m_nAppId: number, m_unStartIndex: number }>};
+    UGCDownloadToLocation: {(hContent: bigint, pchLocation: string, unPriority: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_hFile: bigint, m_nAppID: number, m_nSizeInBytes: number, m_pchFileName: string, m_ulSteamIDOwner: bigint }>};
     GetLocalFileChangeCount: {(): number}
     GetLocalFileChange: {(iFile: number, pEChangeType: unknown, pEFilePathType: unknown): string}
     BeginFileWriteBatch: {(): boolean}
@@ -2519,8 +2543,8 @@ declare namespace SteamWorksNS {
     TriggerScreenshot: {(): undefined}
     HookScreenshots: {(bHook: boolean): undefined}
     SetLocation: {(hScreenshot: number, pchLocation: string): boolean}
-    TagUser: {(hScreenshot: number, steamID: unknown): boolean}
-    TagPublishedFile: {(hScreenshot: number, unPublishedFileID: number): boolean}
+    TagUser: {(hScreenshot: number, steamID: SteamWorksNS.CSteamID): boolean}
+    TagPublishedFile: {(hScreenshot: number, unPublishedFileID: bigint): boolean}
     IsScreenshotsHooked: {(): boolean}
     AddVRScreenshotToLibrary: {(eType: SteamWorksNS.Enums.EVRScreenshotType, pchFilename: string, pchVRFilename: string): number}
   }
@@ -2571,7 +2595,7 @@ declare namespace SteamWorksNS {
   }
   interface SteamHTTP {
     CreateHTTPRequest: {(eHTTPRequestMethod: SteamWorksNS.Enums.EHTTPMethod, pchAbsoluteURL: string): number}
-    SetHTTPRequestContextValue: {(hRequest: number, ulContextValue: number): boolean}
+    SetHTTPRequestContextValue: {(hRequest: number, ulContextValue: bigint): boolean}
     SetHTTPRequestNetworkActivityTimeout: {(hRequest: number, unTimeoutSeconds: number): boolean}
     SetHTTPRequestHeaderValue: {(hRequest: number, pchHeaderName: string, pchHeaderValue: string): boolean}
     SetHTTPRequestGetOrPostParameter: {(hRequest: number, pchParamName: string, pchParamValue: string): boolean}
@@ -2601,120 +2625,120 @@ declare namespace SteamWorksNS {
     Shutdown: {(): boolean}
     RunFrame: {(): undefined}
     GetConnectedControllers: {(handlesOut: unknown): number}
-    GetActionSetHandle: {(pszActionSetName: string): number}
-    ActivateActionSet: {(controllerHandle: number, actionSetHandle: number): undefined}
-    GetCurrentActionSet: {(controllerHandle: number): number}
-    ActivateActionSetLayer: {(controllerHandle: number, actionSetLayerHandle: number): undefined}
-    DeactivateActionSetLayer: {(controllerHandle: number, actionSetLayerHandle: number): undefined}
-    DeactivateAllActionSetLayers: {(controllerHandle: number): undefined}
-    GetActiveActionSetLayers: {(controllerHandle: number, handlesOut: unknown): number}
-    GetDigitalActionHandle: {(pszActionName: string): number}
-    GetDigitalActionData: {(controllerHandle: number, digitalActionHandle: number): SteamWorksNS.Structs.InputDigitalActionData_t}
-    GetDigitalActionOrigins: {(controllerHandle: number, actionSetHandle: number, digitalActionHandle: number, originsOut: unknown): number}
-    GetAnalogActionHandle: {(pszActionName: string): number}
-    GetAnalogActionData: {(controllerHandle: number, analogActionHandle: number): SteamWorksNS.Structs.InputAnalogActionData_t}
-    GetAnalogActionOrigins: {(controllerHandle: number, actionSetHandle: number, analogActionHandle: number, originsOut: unknown): number}
+    GetActionSetHandle: {(pszActionSetName: string): bigint}
+    ActivateActionSet: {(controllerHandle: bigint, actionSetHandle: bigint): undefined}
+    GetCurrentActionSet: {(controllerHandle: bigint): bigint}
+    ActivateActionSetLayer: {(controllerHandle: bigint, actionSetLayerHandle: bigint): undefined}
+    DeactivateActionSetLayer: {(controllerHandle: bigint, actionSetLayerHandle: bigint): undefined}
+    DeactivateAllActionSetLayers: {(controllerHandle: bigint): undefined}
+    GetActiveActionSetLayers: {(controllerHandle: bigint, handlesOut: unknown): number}
+    GetDigitalActionHandle: {(pszActionName: string): bigint}
+    GetDigitalActionData: {(controllerHandle: bigint, digitalActionHandle: bigint): SteamWorksNS.Structs.InputDigitalActionData_t}
+    GetDigitalActionOrigins: {(controllerHandle: bigint, actionSetHandle: bigint, digitalActionHandle: bigint, originsOut: unknown): number}
+    GetAnalogActionHandle: {(pszActionName: string): bigint}
+    GetAnalogActionData: {(controllerHandle: bigint, analogActionHandle: bigint): SteamWorksNS.Structs.InputAnalogActionData_t}
+    GetAnalogActionOrigins: {(controllerHandle: bigint, actionSetHandle: bigint, analogActionHandle: bigint, originsOut: unknown): number}
     GetGlyphForActionOrigin: {(eOrigin: SteamWorksNS.Enums.EControllerActionOrigin): string}
     GetStringForActionOrigin: {(eOrigin: SteamWorksNS.Enums.EControllerActionOrigin): string}
-    StopAnalogActionMomentum: {(controllerHandle: number, eAction: number): undefined}
-    GetMotionData: {(controllerHandle: number): SteamWorksNS.Structs.InputMotionData_t}
-    TriggerHapticPulse: {(controllerHandle: number, eTargetPad: SteamWorksNS.Enums.ESteamControllerPad, usDurationMicroSec: number): undefined}
-    TriggerRepeatedHapticPulse: {(controllerHandle: number, eTargetPad: SteamWorksNS.Enums.ESteamControllerPad, usDurationMicroSec: number, usOffMicroSec: number, unRepeat: number, nFlags: number): undefined}
-    TriggerVibration: {(controllerHandle: number, usLeftSpeed: number, usRightSpeed: number): undefined}
-    SetLEDColor: {(controllerHandle: number, nColorR: number, nColorG: number, nColorB: number, nFlags: number): undefined}
-    ShowBindingPanel: {(controllerHandle: number): boolean}
-    GetInputTypeForHandle: {(controllerHandle: number): SteamWorksNS.Enums.ESteamInputType}
-    GetControllerForGamepadIndex: {(nIndex: number): number}
-    GetGamepadIndexForController: {(ulControllerHandle: number): number}
+    StopAnalogActionMomentum: {(controllerHandle: bigint, eAction: bigint): undefined}
+    GetMotionData: {(controllerHandle: bigint): SteamWorksNS.Structs.InputMotionData_t}
+    TriggerHapticPulse: {(controllerHandle: bigint, eTargetPad: SteamWorksNS.Enums.ESteamControllerPad, usDurationMicroSec: number): undefined}
+    TriggerRepeatedHapticPulse: {(controllerHandle: bigint, eTargetPad: SteamWorksNS.Enums.ESteamControllerPad, usDurationMicroSec: number, usOffMicroSec: number, unRepeat: number, nFlags: number): undefined}
+    TriggerVibration: {(controllerHandle: bigint, usLeftSpeed: number, usRightSpeed: number): undefined}
+    SetLEDColor: {(controllerHandle: bigint, nColorR: number, nColorG: number, nColorB: number, nFlags: number): undefined}
+    ShowBindingPanel: {(controllerHandle: bigint): boolean}
+    GetInputTypeForHandle: {(controllerHandle: bigint): SteamWorksNS.Enums.ESteamInputType}
+    GetControllerForGamepadIndex: {(nIndex: number): bigint}
+    GetGamepadIndexForController: {(ulControllerHandle: bigint): number}
     GetStringForXboxOrigin: {(eOrigin: SteamWorksNS.Enums.EXboxOrigin): string}
     GetGlyphForXboxOrigin: {(eOrigin: SteamWorksNS.Enums.EXboxOrigin): string}
-    GetActionOriginFromXboxOrigin: {(controllerHandle: number, eOrigin: SteamWorksNS.Enums.EXboxOrigin): SteamWorksNS.Enums.EControllerActionOrigin}
+    GetActionOriginFromXboxOrigin: {(controllerHandle: bigint, eOrigin: SteamWorksNS.Enums.EXboxOrigin): SteamWorksNS.Enums.EControllerActionOrigin}
     TranslateActionOrigin: {(eDestinationInputType: SteamWorksNS.Enums.ESteamInputType, eSourceOrigin: SteamWorksNS.Enums.EControllerActionOrigin): SteamWorksNS.Enums.EControllerActionOrigin}
-    GetControllerBindingRevision: {(controllerHandle: number, pMajor: number, pMinor: number): boolean}
+    GetControllerBindingRevision: {(controllerHandle: bigint, pMajor: number, pMinor: number): boolean}
   }
   interface SteamUGC {
-    CreateQueryUserUGCRequest: {(unAccountID: number, eListType: SteamWorksNS.Enums.EUserUGCList, eMatchingUGCType: SteamWorksNS.Enums.EUGCMatchingUGCType, eSortOrder: SteamWorksNS.Enums.EUserUGCListSortOrder, nCreatorAppID: number, nConsumerAppID: number, unPage: number): number}
-    CreateQueryAllUGCRequest: {(eQueryType: SteamWorksNS.Enums.EUGCQuery, eMatchingeMatchingUGCTypeFileType: SteamWorksNS.Enums.EUGCMatchingUGCType, nCreatorAppID: number, nConsumerAppID: number, unPage: number): number}
-    CreateQueryUGCDetailsRequest: {(unNumPublishedFileIDs: number): number}
-    SendQueryUGCRequest: {(handle: number): Promise<{ m_handle: number, m_eResult: SteamWorksNS.Enums.EResult, m_unNumResultsReturned: number, m_unTotalMatchingResults: number, m_bCachedData: boolean, m_rgchNextCursor: string }>};
-    GetQueryUGCResult: {(handle: number, index: number, pDetails: SteamWorksNS.Structs.SteamUGCDetails_t): boolean}
-    GetQueryUGCNumTags: {(handle: number, index: number): number}
-    GetQueryUGCTag: {(handle: number, index: number, indexTag: number, pchValue: string, cchValueSize: number): boolean}
-    GetQueryUGCTagDisplayName: {(handle: number, index: number, indexTag: number, pchValue: string, cchValueSize: number): boolean}
-    GetQueryUGCPreviewURL: {(handle: number, index: number, pchURL: string, cchURLSize: number): boolean}
-    GetQueryUGCMetadata: {(handle: number, index: number, pchMetadata: string, cchMetadatasize: number): boolean}
-    GetQueryUGCChildren: {(handle: number, index: number, cMaxEntries: number): boolean}
-    GetQueryUGCStatistic: {(handle: number, index: number, eStatType: SteamWorksNS.Enums.EItemStatistic, pStatValue: number): boolean}
-    GetQueryUGCNumAdditionalPreviews: {(handle: number, index: number): number}
-    GetQueryUGCAdditionalPreview: {(handle: number, index: number, previewIndex: number, pchURLOrVideoID: string, cchURLSize: number, pchOriginalFileName: string, cchOriginalFileNameSize: number, pPreviewType: unknown): boolean}
-    GetQueryUGCNumKeyValueTags: {(handle: number, index: number): number}
-    GetQueryUGCKeyValueTag: {(handle: number, index: number, keyValueTagIndex: number, pchKey: string, cchKeySize: number, pchValue: string, cchValueSize: number): boolean}
-    ReleaseQueryUGCRequest: {(handle: number): boolean}
-    AddRequiredTag: {(handle: number, pTagName: string): boolean}
-    AddRequiredTagGroup: {(handle: number, pTagGroups: unknown): boolean}
-    AddExcludedTag: {(handle: number, pTagName: string): boolean}
-    SetReturnOnlyIDs: {(handle: number, bReturnOnlyIDs: boolean): boolean}
-    SetReturnKeyValueTags: {(handle: number, bReturnKeyValueTags: boolean): boolean}
-    SetReturnLongDescription: {(handle: number, bReturnLongDescription: boolean): boolean}
-    SetReturnMetadata: {(handle: number, bReturnMetadata: boolean): boolean}
-    SetReturnChildren: {(handle: number, bReturnChildren: boolean): boolean}
-    SetReturnAdditionalPreviews: {(handle: number, bReturnAdditionalPreviews: boolean): boolean}
-    SetReturnTotalOnly: {(handle: number, bReturnTotalOnly: boolean): boolean}
-    SetReturnPlaytimeStats: {(handle: number, unDays: number): boolean}
-    SetLanguage: {(handle: number, pchLanguage: string): boolean}
-    SetAllowCachedResponse: {(handle: number, unMaxAgeSeconds: number): boolean}
-    SetCloudFileNameFilter: {(handle: number, pMatchCloudFileName: string): boolean}
-    SetMatchAnyTag: {(handle: number, bMatchAnyTag: boolean): boolean}
-    SetSearchText: {(handle: number, pSearchText: string): boolean}
-    SetRankedByTrendDays: {(handle: number, unDays: number): boolean}
-    SetTimeCreatedDateRange: {(handle: number, rtStart: number, rtEnd: number): boolean}
-    SetTimeUpdatedDateRange: {(handle: number, rtStart: number, rtEnd: number): boolean}
-    AddRequiredKeyValueTag: {(handle: number, pKey: string, pValue: string): boolean}
-    RequestUGCDetails: {(nPublishedFileID: number, unMaxAgeSeconds: number): Promise<{ m_details: SteamWorksNS.Structs.SteamUGCDetails_t, m_bCachedData: boolean }>};
-    CreateItem: {(nConsumerAppId: number, eFileType: SteamWorksNS.Enums.EWorkshopFileType): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_bUserNeedsToAcceptWorkshopLegalAgreement: boolean }>};
-    StartItemUpdate: {(nConsumerAppId: number, nPublishedFileID: number): number}
-    SetItemTitle: {(handle: number, pchTitle: string): boolean}
-    SetItemDescription: {(handle: number, pchDescription: string): boolean}
-    SetItemUpdateLanguage: {(handle: number, pchLanguage: string): boolean}
-    SetItemMetadata: {(handle: number, pchMetaData: string): boolean}
-    SetItemVisibility: {(handle: number, eVisibility: SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility): boolean}
-    SetItemTags: {(updateHandle: number, pTags: unknown): boolean}
-    SetItemContent: {(handle: number, pszContentFolder: string): boolean}
-    SetItemPreview: {(handle: number, pszPreviewFile: string): boolean}
-    SetAllowLegacyUpload: {(handle: number, bAllowLegacyUpload: boolean): boolean}
-    RemoveAllItemKeyValueTags: {(handle: number): boolean}
-    RemoveItemKeyValueTags: {(handle: number, pchKey: string): boolean}
-    AddItemKeyValueTag: {(handle: number, pchKey: string, pchValue: string): boolean}
-    AddItemPreviewFile: {(handle: number, pszPreviewFile: string, type: SteamWorksNS.Enums.EItemPreviewType): boolean}
-    AddItemPreviewVideo: {(handle: number, pszVideoID: string): boolean}
-    UpdateItemPreviewFile: {(handle: number, index: number, pszPreviewFile: string): boolean}
-    UpdateItemPreviewVideo: {(handle: number, index: number, pszVideoID: string): boolean}
-    RemoveItemPreview: {(handle: number, index: number): boolean}
-    SubmitItemUpdate: {(handle: number, pchChangeNote: string): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_bUserNeedsToAcceptWorkshopLegalAgreement: boolean, m_nPublishedFileId: number }>};
-    GetItemUpdateProgress: {(handle: number, punBytesProcessed: number, punBytesTotal: number): SteamWorksNS.Enums.EItemUpdateStatus}
-    SetUserItemVote: {(nPublishedFileID: number, bVoteUp: boolean): Promise<{ m_nPublishedFileId: number, m_eResult: SteamWorksNS.Enums.EResult, m_bVoteUp: boolean }>};
-    GetUserItemVote: {(nPublishedFileID: number): Promise<{ m_nPublishedFileId: number, m_eResult: SteamWorksNS.Enums.EResult, m_bVotedUp: boolean, m_bVotedDown: boolean, m_bVoteSkipped: boolean }>};
-    AddItemToFavorites: {(nAppId: number, nPublishedFileID: number): Promise<{ m_nPublishedFileId: number, m_eResult: SteamWorksNS.Enums.EResult, m_bWasAddRequest: boolean }>};
-    RemoveItemFromFavorites: {(nAppId: number, nPublishedFileID: number): Promise<{ m_nPublishedFileId: number, m_eResult: SteamWorksNS.Enums.EResult, m_bWasAddRequest: boolean }>};
-    SubscribeItem: {(nPublishedFileID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number }>};
-    UnsubscribeItem: {(nPublishedFileID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number }>};
+    CreateQueryUserUGCRequest: {(unAccountID: number, eListType: SteamWorksNS.Enums.EUserUGCList, eMatchingUGCType: SteamWorksNS.Enums.EUGCMatchingUGCType, eSortOrder: SteamWorksNS.Enums.EUserUGCListSortOrder, nCreatorAppID: number, nConsumerAppID: number, unPage: number): bigint}
+    CreateQueryAllUGCRequest: {(eQueryType: SteamWorksNS.Enums.EUGCQuery, eMatchingeMatchingUGCTypeFileType: SteamWorksNS.Enums.EUGCMatchingUGCType, nCreatorAppID: number, nConsumerAppID: number, unPage: number): bigint}
+    CreateQueryUGCDetailsRequest: {(unNumPublishedFileIDs: number): bigint}
+    SendQueryUGCRequest: {(handle: bigint): Promise<{ m_handle: bigint, m_eResult: SteamWorksNS.Enums.EResult, m_unNumResultsReturned: number, m_unTotalMatchingResults: number, m_bCachedData: boolean, m_rgchNextCursor: string }>};
+    GetQueryUGCResult: {(handle: bigint, index: number, pDetails: SteamWorksNS.Structs.SteamUGCDetails_t): boolean}
+    GetQueryUGCNumTags: {(handle: bigint, index: number): number}
+    GetQueryUGCTag: {(handle: bigint, index: number, indexTag: number, pchValue: string, cchValueSize: number): boolean}
+    GetQueryUGCTagDisplayName: {(handle: bigint, index: number, indexTag: number, pchValue: string, cchValueSize: number): boolean}
+    GetQueryUGCPreviewURL: {(handle: bigint, index: number, pchURL: string, cchURLSize: number): boolean}
+    GetQueryUGCMetadata: {(handle: bigint, index: number, pchMetadata: string, cchMetadatasize: number): boolean}
+    GetQueryUGCChildren: {(handle: bigint, index: number, cMaxEntries: number): boolean}
+    GetQueryUGCStatistic: {(handle: bigint, index: number, eStatType: SteamWorksNS.Enums.EItemStatistic, pStatValue: bigint): boolean}
+    GetQueryUGCNumAdditionalPreviews: {(handle: bigint, index: number): number}
+    GetQueryUGCAdditionalPreview: {(handle: bigint, index: number, previewIndex: number, pchURLOrVideoID: string, cchURLSize: number, pchOriginalFileName: string, cchOriginalFileNameSize: number, pPreviewType: unknown): boolean}
+    GetQueryUGCNumKeyValueTags: {(handle: bigint, index: number): number}
+    GetQueryUGCKeyValueTag: {(handle: bigint, index: number, keyValueTagIndex: number, pchKey: string, cchKeySize: number, pchValue: string, cchValueSize: number): boolean}
+    ReleaseQueryUGCRequest: {(handle: bigint): boolean}
+    AddRequiredTag: {(handle: bigint, pTagName: string): boolean}
+    AddRequiredTagGroup: {(handle: bigint, pTagGroups: unknown): boolean}
+    AddExcludedTag: {(handle: bigint, pTagName: string): boolean}
+    SetReturnOnlyIDs: {(handle: bigint, bReturnOnlyIDs: boolean): boolean}
+    SetReturnKeyValueTags: {(handle: bigint, bReturnKeyValueTags: boolean): boolean}
+    SetReturnLongDescription: {(handle: bigint, bReturnLongDescription: boolean): boolean}
+    SetReturnMetadata: {(handle: bigint, bReturnMetadata: boolean): boolean}
+    SetReturnChildren: {(handle: bigint, bReturnChildren: boolean): boolean}
+    SetReturnAdditionalPreviews: {(handle: bigint, bReturnAdditionalPreviews: boolean): boolean}
+    SetReturnTotalOnly: {(handle: bigint, bReturnTotalOnly: boolean): boolean}
+    SetReturnPlaytimeStats: {(handle: bigint, unDays: number): boolean}
+    SetLanguage: {(handle: bigint, pchLanguage: string): boolean}
+    SetAllowCachedResponse: {(handle: bigint, unMaxAgeSeconds: number): boolean}
+    SetCloudFileNameFilter: {(handle: bigint, pMatchCloudFileName: string): boolean}
+    SetMatchAnyTag: {(handle: bigint, bMatchAnyTag: boolean): boolean}
+    SetSearchText: {(handle: bigint, pSearchText: string): boolean}
+    SetRankedByTrendDays: {(handle: bigint, unDays: number): boolean}
+    SetTimeCreatedDateRange: {(handle: bigint, rtStart: number, rtEnd: number): boolean}
+    SetTimeUpdatedDateRange: {(handle: bigint, rtStart: number, rtEnd: number): boolean}
+    AddRequiredKeyValueTag: {(handle: bigint, pKey: string, pValue: string): boolean}
+    RequestUGCDetails: {(nPublishedFileID: bigint, unMaxAgeSeconds: number): Promise<{ m_details: SteamWorksNS.Structs.SteamUGCDetails_t, m_bCachedData: boolean }>};
+    CreateItem: {(nConsumerAppId: number, eFileType: SteamWorksNS.Enums.EWorkshopFileType): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_bUserNeedsToAcceptWorkshopLegalAgreement: boolean }>};
+    StartItemUpdate: {(nConsumerAppId: number, nPublishedFileID: bigint): bigint}
+    SetItemTitle: {(handle: bigint, pchTitle: string): boolean}
+    SetItemDescription: {(handle: bigint, pchDescription: string): boolean}
+    SetItemUpdateLanguage: {(handle: bigint, pchLanguage: string): boolean}
+    SetItemMetadata: {(handle: bigint, pchMetaData: string): boolean}
+    SetItemVisibility: {(handle: bigint, eVisibility: SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility): boolean}
+    SetItemTags: {(updateHandle: bigint, pTags: unknown): boolean}
+    SetItemContent: {(handle: bigint, pszContentFolder: string): boolean}
+    SetItemPreview: {(handle: bigint, pszPreviewFile: string): boolean}
+    SetAllowLegacyUpload: {(handle: bigint, bAllowLegacyUpload: boolean): boolean}
+    RemoveAllItemKeyValueTags: {(handle: bigint): boolean}
+    RemoveItemKeyValueTags: {(handle: bigint, pchKey: string): boolean}
+    AddItemKeyValueTag: {(handle: bigint, pchKey: string, pchValue: string): boolean}
+    AddItemPreviewFile: {(handle: bigint, pszPreviewFile: string, type: SteamWorksNS.Enums.EItemPreviewType): boolean}
+    AddItemPreviewVideo: {(handle: bigint, pszVideoID: string): boolean}
+    UpdateItemPreviewFile: {(handle: bigint, index: number, pszPreviewFile: string): boolean}
+    UpdateItemPreviewVideo: {(handle: bigint, index: number, pszVideoID: string): boolean}
+    RemoveItemPreview: {(handle: bigint, index: number): boolean}
+    SubmitItemUpdate: {(handle: bigint, pchChangeNote: string): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_bUserNeedsToAcceptWorkshopLegalAgreement: boolean, m_nPublishedFileId: bigint }>};
+    GetItemUpdateProgress: {(handle: bigint, punBytesProcessed: bigint, punBytesTotal: bigint): SteamWorksNS.Enums.EItemUpdateStatus}
+    SetUserItemVote: {(nPublishedFileID: bigint, bVoteUp: boolean): Promise<{ m_nPublishedFileId: bigint, m_eResult: SteamWorksNS.Enums.EResult, m_bVoteUp: boolean }>};
+    GetUserItemVote: {(nPublishedFileID: bigint): Promise<{ m_nPublishedFileId: bigint, m_eResult: SteamWorksNS.Enums.EResult, m_bVotedUp: boolean, m_bVotedDown: boolean, m_bVoteSkipped: boolean }>};
+    AddItemToFavorites: {(nAppId: number, nPublishedFileID: bigint): Promise<{ m_nPublishedFileId: bigint, m_eResult: SteamWorksNS.Enums.EResult, m_bWasAddRequest: boolean }>};
+    RemoveItemFromFavorites: {(nAppId: number, nPublishedFileID: bigint): Promise<{ m_nPublishedFileId: bigint, m_eResult: SteamWorksNS.Enums.EResult, m_bWasAddRequest: boolean }>};
+    SubscribeItem: {(nPublishedFileID: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint }>};
+    UnsubscribeItem: {(nPublishedFileID: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint }>};
     GetNumSubscribedItems: {(): number}
     GetSubscribedItems: {(cMaxEntries: number): number}
-    GetItemState: {(nPublishedFileID: number): number}
-    GetItemInstallInfo: {(nPublishedFileID: number, punSizeOnDisk: number, pchFolder: string, cchFolderSize: number, punTimeStamp: number): boolean}
-    GetItemDownloadInfo: {(nPublishedFileID: number, punBytesDownloaded: number, punBytesTotal: number): boolean}
-    DownloadItem: {(nPublishedFileID: number, bHighPriority: boolean): boolean}
+    GetItemState: {(nPublishedFileID: bigint): number}
+    GetItemInstallInfo: {(nPublishedFileID: bigint, punSizeOnDisk: bigint, pchFolder: string, cchFolderSize: number, punTimeStamp: number): boolean}
+    GetItemDownloadInfo: {(nPublishedFileID: bigint, punBytesDownloaded: bigint, punBytesTotal: bigint): boolean}
+    DownloadItem: {(nPublishedFileID: bigint, bHighPriority: boolean): boolean}
     BInitWorkshopForGameServer: {(unWorkshopDepotID: number, pszFolder: string): boolean}
     SuspendDownloads: {(bSuspend: boolean): undefined}
     StartPlaytimeTracking: {(unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult }>};
     StopPlaytimeTracking: {(unNumPublishedFileIDs: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult }>};
     StopPlaytimeTrackingForAllItems: {(): Promise<{ m_eResult: SteamWorksNS.Enums.EResult }>};
-    AddDependency: {(nParentPublishedFileID: number, nChildPublishedFileID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_nChildPublishedFileId: number }>};
-    RemoveDependency: {(nParentPublishedFileID: number, nChildPublishedFileID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_nChildPublishedFileId: number }>};
-    AddAppDependency: {(nPublishedFileID: number, nAppID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_nAppID: number }>};
-    RemoveAppDependency: {(nPublishedFileID: number, nAppID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_nAppID: number }>};
-    GetAppDependencies: {(nPublishedFileID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number, m_rgAppIDs: unknown, m_nNumAppDependencies: number, m_nTotalNumAppDependencies: number }>};
-    DeleteItem: {(nPublishedFileID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: number }>};
+    AddDependency: {(nParentPublishedFileID: bigint, nChildPublishedFileID: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_nChildPublishedFileId: bigint }>};
+    RemoveDependency: {(nParentPublishedFileID: bigint, nChildPublishedFileID: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_nChildPublishedFileId: bigint }>};
+    AddAppDependency: {(nPublishedFileID: bigint, nAppID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_nAppID: number }>};
+    RemoveAppDependency: {(nPublishedFileID: bigint, nAppID: number): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_nAppID: number }>};
+    GetAppDependencies: {(nPublishedFileID: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint, m_rgAppIDs: unknown, m_nNumAppDependencies: number, m_nTotalNumAppDependencies: number }>};
+    DeleteItem: {(nPublishedFileID: bigint): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nPublishedFileId: bigint }>};
     ShowWorkshopEULA: {(): boolean}
     GetWorkshopEULAStatus: {(): Promise<{ m_eResult: SteamWorksNS.Enums.EResult, m_nAppID: number, m_unVersion: number, m_rtAction: number, m_bAccepted: boolean, m_bNeedsAction: boolean }>};
   }
@@ -2769,7 +2793,7 @@ declare namespace SteamWorksNS {
     GetResultItems: {(resultHandle: number, pOutItemsArray: SteamWorksNS.Structs.SteamItemDetails_t, punOutItemsArraySize: number): boolean}
     GetResultItemProperty: {(resultHandle: number, unItemIndex: number, pchPropertyName: string, pchValueBuffer: string, punValueBufferSizeOut: number): boolean}
     GetResultTimestamp: {(resultHandle: number): number}
-    CheckResultSteamID: {(resultHandle: number, steamIDExpected: unknown): boolean}
+    CheckResultSteamID: {(resultHandle: number, steamIDExpected: SteamWorksNS.CSteamID): boolean}
     DestroyResult: {(resultHandle: number): undefined}
     GetAllItems: {(pResultHandle: unknown): boolean}
     GetItemsByID: {(pResultHandle: unknown, pInstanceIDs: unknown, unCountInstanceIDs: number): boolean}
@@ -2779,26 +2803,26 @@ declare namespace SteamWorksNS {
     GrantPromoItems: {(pResultHandle: unknown): boolean}
     AddPromoItem: {(pResultHandle: unknown, itemDef: number): boolean}
     AddPromoItems: {(pResultHandle: unknown, pArrayItemDefs: unknown, unArrayLength: number): boolean}
-    ConsumeItem: {(pResultHandle: unknown, itemConsume: number, unQuantity: number): boolean}
+    ConsumeItem: {(pResultHandle: unknown, itemConsume: bigint, unQuantity: number): boolean}
     ExchangeItems: {(pResultHandle: unknown, pArrayGenerate: unknown, punArrayGenerateQuantity: number, unArrayGenerateLength: number, pArrayDestroy: unknown, punArrayDestroyQuantity: number, unArrayDestroyLength: number): boolean}
-    TransferItemQuantity: {(pResultHandle: unknown, itemIdSource: number, unQuantity: number, itemIdDest: number): boolean}
+    TransferItemQuantity: {(pResultHandle: unknown, itemIdSource: bigint, unQuantity: number, itemIdDest: bigint): boolean}
     SendItemDropHeartbeat: {(): undefined}
     TriggerItemDrop: {(pResultHandle: unknown, dropListDefinition: number): boolean}
-    TradeItems: {(pResultHandle: unknown, steamIDTradePartner: unknown, pArrayGive: unknown, pArrayGiveQuantity: number, nArrayGiveLength: number, pArrayGet: unknown, pArrayGetQuantity: number, nArrayGetLength: number): boolean}
+    TradeItems: {(pResultHandle: unknown, steamIDTradePartner: SteamWorksNS.CSteamID, pArrayGive: unknown, pArrayGiveQuantity: number, nArrayGiveLength: number, pArrayGet: unknown, pArrayGetQuantity: number, nArrayGetLength: number): boolean}
     LoadItemDefinitions: {(): boolean}
     GetItemDefinitionIDs: {(pItemDefIDs: unknown, punItemDefIDsArraySize: number): boolean}
     GetItemDefinitionProperty: {(iDefinition: number, pchPropertyName: string, pchValueBuffer: string, punValueBufferSizeOut: number): boolean}
-    RequestEligiblePromoItemDefinitionsIDs: {(steamID: unknown): Promise<{ m_result: SteamWorksNS.Enums.EResult, m_steamID: unknown, m_numEligiblePromoItemDefs: number, m_bCachedData: boolean }>};
-    GetEligiblePromoItemDefinitionIDs: {(steamID: unknown, pItemDefIDs: unknown, punItemDefIDsArraySize: number): boolean}
-    StartPurchase: {(pArrayItemDefs: unknown, punArrayQuantity: number, unArrayLength: number): Promise<{ m_result: SteamWorksNS.Enums.EResult, m_ulOrderID: number, m_ulTransID: number }>};
+    RequestEligiblePromoItemDefinitionsIDs: {(steamID: SteamWorksNS.CSteamID): Promise<{ m_result: SteamWorksNS.Enums.EResult, m_steamID: SteamWorksNS.CSteamID, m_numEligiblePromoItemDefs: number, m_bCachedData: boolean }>};
+    GetEligiblePromoItemDefinitionIDs: {(steamID: SteamWorksNS.CSteamID, pItemDefIDs: unknown, punItemDefIDsArraySize: number): boolean}
+    StartPurchase: {(pArrayItemDefs: unknown, punArrayQuantity: number, unArrayLength: number): Promise<{ m_result: SteamWorksNS.Enums.EResult, m_ulOrderID: bigint, m_ulTransID: bigint }>};
     RequestPrices: {(): Promise<{ m_result: SteamWorksNS.Enums.EResult, m_rgchCurrency: string }>};
     GetNumItemsWithPrices: {(): number}
-    GetItemsWithPrices: {(pArrayItemDefs: unknown, pCurrentPrices: number, pBasePrices: number, unArrayLength: number): boolean}
-    GetItemPrice: {(iDefinition: number, pCurrentPrice: number, pBasePrice: number): boolean}
-    StartUpdateProperties: {(): number}
-    RemoveProperty: {(handle: number, nItemID: number, pchPropertyName: string): boolean}
-    SetProperty: {(handle: number, nItemID: number, pchPropertyName: string, pchPropertyValue: string): boolean}
-    SubmitUpdateProperties: {(handle: number, pResultHandle: unknown): boolean}
+    GetItemsWithPrices: {(pArrayItemDefs: unknown, pCurrentPrices: bigint, pBasePrices: bigint, unArrayLength: number): boolean}
+    GetItemPrice: {(iDefinition: number, pCurrentPrice: bigint, pBasePrice: bigint): boolean}
+    StartUpdateProperties: {(): bigint}
+    RemoveProperty: {(handle: bigint, nItemID: bigint, pchPropertyName: string): boolean}
+    SetProperty: {(handle: bigint, nItemID: bigint, pchPropertyName: string, pchPropertyValue: string): boolean}
+    SubmitUpdateProperties: {(handle: bigint, pResultHandle: unknown): boolean}
     InspectItem: {(pResultHandle: unknown, pchItemToken: string): boolean}
   }
   interface SteamVideo {
@@ -2824,54 +2848,54 @@ declare namespace SteamWorksNS {
     BNewDataAvailable: {(): boolean}
     GetConnectedControllers: {(handlesOut: unknown): number}
     EnableDeviceCallbacks: {(): undefined}
-    EnableActionEventCallbacks: {(pCallback: number): undefined}
-    GetActionSetHandle: {(pszActionSetName: string): number}
-    ActivateActionSet: {(inputHandle: number, actionSetHandle: number): undefined}
-    GetCurrentActionSet: {(inputHandle: number): number}
-    ActivateActionSetLayer: {(inputHandle: number, actionSetLayerHandle: number): undefined}
-    DeactivateActionSetLayer: {(inputHandle: number, actionSetLayerHandle: number): undefined}
-    DeactivateAllActionSetLayers: {(inputHandle: number): undefined}
-    GetActiveActionSetLayers: {(inputHandle: number, handlesOut: unknown): number}
-    GetDigitalActionHandle: {(pszActionName: string): number}
-    GetDigitalActionData: {(inputHandle: number, digitalActionHandle: number): SteamWorksNS.Structs.InputDigitalActionData_t}
-    GetDigitalActionOrigins: {(inputHandle: number, actionSetHandle: number, digitalActionHandle: number, originsOut: unknown): number}
-    GetStringForDigitalActionName: {(eActionHandle: number): string}
-    GetAnalogActionHandle: {(pszActionName: string): number}
-    GetAnalogActionData: {(inputHandle: number, analogActionHandle: number): SteamWorksNS.Structs.InputAnalogActionData_t}
-    GetAnalogActionOrigins: {(inputHandle: number, actionSetHandle: number, analogActionHandle: number, originsOut: unknown): number}
+    EnableActionEventCallbacks: {(pCallback: unknown): undefined}
+    GetActionSetHandle: {(pszActionSetName: string): bigint}
+    ActivateActionSet: {(inputHandle: bigint, actionSetHandle: bigint): undefined}
+    GetCurrentActionSet: {(inputHandle: bigint): bigint}
+    ActivateActionSetLayer: {(inputHandle: bigint, actionSetLayerHandle: bigint): undefined}
+    DeactivateActionSetLayer: {(inputHandle: bigint, actionSetLayerHandle: bigint): undefined}
+    DeactivateAllActionSetLayers: {(inputHandle: bigint): undefined}
+    GetActiveActionSetLayers: {(inputHandle: bigint, handlesOut: unknown): number}
+    GetDigitalActionHandle: {(pszActionName: string): bigint}
+    GetDigitalActionData: {(inputHandle: bigint, digitalActionHandle: bigint): SteamWorksNS.Structs.InputDigitalActionData_t}
+    GetDigitalActionOrigins: {(inputHandle: bigint, actionSetHandle: bigint, digitalActionHandle: bigint, originsOut: unknown): number}
+    GetStringForDigitalActionName: {(eActionHandle: bigint): string}
+    GetAnalogActionHandle: {(pszActionName: string): bigint}
+    GetAnalogActionData: {(inputHandle: bigint, analogActionHandle: bigint): SteamWorksNS.Structs.InputAnalogActionData_t}
+    GetAnalogActionOrigins: {(inputHandle: bigint, actionSetHandle: bigint, analogActionHandle: bigint, originsOut: unknown): number}
     GetGlyphPNGForActionOrigin: {(eOrigin: SteamWorksNS.Enums.EInputActionOrigin, eSize: SteamWorksNS.Enums.ESteamInputGlyphSize, unFlags: number): string}
     GetGlyphSVGForActionOrigin: {(eOrigin: SteamWorksNS.Enums.EInputActionOrigin, unFlags: number): string}
     GetGlyphForActionOrigin_Legacy: {(eOrigin: SteamWorksNS.Enums.EInputActionOrigin): string}
     GetStringForActionOrigin: {(eOrigin: SteamWorksNS.Enums.EInputActionOrigin): string}
-    GetStringForAnalogActionName: {(eActionHandle: number): string}
-    StopAnalogActionMomentum: {(inputHandle: number, eAction: number): undefined}
-    GetMotionData: {(inputHandle: number): SteamWorksNS.Structs.InputMotionData_t}
-    TriggerVibration: {(inputHandle: number, usLeftSpeed: number, usRightSpeed: number): undefined}
-    TriggerVibrationExtended: {(inputHandle: number, usLeftSpeed: number, usRightSpeed: number, usLeftTriggerSpeed: number, usRightTriggerSpeed: number): undefined}
-    TriggerSimpleHapticEvent: {(inputHandle: number, eHapticLocation: SteamWorksNS.Enums.EControllerHapticLocation, nIntensity: number, nGainDB: string, nOtherIntensity: number, nOtherGainDB: string): undefined}
-    SetLEDColor: {(inputHandle: number, nColorR: number, nColorG: number, nColorB: number, nFlags: number): undefined}
-    Legacy_TriggerHapticPulse: {(inputHandle: number, eTargetPad: SteamWorksNS.Enums.ESteamControllerPad, usDurationMicroSec: number): undefined}
-    Legacy_TriggerRepeatedHapticPulse: {(inputHandle: number, eTargetPad: SteamWorksNS.Enums.ESteamControllerPad, usDurationMicroSec: number, usOffMicroSec: number, unRepeat: number, nFlags: number): undefined}
-    ShowBindingPanel: {(inputHandle: number): boolean}
-    GetInputTypeForHandle: {(inputHandle: number): SteamWorksNS.Enums.ESteamInputType}
-    GetControllerForGamepadIndex: {(nIndex: number): number}
-    GetGamepadIndexForController: {(ulinputHandle: number): number}
+    GetStringForAnalogActionName: {(eActionHandle: bigint): string}
+    StopAnalogActionMomentum: {(inputHandle: bigint, eAction: bigint): undefined}
+    GetMotionData: {(inputHandle: bigint): SteamWorksNS.Structs.InputMotionData_t}
+    TriggerVibration: {(inputHandle: bigint, usLeftSpeed: number, usRightSpeed: number): undefined}
+    TriggerVibrationExtended: {(inputHandle: bigint, usLeftSpeed: number, usRightSpeed: number, usLeftTriggerSpeed: number, usRightTriggerSpeed: number): undefined}
+    TriggerSimpleHapticEvent: {(inputHandle: bigint, eHapticLocation: SteamWorksNS.Enums.EControllerHapticLocation, nIntensity: number, nGainDB: string, nOtherIntensity: number, nOtherGainDB: string): undefined}
+    SetLEDColor: {(inputHandle: bigint, nColorR: number, nColorG: number, nColorB: number, nFlags: number): undefined}
+    Legacy_TriggerHapticPulse: {(inputHandle: bigint, eTargetPad: SteamWorksNS.Enums.ESteamControllerPad, usDurationMicroSec: number): undefined}
+    Legacy_TriggerRepeatedHapticPulse: {(inputHandle: bigint, eTargetPad: SteamWorksNS.Enums.ESteamControllerPad, usDurationMicroSec: number, usOffMicroSec: number, unRepeat: number, nFlags: number): undefined}
+    ShowBindingPanel: {(inputHandle: bigint): boolean}
+    GetInputTypeForHandle: {(inputHandle: bigint): SteamWorksNS.Enums.ESteamInputType}
+    GetControllerForGamepadIndex: {(nIndex: number): bigint}
+    GetGamepadIndexForController: {(ulinputHandle: bigint): number}
     GetStringForXboxOrigin: {(eOrigin: SteamWorksNS.Enums.EXboxOrigin): string}
     GetGlyphForXboxOrigin: {(eOrigin: SteamWorksNS.Enums.EXboxOrigin): string}
-    GetActionOriginFromXboxOrigin: {(inputHandle: number, eOrigin: SteamWorksNS.Enums.EXboxOrigin): SteamWorksNS.Enums.EInputActionOrigin}
+    GetActionOriginFromXboxOrigin: {(inputHandle: bigint, eOrigin: SteamWorksNS.Enums.EXboxOrigin): SteamWorksNS.Enums.EInputActionOrigin}
     TranslateActionOrigin: {(eDestinationInputType: SteamWorksNS.Enums.ESteamInputType, eSourceOrigin: SteamWorksNS.Enums.EInputActionOrigin): SteamWorksNS.Enums.EInputActionOrigin}
-    GetDeviceBindingRevision: {(inputHandle: number, pMajor: number, pMinor: number): boolean}
-    GetRemotePlaySessionID: {(inputHandle: number): number}
+    GetDeviceBindingRevision: {(inputHandle: bigint, pMajor: number, pMinor: number): boolean}
+    GetRemotePlaySessionID: {(inputHandle: bigint): number}
     GetSessionInputConfigurationSettings: {(): number}
-    SetDualSenseTriggerEffect: {(inputHandle: number, pParam: unknown): undefined}
+    SetDualSenseTriggerEffect: {(inputHandle: bigint, pParam: unknown): undefined}
   }
   interface SteamRemotePlay {
     GetSessionCount: {(): number}
     GetSessionID: {(iSessionIndex: number): number}
-    GetSessionSteamID: {(unSessionID: number): unknown}
+    GetSessionSteamID: {(unSessionID: number): SteamWorksNS.CSteamID}
     GetSessionClientName: {(unSessionID: number): string}
     GetSessionClientFormFactor: {(unSessionID: number): SteamWorksNS.Enums.ESteamDeviceFormFactor}
     BGetSessionClientResolution: {(unSessionID: number, pnResolutionX: number, pnResolutionY: number): boolean}
-    BSendRemotePlayTogetherInvite: {(steamIDFriend: unknown): boolean}
+    BSendRemotePlayTogetherInvite: {(steamIDFriend: SteamWorksNS.CSteamID): boolean}
   }
 }

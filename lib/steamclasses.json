@@ -1,0 +1,34 @@
+[
+  {
+    "name": "servernetadr_t",
+    "file": "matchmakingtypes.h"
+  },
+  {
+    "name": "gameserveritem_t",
+    "file": "matchmakingtypes.h"
+  },
+  {
+    "name": "CSteamID",
+    "file": "steamclientpublic.h"
+  },
+  {
+    "name": "CGameID",
+    "file": "steamclientpublic.h"
+  },
+  {
+    "name": "CCallbackImpl",
+    "file": "steam_api_common.h"
+  },
+  {
+    "name": "CCallResult",
+    "file": "steam_api_common.h"
+  },
+  {
+    "name": "CCallback",
+    "file": "steam_api_common.h"
+  },
+  {
+    "name": "CCallbackManual",
+    "file": "steam_api_common.h"
+  }
+]

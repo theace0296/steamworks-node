@@ -34,6 +34,10 @@ const steamApiMethodsWithPointerParams = Object.keys(steamApiJson)
       method.params.some(param => param.paramtype.endsWith('*')),
   );
 
+const SteamClassesNames = JSON.parse(
+  fs.readFileSync('./lib/steamclasses.json', 'utf8'),
+).map(({ name }) => name);
+
 const excludedNames = [
   '__defineGetter__',
   '__defineSetter__',
@@ -73,7 +77,10 @@ const findMatchingTypeDef = typeStr => {
   }
 };
 
-const getType = variable => {
+const getType = (name, variable) => {
+  if (SteamClassesNames.includes(name)) {
+    return `SteamWorksNS.${name}`;
+  }
   if (variable === undefined) {
     return 'Undefined';
   }
@@ -103,6 +110,33 @@ const getTsType = typeStr => {
   }
 };
 
+const cppNumericTypeToJsTypeMap = {
+  'uint8 [16]'        : 'number',
+  uint32              : 'number',
+  uint16              : 'number',
+  int32               : 'number',
+  uint8               : 'number',
+  'unsigned int'      : 'number',
+  float               : 'number',
+  int                 : 'number',
+  'uint32 *'          : 'number',
+  short               : 'number',
+  'int *'             : 'number',
+  'uint8 *'           : 'number',
+  'uint16 *'          : 'number',
+  'int32 *'           : 'number',
+  double              : 'number',
+  'float *'           : 'number',
+  int64               : 'number',
+  'unsigned short'    : 'number',
+  'const uint32 *'    : 'number',
+  // BigInts
+  uint64              : 'bigint',
+  'unsigned long long': 'bigint',
+  'uint64 *'          : 'bigint',
+  'int64 *'           : 'bigint',
+};
+
 const getJsType = typeStr => {
   if (typeStr.endsWith('//*[]*//')) {
     return `${getJsType(typeStr.replace(/\/\/\*\[\]\*\/\/$/, ''))}[]`;
@@ -116,18 +150,17 @@ const getJsType = typeStr => {
   if (typeStr === 'bool') {
     return 'boolean';
   }
-  if (
-    ['int', 'unsigned', 'signed', 'double', 'float', 'long', 'short'].some(t =>
-      typeStr.includes(t),
-    )
-  ) {
-    return 'number';
+  if (cppNumericTypeToJsTypeMap[typeStr]) {
+    return cppNumericTypeToJsTypeMap[typeStr];
   }
   if (
     ['const char *', 'char *', 'char'].includes(typeStr) ||
     /char \[\d+\]/.test(typeStr)
   ) {
     return 'string';
+  }
+  if (SteamClassesNames.includes(typeStr)) {
+    return `SteamWorksNS.${typeStr}`;
   }
   if (findMatchingTypeDef(typeStr)) {
     return getJsType(findMatchingTypeDef(typeStr));
@@ -180,4 +213,5 @@ module.exports = {
   getJsType,
   getJsTypeFromTypeOrName,
   getCppTypeFromTypeOrName,
+  SteamClassesNames,
 };

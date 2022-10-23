@@ -11,6 +11,7 @@ const {
   getTsType,
   getJsType,
   getJsTypeFromTypeOrName,
+  SteamClassesNames,
 } = require('./utilities');
 
 const steamworks = require('../');
@@ -97,7 +98,7 @@ const getNestedTypings = (obj, name) => {
     return '';
   }
   const typedNames = [];
-  const objType = getType(obj);
+  const objType = getType(name, obj);
   const isClass =
     obj?.constructor?.toString()?.startsWith('class') &&
     (obj?.prototype || obj?.__proto__) &&
@@ -148,7 +149,9 @@ const getNestedTypings = (obj, name) => {
       for (const enumValue of steamEnum.values) {
         const splitName = enumValue.name.split('_').slice(1).join('_');
         const name = splitName.replace(new RegExp(`${property}_?`), '');
-        typeStr = `${typeStr}\n      ${/^\d+/.test(name) ? `'${name}'` : name}: ${enumValue.value},`;
+        typeStr = `${typeStr}\n      ${
+          /^\d+/.test(name) ? `'${name}'` : name
+        }: ${enumValue.value},`;
       }
       typeStr = `${typeStr}\n    };`;
     } else if (steamApiStructNames.includes(property)) {
@@ -195,7 +198,7 @@ const getNestedTypings = (obj, name) => {
 }): ${returnType}}`;
     } else {
       typeStr = `${typeStr}
-    ${property}: ${getTsType(getType(obj[property]))};`;
+    ${property}: ${getTsType(getType(property, obj[property]))};`;
     }
   }
   typeStr = `${typeStr}
@@ -218,6 +221,9 @@ declare class SteamWorks {`;
   'Init' === method ? '(appId: number): boolean' : '(): boolean'
 }};`;
     }
+  }
+  for (const property of SteamClassesNames) {
+    externTypesStr = `${externTypesStr}\n  class ${property} {\n    constructor(/* Args Unknown */);\n  }`;
   }
   for (const property of Object.getOwnPropertyNames(SteamWorks)) {
     typingsStr = `${typingsStr}

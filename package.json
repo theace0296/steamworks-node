@@ -2,7 +2,7 @@
   "name": "@theace0296/steamworks",
   "author": "TheAce0296",
   "license": "MIT",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "A wrapper library to call the Steamworks API from nodeJS.",
   "keywords": [
     "steam",

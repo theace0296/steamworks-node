@@ -64,6 +64,7 @@ const main = async () => {
     const SteamCallBackNames = [];
     const SteamGlobalAccessors = [];
     const SteamInterfaces = [];
+    const SteamClasses = [];
     for (const steamHeader of fs.readdirSync('./steam')) {
       if (fs.lstatSync(path.resolve('./steam', steamHeader)).isFile()) {
         let content = fs.readFileSync(
@@ -162,8 +163,32 @@ const main = async () => {
             SteamInterfaces.push({ name: interfaceMatch, file: steamHeader });
           }
         }
+
+        const classMatches = content
+          .match(/^class (\w+)/gm)
+          ?.map(match => /^class (\w+)/.exec(match)[1])
+          ?.filter(match => match.toUpperCase() !== match);
+        if (
+          classMatches?.length &&
+          !['steam_api_internal.h', 'isteamps3overlayrenderer.h'].includes(
+            steamHeader,
+          )
+        ) {
+          for (const classMatch of classMatches.filter(
+            match =>
+              !match.startsWith('ISteam') &&
+              match.toLowerCase() !== 'ccallbackbase',
+          )) {
+            SteamClasses.push({ name: classMatch, file: steamHeader });
+          }
+        }
       }
     }
+
+    fs.writeFileSync(
+      './lib/steamclasses.json',
+      JSON.stringify(SteamClasses, null, 2),
+    );
 
     let steamApiTypeDefsStr = '';
     const typesGenerated = [];

@@ -11,8 +11,8 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_ulFileSize": "number",
-      "m_FileSHA": "number",
+      "m_ulFileSize": "bigint",
+      "m_FileSHA": "unknown",
       "m_unFlags": "number"
     }
   },
@@ -57,11 +57,11 @@
     "args": [
       {
         "name": "steamIDClan",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
-      "m_steamIDClan": "unknown",
+      "m_steamIDClan": "SteamWorksNS.CSteamID",
       "m_cOfficers": "number",
       "m_bSuccess": "number"
     }
@@ -73,11 +73,11 @@
     "args": [
       {
         "name": "steamIDClan",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
-      "m_steamIDClanChat": "unknown",
+      "m_steamIDClanChat": "SteamWorksNS.CSteamID",
       "m_eChatRoomEnterResponse": "SteamWorksNS.Enums.EChatRoomEnterResponse"
     }
   },
@@ -88,12 +88,12 @@
     "args": [
       {
         "name": "steamID",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_steamID": "unknown",
+      "m_steamID": "SteamWorksNS.CSteamID",
       "m_nCount": "number"
     }
   },
@@ -104,12 +104,12 @@
     "args": [
       {
         "name": "steamID",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_steamID": "unknown",
+      "m_steamID": "SteamWorksNS.CSteamID",
       "m_bIsFollowing": "boolean"
     }
   },
@@ -137,12 +137,12 @@
     "args": [
       {
         "name": "steamID",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_steamID": "unknown",
+      "m_steamID": "SteamWorksNS.CSteamID",
       "m_bHasAnimatedAvatar": "boolean",
       "m_bHasAvatarFrame": "boolean",
       "m_bHasProfileModifier": "boolean",
@@ -161,7 +161,7 @@
       "m_bBanned": "boolean",
       "m_unBannedIP": "number",
       "m_usBannedPort": "number",
-      "m_ulBannedGameID": "number",
+      "m_ulBannedGameID": "bigint",
       "m_unBanExpires": "number"
     }
   },
@@ -172,7 +172,7 @@
     "args": [
       {
         "name": "steamIDClan",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
@@ -186,7 +186,7 @@
     "args": [
       {
         "name": "steamIDNewPlayer",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
@@ -194,7 +194,7 @@
       "m_cPlayersThatDontLikeCandidate": "number",
       "m_cPlayersThatCandidateDoesntLike": "number",
       "m_cClanPlayersThatDontLikeCandidate": "number",
-      "m_SteamIDCandidate": "unknown"
+      "m_SteamIDCandidate": "SteamWorksNS.CSteamID"
     }
   },
   "RequestUserStats": {
@@ -204,12 +204,12 @@
     "args": [
       {
         "name": "steamIDUser",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_steamIDUser": "unknown"
+      "m_steamIDUser": "SteamWorksNS.CSteamID"
     }
   },
   "StoreUserStats": {
@@ -219,12 +219,12 @@
     "args": [
       {
         "name": "steamIDUser",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_steamIDUser": "unknown"
+      "m_steamIDUser": "SteamWorksNS.CSteamID"
     }
   },
   "CreateBrowser": {
@@ -252,12 +252,12 @@
     "args": [
       {
         "name": "steamID",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
       "m_result": "SteamWorksNS.Enums.EResult",
-      "m_steamID": "unknown",
+      "m_steamID": "SteamWorksNS.CSteamID",
       "m_numEligiblePromoItemDefs": "number",
       "m_bCachedData": "boolean"
     }
@@ -282,8 +282,8 @@
     ],
     "returnType": {
       "m_result": "SteamWorksNS.Enums.EResult",
-      "m_ulOrderID": "number",
-      "m_ulTransID": "number"
+      "m_ulOrderID": "bigint",
+      "m_ulTransID": "bigint"
     }
   },
   "RequestPrices": {
@@ -321,7 +321,7 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_ulSteamIDLobby": "number"
+      "m_ulSteamIDLobby": "bigint"
     }
   },
   "JoinLobby": {
@@ -331,11 +331,11 @@
     "args": [
       {
         "name": "steamIDLobby",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
-      "m_ulSteamIDLobby": "number",
+      "m_ulSteamIDLobby": "bigint",
       "m_rgfChatPermissions": "number",
       "m_bLocked": "boolean",
       "m_EChatRoomEnterResponse": "number"
@@ -348,13 +348,13 @@
     "args": [
       {
         "name": "ulBeaconID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_ulBeaconID": "number",
-      "m_SteamIDBeaconOwner": "unknown",
+      "m_ulBeaconID": "bigint",
+      "m_SteamIDBeaconOwner": "SteamWorksNS.CSteamID",
       "m_rgchConnectString": "string"
     }
   },
@@ -382,7 +382,7 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_ulBeaconID": "number"
+      "m_ulBeaconID": "bigint"
     }
   },
   "ChangeNumOpenSlots": {
@@ -392,7 +392,7 @@
     "args": [
       {
         "name": "ulBeacon",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "unOpenSlots",
@@ -444,7 +444,7 @@
       }
     ],
     "returnType": {
-      "m_hFileReadAsync": "number",
+      "m_hFileReadAsync": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_nOffset": "number",
       "m_cubRead": "number"
@@ -462,7 +462,7 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_hFile": "number",
+      "m_hFile": "bigint",
       "m_rgchFilename": "string"
     }
   },
@@ -473,7 +473,7 @@
     "args": [
       {
         "name": "hContent",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "unPriority",
@@ -482,11 +482,11 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_hFile": "number",
+      "m_hFile": "bigint",
       "m_nAppID": "number",
       "m_nSizeInBytes": "number",
       "m_pchFileName": "string",
-      "m_ulSteamIDOwner": "number"
+      "m_ulSteamIDOwner": "bigint"
     }
   },
   "UGCDownloadToLocation": {
@@ -496,7 +496,7 @@
     "args": [
       {
         "name": "hContent",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "pchLocation",
@@ -509,11 +509,11 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_hFile": "number",
+      "m_hFile": "bigint",
       "m_nAppID": "number",
       "m_nSizeInBytes": "number",
       "m_pchFileName": "string",
-      "m_ulSteamIDOwner": "number"
+      "m_ulSteamIDOwner": "bigint"
     }
   },
   "PublishWorkshopFile": {
@@ -613,12 +613,12 @@
     "args": [
       {
         "name": "updateHandle",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_bUserNeedsToAcceptWorkshopLegalAgreement": "boolean"
     }
   },
@@ -629,7 +629,7 @@
     "args": [
       {
         "name": "unPublishedFileId",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "unMaxSecondsOld",
@@ -638,14 +638,14 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_nCreatorAppID": "number",
       "m_nConsumerAppID": "number",
       "m_rgchTitle": "string",
       "m_rgchDescription": "string",
-      "m_hFile": "number",
-      "m_hPreviewFile": "number",
-      "m_ulSteamIDOwner": "number",
+      "m_hFile": "bigint",
+      "m_hPreviewFile": "bigint",
+      "m_ulSteamIDOwner": "bigint",
       "m_rtimeCreated": "number",
       "m_rtimeUpdated": "number",
       "m_eVisibility": "SteamWorksNS.Enums.ERemoteStoragePublishedFileVisibility",
@@ -667,12 +667,12 @@
     "args": [
       {
         "name": "unPublishedFileId",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint"
     }
   },
   "EnumerateUserPublishedFiles": {
@@ -689,7 +689,7 @@
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "number[]"
+      "m_rgPublishedFileId": "bigint[]"
     }
   },
   "EnumerateUserSharedWorkshopFiles": {
@@ -699,7 +699,7 @@
     "args": [
       {
         "name": "steamId",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       },
       {
         "name": "unStartIndex",
@@ -718,7 +718,7 @@
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "number[]"
+      "m_rgPublishedFileId": "bigint[]"
     }
   },
   "SubscribePublishedFile": {
@@ -728,12 +728,12 @@
     "args": [
       {
         "name": "unPublishedFileId",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint"
     }
   },
   "SubscribeItem": {
@@ -743,12 +743,12 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint"
     }
   },
   "EnumerateUserSubscribedFiles": {
@@ -765,8 +765,8 @@
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "number[]",
-      "m_rgRTimeSubscribed": "number"
+      "m_rgPublishedFileId": "bigint[]",
+      "m_rgRTimeSubscribed": "unknown"
     }
   },
   "UnsubscribePublishedFile": {
@@ -776,12 +776,12 @@
     "args": [
       {
         "name": "unPublishedFileId",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint"
     }
   },
   "UnsubscribeItem": {
@@ -791,12 +791,12 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint"
     }
   },
   "GetPublishedItemVoteDetails": {
@@ -806,12 +806,12 @@
     "args": [
       {
         "name": "unPublishedFileId",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_unPublishedFileId": "number",
+      "m_unPublishedFileId": "bigint",
       "m_nVotesFor": "number",
       "m_nVotesAgainst": "number",
       "m_nReports": "number",
@@ -825,12 +825,12 @@
     "args": [
       {
         "name": "unPublishedFileId",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_unPublishedFileId": "number",
+      "m_unPublishedFileId": "bigint",
       "m_nVotesFor": "number",
       "m_nVotesAgainst": "number",
       "m_nReports": "number",
@@ -844,7 +844,7 @@
     "args": [
       {
         "name": "unPublishedFileId",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "bVoteUp",
@@ -853,7 +853,7 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint"
     }
   },
   "SetUserPublishedFileAction": {
@@ -863,7 +863,7 @@
     "args": [
       {
         "name": "unPublishedFileId",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "eAction",
@@ -872,7 +872,7 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_eAction": "SteamWorksNS.Enums.EWorkshopFileAction"
     }
   },
@@ -895,8 +895,8 @@
       "m_eAction": "SteamWorksNS.Enums.EWorkshopFileAction",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "number[]",
-      "m_rgRTimeUpdated": "number"
+      "m_rgPublishedFileId": "bigint[]",
+      "m_rgRTimeUpdated": "unknown"
     }
   },
   "EnumeratePublishedWorkshopFiles": {
@@ -933,8 +933,8 @@
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_nResultsReturned": "number",
       "m_nTotalResultCount": "number",
-      "m_rgPublishedFileId": "number[]",
-      "m_rgScore": "number",
+      "m_rgPublishedFileId": "bigint[]",
+      "m_rgScore": "unknown",
       "m_nAppId": "number",
       "m_unStartIndex": "number"
     }
@@ -946,11 +946,11 @@
     "args": [
       {
         "name": "handle",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
-      "m_handle": "number",
+      "m_handle": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_unNumResultsReturned": "number",
       "m_unTotalMatchingResults": "number",
@@ -965,7 +965,7 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "unMaxAgeSeconds",
@@ -993,7 +993,7 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_bUserNeedsToAcceptWorkshopLegalAgreement": "boolean"
     }
   },
@@ -1004,7 +1004,7 @@
     "args": [
       {
         "name": "handle",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "pchChangeNote",
@@ -1014,7 +1014,7 @@
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_bUserNeedsToAcceptWorkshopLegalAgreement": "boolean",
-      "m_nPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint"
     }
   },
   "SetUserItemVote": {
@@ -1024,7 +1024,7 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "bVoteUp",
@@ -1032,7 +1032,7 @@
       }
     ],
     "returnType": {
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_bVoteUp": "boolean"
     }
@@ -1044,11 +1044,11 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_bVotedUp": "boolean",
       "m_bVotedDown": "boolean",
@@ -1066,11 +1066,11 @@
       },
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_bWasAddRequest": "boolean"
     }
@@ -1086,11 +1086,11 @@
       },
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult",
       "m_bWasAddRequest": "boolean"
     }
@@ -1139,17 +1139,17 @@
     "args": [
       {
         "name": "nParentPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "nChildPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
-      "m_nChildPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint",
+      "m_nChildPublishedFileId": "bigint"
     }
   },
   "RemoveDependency": {
@@ -1159,17 +1159,17 @@
     "args": [
       {
         "name": "nParentPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "nChildPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
-      "m_nChildPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint",
+      "m_nChildPublishedFileId": "bigint"
     }
   },
   "AddAppDependency": {
@@ -1179,7 +1179,7 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "nAppID",
@@ -1188,7 +1188,7 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_nAppID": "number"
     }
   },
@@ -1199,7 +1199,7 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "nAppID",
@@ -1208,7 +1208,7 @@
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_nAppID": "number"
     }
   },
@@ -1219,12 +1219,12 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number",
+      "m_nPublishedFileId": "bigint",
       "m_rgAppIDs": "unknown",
       "m_nNumAppDependencies": "number",
       "m_nTotalNumAppDependencies": "number"
@@ -1237,12 +1237,12 @@
     "args": [
       {
         "name": "nPublishedFileID",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_nPublishedFileId": "number"
+      "m_nPublishedFileId": "bigint"
     }
   },
   "GetWorkshopEULAStatus": {
@@ -1327,13 +1327,13 @@
     "args": [
       {
         "name": "steamIDUser",
-        "type": "unknown"
+        "type": "SteamWorksNS.CSteamID"
       }
     ],
     "returnType": {
-      "m_nGameID": "number",
+      "m_nGameID": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_steamIDUser": "unknown"
+      "m_steamIDUser": "SteamWorksNS.CSteamID"
     }
   },
   "FindOrCreateLeaderboard": {
@@ -1355,7 +1355,7 @@
       }
     ],
     "returnType": {
-      "m_hSteamLeaderboard": "number",
+      "m_hSteamLeaderboard": "bigint",
       "m_bLeaderboardFound": "number"
     }
   },
@@ -1370,7 +1370,7 @@
       }
     ],
     "returnType": {
-      "m_hSteamLeaderboard": "number",
+      "m_hSteamLeaderboard": "bigint",
       "m_bLeaderboardFound": "number"
     }
   },
@@ -1381,7 +1381,7 @@
     "args": [
       {
         "name": "hSteamLeaderboard",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "eLeaderboardDataRequest",
@@ -1397,8 +1397,8 @@
       }
     ],
     "returnType": {
-      "m_hSteamLeaderboard": "number",
-      "m_hSteamLeaderboardEntries": "number",
+      "m_hSteamLeaderboard": "bigint",
+      "m_hSteamLeaderboardEntries": "bigint",
       "m_cEntryCount": "number"
     }
   },
@@ -1409,7 +1409,7 @@
     "args": [
       {
         "name": "hSteamLeaderboard",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "prgUsers",
@@ -1421,8 +1421,8 @@
       }
     ],
     "returnType": {
-      "m_hSteamLeaderboard": "number",
-      "m_hSteamLeaderboardEntries": "number",
+      "m_hSteamLeaderboard": "bigint",
+      "m_hSteamLeaderboardEntries": "bigint",
       "m_cEntryCount": "number"
     }
   },
@@ -1433,7 +1433,7 @@
     "args": [
       {
         "name": "hSteamLeaderboard",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "eLeaderboardUploadScoreMethod",
@@ -1445,7 +1445,7 @@
       },
       {
         "name": "pScoreDetails",
-        "type": "number"
+        "type": "unknown"
       },
       {
         "name": "cScoreDetailsCount",
@@ -1454,7 +1454,7 @@
     ],
     "returnType": {
       "m_bSuccess": "number",
-      "m_hSteamLeaderboard": "number",
+      "m_hSteamLeaderboard": "bigint",
       "m_nScore": "number",
       "m_bScoreChanged": "number",
       "m_nGlobalRankNew": "number",
@@ -1468,16 +1468,16 @@
     "args": [
       {
         "name": "hSteamLeaderboard",
-        "type": "number"
+        "type": "bigint"
       },
       {
         "name": "hUGC",
-        "type": "number"
+        "type": "bigint"
       }
     ],
     "returnType": {
       "m_eResult": "SteamWorksNS.Enums.EResult",
-      "m_hSteamLeaderboard": "number"
+      "m_hSteamLeaderboard": "bigint"
     }
   },
   "GetNumberOfCurrentPlayers": {
@@ -1496,7 +1496,7 @@
     "result": "GlobalAchievementPercentagesReady",
     "args": [],
     "returnType": {
-      "m_nGameID": "number",
+      "m_nGameID": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult"
     }
   },
@@ -1511,7 +1511,7 @@
       }
     ],
     "returnType": {
-      "m_nGameID": "number",
+      "m_nGameID": "bigint",
       "m_eResult": "SteamWorksNS.Enums.EResult"
     }
   },
